@@ -92,16 +92,16 @@ const NAV_LINKS = [
   {
     icon: "dashboard",
     children: "Dashboard",
-    to: DASHBOARD,
+    to: `/dashboard/${DASHBOARD}` ,
   },
   {
     icon: "real_estate_agent",
     children: "Loan application",
-    to: LOAN_APPLY,
+    to: `/dashboard/${LOAN_APPLY}`,
   },
   {
     icon: "quiz",
     children: "FAQS",
-    to: FAQS,
+    to: `/dashboard/${FAQS}`,
   },
 ];

@@ -73,7 +73,7 @@ function SigninVerification() {
           variant: "success",
         });
 
-        navigate(data?.data?.id ? DASHBOARD : LOAN_APPLY);
+        navigate(data?.data?.id ? `/dashboard/${DASHBOARD}` : `/dashboard/${LOAN_APPLY}`);
       } catch (error) {
         enqueueSnackbar(error?.message || "Failed to Sign in", {
           variant: "error",
@@ -104,7 +104,7 @@ function SigninVerification() {
   };
 
   if (!mobileNo) {
-    return <Navigate to={SIGNIN} />;
+    return <Navigate to={`/auth/${SIGNIN}`} />;
   }
 
   const isCodeSent =
