@@ -22,50 +22,12 @@ function Footer() {
   return (
     <div className='px-4 py-[80px] text-white bg-black'>
 
-        <div className='sm:flex gap-28 flex-row mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between sm:space-y-0 space-y-16'>
+
+        <div className=' lg:grid  flex flex-col items-center  lg:grid-cols-4  lg:gap-16   mx-auto max-w-7xl px-2 sm:px-6 lg:px-8  sm:space-y-0 space-y-16'>
 
 
-                
-
-
-            <div className='sm:max-w-[50%] '>
-                <h1 className='font-NexaBold text-[28px] sm:text-[48px] sm:w-[431px]'>Get your first loan today!</h1>
-                
-                
-
-            </div>
-
-
-
-            <div className='sm:max-w-[50%] mx-auto flex sm:gap-x-[100px] gap-x-[40px] font-NexaLight text-[30px]'>
-
-              <div className='flex sm:gap-x-2 xs:gap-x-[1px] hover:text-background text-white'>
-                <p>Create Account</p>
-                <span><ArrowUpRightIcon className='w-6 pt-3'/></span>
-              </div>
-
-              <div className='flex sm:gap-x-2 gap-x-1' >
-                <p>Login</p>
-                <span><ArrowUpRightIcon className='w-6 pt-3'/></span>
-              </div>
-
-            </div>
-
-               
-
-
-
-                
-
-        </div>
-
-        <hr className='opacity-20 my-12'/>
-
-        <div className='sm:flex gap-28 flex-row mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between sm:space-y-0 space-y-16'>
-
-
-          <div className='space-y-3 text-white'>
-            <img src={Logo} alt="" className='w-[200px] -mt-8'/>
+          <div className='space-y-3 text-white w-full'>
+            <img src={Logo} alt="" className='w-[200px] -mt-16'/>
             <div className='flex items-center gap-2'>
               <HiOutlineLocationMarker className='w-6 h-6'/>
               <p className='w-[273px]'>No 2C Ayo Rosiji Crescent, Ikeja GRA, Lagos.</p>
@@ -81,7 +43,7 @@ function Footer() {
           </div>
 
 
-          <div className='space-y-6'>
+          <div className='lg:space-y-6 w-full '>
             <p className='text-[#A7A7A7]'>Company:</p>
             <p>Home</p>
             <p>About Us</p>
@@ -89,7 +51,7 @@ function Footer() {
             <p>Contact Us</p>
           </div>
 
-          <div className='space-y-6'>
+          <div className='space-y-6 w-full '>
             <p className='text-[#A7A7A7]'>Follow:</p>
 
             <div className='flex gap-x-4'>
@@ -114,7 +76,7 @@ function Footer() {
           </div>
 
 
-          <div className='space-y-6'>
+          <div className='space-y-6 w-full'>
             <p className='text-[#A7A7A7]'>Legal:</p>
             <div className='space-y-6'>
               <p>Terms and conditions</p>
@@ -128,7 +90,7 @@ function Footer() {
 
         <div className='mx-auto text-center mt-16 -mb-14'>
 
-          <p>© {new Date().getFullYear()} Accello Limited. All rights reserved</p>
+          <p>© {new Date().getFullYear()} Accello Limited. All rights reserved-Powered by <span className='text-[#077DBB]'>Bravewood Finance Limited</span></p>
 
         </div>
 

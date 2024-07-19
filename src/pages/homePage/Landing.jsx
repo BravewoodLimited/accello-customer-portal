@@ -16,9 +16,9 @@ import LoanApplicationModal from './LoanApplicationModal'
 
 
 const HeroBottom = [
-  {img : money, p1: 'Loans Up to', p2: '₦2,000,000'},
-  {img : percent, p1: 'Rates Starting From', p2: '2.95%*'},
-  {img : calendar, p1: 'Terms Ranging From', p2: '1-24 months'},
+  {img : money, p1: 'Loans Up to', p2: '₦5,000,000'},
+  {img : percent, p1: 'Rates Starting From', p2: '3.45%*'},
+  {img : calendar, p1: 'Terms Ranging From', p2: '1-36 months'},
 
 ]
 
