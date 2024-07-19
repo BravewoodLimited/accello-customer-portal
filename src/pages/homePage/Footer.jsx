@@ -23,11 +23,14 @@ function Footer() {
     <div className='px-4 py-[80px] text-white bg-black'>
 
 
-        <div className=' lg:grid  flex flex-col items-center  lg:grid-cols-4  lg:gap-16   mx-auto max-w-7xl px-2 sm:px-6 lg:px-8  sm:space-y-0 space-y-16'>
+        <div className='grid   sm:grid-cols-1  items-center sm:gap-6  lg:grid-cols-4  lg:gap-16   mx-auto max-w-7xl px-2 sm:px-6 lg:px-8  sm:space-y-0 space-y-16'>
 
 
-          <div className='space-y-3 text-white w-full'>
-            <img src={Logo} alt="" className='w-[200px] -mt-16'/>
+          <div className='space-y-3 text-white w-full  '>
+            <div>
+            <img src={Logo} alt="" className='w-[200px] lg:-mt-16 -mt-8'/>
+            </div>
+           
             <div className='flex items-center gap-2'>
               <HiOutlineLocationMarker className='w-6 h-6'/>
               <p className='w-[273px]'>No 2C Ayo Rosiji Crescent, Ikeja GRA, Lagos.</p>
