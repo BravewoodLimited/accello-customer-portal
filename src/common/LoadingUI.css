@@ -1,0 +1,33 @@
+.LoadingUI {
+  /* padding: 4px; */
+  position: relative;
+}
+
+.LoadingUI--fullHeight {
+  height: 100%;
+}
+
+.LoadingUI--centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoadingUI-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoadingUI-error {
+  /* margin: auto; */
+}
+
+.LoadingUI-blocking {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.06);
+}

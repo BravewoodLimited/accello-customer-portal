@@ -1,0 +1,638 @@
+import LoanApplyBlacklisted from "features/loan/LoanApplyBlacklisted";
+import useStepper from "hooks/useStepper";
+import { Button, Typography } from "@mui/material";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useSnackbar } from "notistack";
+import { lazy, useEffect, useMemo } from "react";
+import Suspense from "common/Suspense";
+import DateFormat from "enums/DateFormat";
+import DateLocale from "enums/DateLocale";
+import ClientApi from "apis/ClientApi";
+import useAuthUser from "hooks/useAuthUser";
+import LoadingUI from "common/LoadingUI";
+import LoanApi from "apis/LoanApi";
+import useDataRef from "hooks/useDataRef";
+import * as dfns from "date-fns";
+import { removeEmptyProperties } from "utils/object";
+import { LoadingButton } from "@mui/lab";
+
+function LoanApply() {
+  const { enqueueSnackbar } = useSnackbar();
+
+  const authUser = useAuthUser();
+
+  const clientId = authUser?.clientId;
+
+  const isEdit = false;
+
+  const stepper = useStepper();
+
+  const [sendNewClientOtpMutation] = ClientApi.useSendNewClientOtpMutation();
+
+  const [verifyNewClientOtpMutation] =
+    ClientApi.useVerifyNewClientOtpMutation();
+
+  const [createClientKycMutation] = ClientApi.useCreateClientKycMutation();
+
+  const [createLoanMutation] = LoanApi.useCreateLoanMutation();
+
+  const clientKycDetailsQueryResult = ClientApi.useGetClientKycDetailsQuery(
+    useMemo(() => ({ path: { id: clientId } }), [clientId]),
+    { skip: !clientId }
+  );
+
+  const clientKyc = clientKycDetailsQueryResult.data?.data;
+
+  const formik = useFormik({
+    initialValues: {
+      kyc: {
+        verify: {
+          step: 0,
+          type: "bvn",
+          token: "",
+        },
+        clients: {
+          bvn: "",
+          nin: "",
+        },
+        clientBanks: [
+          {
+            bankId: "",
+            accountnumber: "",
+            accountname: "",
+            active: true,
+          },
+        ],
+        clientEmployers: [
+          {
+            workEmailVerified: false,
+            // countryId: '',
+            staffId: "",
+            officeAddress: "",
+            // employmentStatusId: "",
+            employmentSectorId: "",
+            employmentDate: null,
+            salaryRangeId: "",
+            employerId: "",
+            dateFormat: DateFormat.SPACE_dd_MMMM_yyyy,
+            locale: DateLocale.DEFAULT,
+          },
+        ],
+        addresses: [{ addressLine1: "", addressTypeId: 36 }],
+      },
+      loan: {
+        commitment: 0,
+        netpay: 0,
+        clientId: clientId ?? "",
+        productId: 1,
+        principal: 0,
+        loanTermFrequency: 0,
+        loanTermFrequencyType: "",
+        numberOfRepayments: "",
+        repaymentEvery: "",
+        repaymentFrequencyType: "",
+        interestRatePerPeriod: "",
+        amortizationType: "",
+        interestType: "",
+        interestCalculationPeriodType: "",
+        transactionProcessingStrategyId: "",
+        charges: [],
+        dateFormat: DateFormat.SPACE_dd_MMMM_yyyy,
+        locale: DateLocale.DEFAULT,
+        loanType: "individual",
+        expectedDisbursementDate: null,
+        submittedOnDate: null,
+      },
+    },
+    validateOnBlur: true,
+    validateOnChange: true,
+    validationSchema: yup.object({
+      ...[
+        {
+          kyc: yup.object({
+            ...(!clientId
+              ? {
+                  verify: yup.object({
+                    token: yup
+                      .string()
+                      .label("OTP")
+                      .trim()
+                      .when("step", ([step], schema) =>
+                        step === 1 ? schema.required() : schema.optional()
+                      ),
+                    type: yup
+                      .string()
+                      .label("Verification Type")
+                      .oneOf(["bvn", "nin"])
+                      .required(),
+                  }),
+                }
+              : {
+                  clientBanks: yup
+                    .array(
+                      yup.object({
+                        bankId: yup.string().label("Bank").required(),
+                        accountnumber: yup
+                          .string()
+                          .label("Account Number")
+                          .required(),
+                        accountname: yup
+                          .string()
+                          .label("Account Name")
+                          .required(),
+                      })
+                    )
+                    .required(),
+                  clientEmployers: yup
+                    .array(
+                      yup.object({
+                        // workEmailVerified: yup.boolean().label("Work Email Verified").optional(),
+                        // countryId: '',
+                        staffId: yup.string().label("Staff ID").optional(),
+                        officeAddress: yup
+                          .string()
+                          .label("Office Address")
+                          .optional(),
+                        // employmentStatusId: "",
+                        employmentSectorId: yup
+                          .string()
+                          .label("Sector")
+                          .required(),
+                        employmentDate: yup
+                          .date()
+                          .label("Employment Date")
+                          .max(new Date())
+                          .required(),
+                        salaryRangeId: yup
+                          .string()
+                          .label("Salary Range")
+                          .required(),
+                        employerId: yup.string().label("Employer").required(),
+                      })
+                    )
+                    .required(),
+                  addresses: yup
+                    .array(
+                      yup.object({
+                        addressLine1: yup.string().label("Address").required(),
+                        // addressTypeId: 36
+                      })
+                    )
+                    .required(),
+                }),
+            clients: yup.object({
+              bvn: yup.string().label("BVN").length(11).required(),
+              nin: yup.string().label("NIN").length(11).required(),
+            }),
+          }),
+        },
+        {
+          loan: yup.object({
+            // commitment: yup.number().label("Commitment").required(),
+            netpay: yup.number().label("Netpay").required(),
+            productId: yup.number().label("Product").required(),
+            principal: yup.number().label("Principal").required(),
+            loanTermFrequency: yup
+              .string()
+              .label("Loan Term Frequency Type")
+              .required(),
+            loanTermFrequencyType: yup
+              .string()
+              .label("Loan Term Frequency Type")
+              .required(),
+            numberOfRepayments: yup
+              .string()
+              .label("Number Of Repayments")
+              .required(),
+            repaymentEvery: yup.string().label("Repayment Every").required(),
+            repaymentFrequencyType: yup
+              .string()
+              .label("Repayment Frequency Type")
+              .required(),
+            interestRatePerPeriod: yup
+              .string()
+              .label("Interest Rate Per Period")
+              .required(),
+            amortizationType: yup
+              .string()
+              .label("Amortization Type")
+              .required(),
+            interestType: yup.string().label("Interest Type").required(),
+            interestCalculationPeriodType: yup
+              .string()
+              .label("Interest Calculation Period Type")
+              .required(),
+            transactionProcessingStrategyId: yup
+              .string()
+              .label("Transaction Processing Strategy")
+              .required(),
+            charges: yup
+              .array(yup.mixed().label("Charge").required())
+              .required(),
+            loanType: yup.string().label("Loan Type").required(),
+            // expectedDisbursementDate: yup
+            //   .date()
+            //   .label("Expected Disbursement Date")
+            //   .min(new Date())
+            //   .required(),
+            // submittedOnDate: yup
+            //   .date()
+            //   .label("Submitted On Date")
+            //   .min(new Date())
+            //   .required(),
+          }),
+        },
+      ][stepper.step],
+    }),
+    onSubmit: async (values, helper) => {
+      try {
+        if (stepper.step === 0) {
+          if (!clientId) {
+            switch (values.kyc.verify.step) {
+              case 0: {
+                const data = await sendNewClientOtpMutation({
+                  params: {
+                    type: values.kyc.verify.type,
+                    verificationNo: {
+                      bvn: values.kyc.clients.bvn,
+                      nin: values.kyc.clients.nin,
+                    }[values.kyc.verify.type],
+                  },
+                }).unwrap();
+                enqueueSnackbar(data?.message || "KYC OTP Verification Sent", {
+                  variant: "success",
+                });
+                helper.setFieldValue("kyc.verify.message", data?.message || "");
+                helper.setFieldValue("kyc.verify.step", 1);
+
+                break;
+              }
+
+              case 1: {
+                const data = await verifyNewClientOtpMutation({
+                  params: {
+                    token: values.kyc.verify.token,
+                    type: values.kyc.verify.type,
+                    verificationNo: {
+                      bvn: values.kyc.clients.bvn,
+                      nin: values.kyc.clients.nin,
+                    }[values.kyc.verify.type],
+                  },
+                }).unwrap();
+                enqueueSnackbar(
+                  data?.message || "KYC OTP Verified Successfully!!",
+                  {
+                    variant: "success",
+                  }
+                );
+                helper.setFieldValue("kyc.verify.message", data?.message || "");
+                helper.setFieldValue("kyc.verify.step", 0);
+
+                break;
+              }
+              default:
+                break;
+            }
+
+            return;
+          } else {
+            const data = await createClientKycMutation({
+              body: removeEmptyProperties({
+                ...values.kyc,
+                verify: undefined,
+                clients: {
+                  ...values.kyc.clients,
+                  doYouWantToUpdateCustomerInfo: !!clientId,
+                },
+                clientEmployers: [
+                  {
+                    ...values.kyc.clientEmployers[0],
+                    employmentDate: values.kyc.clientEmployers[0]
+                      ?.employmentDate
+                      ? dfns.format(
+                          values.kyc.clientEmployers[0]?.employmentDate,
+                          values.kyc.clientEmployers[0]?.dateFormat
+                        )
+                      : undefined,
+                  },
+                ],
+              }),
+            }).unwrap();
+            enqueueSnackbar(
+              "KYC verified successfully" ||
+                data?.message ||
+                (isEdit
+                  ? "KYC Updated Successfully"
+                  : "KYC Created Successfully"),
+              { variant: "success" }
+            );
+          }
+        }
+
+        if (stepper.step === 1) {
+          const data = await createLoanMutation({
+            body: removeEmptyProperties({
+              ...values.loan,
+              clientId: values.loan.clientId ?? values.kyc.clients?.id,
+              numberOfRepayments: values.loan.loanTermFrequency,
+              expectedDisbursementDate: values.loan?.expectedDisbursementDate
+                ? dfns.format(
+                    values.loan?.expectedDisbursementDate,
+                    values.loan?.dateFormat
+                  )
+                : undefined,
+              submittedOnDate: values.loan?.submittedOnDate
+                ? dfns.format(
+                    values.loan?.submittedOnDate,
+                    values.loan?.dateFormat
+                  )
+                : undefined,
+            }),
+          }).unwrap();
+          enqueueSnackbar(
+            data?.message ||
+              (isEdit
+                ? "Loan Updated Successfully"
+                : "Loan Created Successfully"),
+            { variant: "success" }
+          );
+        }
+
+        stepper.next();
+      } catch (error) {
+        enqueueSnackbar(
+          error?.data?.message ||
+            (isEdit ? "Failed to Update Loan" : "Failed to Create Loan"),
+          { variant: "error" }
+        );
+      }
+    },
+  });
+
+  // console.log(formik.errors);
+
+  const loanTemplateQueryResult = LoanApi.useGetLoanTemplateQuery(
+    useMemo(
+      () => ({
+        path: { id: clientId },
+        params: {
+          templateType: "individual",
+          productId: formik.values.loan.productId,
+        },
+      }),
+      [clientId, formik.values.loan.productId]
+    ),
+    { skip: !clientId }
+  );
+
+  const loanTemplate = loanTemplateQueryResult.data?.data;
+
+  const dataRef = useDataRef({
+    formik,
+    stepper,
+    clientId,
+    loanTemplate,
+    clientKyc,
+  });
+
+  useEffect(() => {
+    dataRef.current.formik.setValues((values) => ({
+      ...values,
+      kyc: {
+        ...values.kyc,
+        clients: clientKyc?.clients
+          ? {
+              id: clientKyc?.clients?.id,
+              bvn: clientKyc?.clients?.bvn,
+              nin: clientKyc?.clients?.nin,
+            }
+          : values.kyc.clients,
+        clientBanks: clientKyc?.clientBanks?.length
+          ? [
+              {
+                id: clientKyc?.clientBanks?.[0]?.id,
+                bankId: clientKyc?.clientBanks?.[0]?.bank?.id,
+                accountnumber: clientKyc?.clientBanks?.[0]?.accountnumber,
+                accountname: clientKyc?.clientBanks?.[0]?.accountname,
+                active: true,
+              },
+            ]
+          : values.kyc.clientBanks,
+        clientEmployers: clientKyc?.clientEmployers?.length
+          ? [
+              {
+                id: clientKyc?.clientEmployers?.[0]?.id,
+                workEmailVerified:
+                  clientKyc?.clientEmployers?.[0]?.workEmailVerified,
+                countryId: clientKyc?.clientEmployers?.[0]?.country?.id,
+                staffId: clientKyc?.clientEmployers?.[0]?.staffId,
+                officeAddress: clientKyc?.clientEmployers?.[0]?.officeAddress,
+                // employmentStatusId:
+                //   clientKyc?.clientEmployers?.[0]?.employmentStatus?.id,
+                employmentSectorId:
+                  clientKyc?.clientEmployers?.[0]?.employer?.sector?.id,
+                employmentDate: clientKyc?.clientEmployers?.[0]?.employmentDate
+                  ? new Date(
+                      clientKyc?.clientEmployers?.[0]?.employmentDate?.[0],
+                      clientKyc?.clientEmployers?.[0]?.employmentDate?.[1] - 1,
+                      clientKyc?.clientEmployers?.[0]?.employmentDate?.[2]
+                    )
+                  : null,
+                salaryRangeId: clientKyc?.clientEmployers?.[0]?.salaryRange?.id,
+                employerId: clientKyc?.clientEmployers?.[0]?.employer?.id,
+                dateFormat:
+                  clientKyc?.clientEmployers?.[0]?.dateFormat ??
+                  DateFormat.SPACE_dd_MMMM_yyyy,
+                locale:
+                  clientKyc?.clientEmployers?.[0]?.locale ?? DateLocale.DEFAULT,
+              },
+            ]
+          : values.kyc.clientEmployers,
+        addresses: (() => {
+          const address = clientKyc?.addresses?.find(
+            (address) => address.addressTypeId == 36
+          );
+          return address
+            ? [
+                {
+                  addressId: address?.addressId,
+                  addressLine1: address?.addressLine1,
+                  addressTypeId: address?.addressTypeId,
+                },
+              ]
+            : values.kyc.addresses;
+        })(),
+      },
+      loan: {
+        // commitment: 0,
+        netpay: loanTemplate?.minimumNetPay ?? values.loan?.netpay,
+        clientId: clientId ?? values.loan.clientId,
+        productId: values.loan.productId,
+        principal: loanTemplate?.product?.principal ?? values.principal,
+        loanTermFrequency:
+          loanTemplate?.numberOfRepayments ?? values.loan?.loanTermFrequency,
+        loanTermFrequencyType:
+          loanTemplate?.repaymentFrequencyType?.id ??
+          values.loan?.loanTermFrequencyType,
+        numberOfRepayments:
+          loanTemplate?.numberOfRepayments ?? values.loan?.numberOfRepayments,
+        repaymentEvery:
+          loanTemplate?.repaymentEvery ?? values.loan?.repaymentEvery,
+        repaymentFrequencyType:
+          loanTemplate?.repaymentFrequencyType?.id ??
+          values.loan?.repaymentFrequencyType,
+        interestRatePerPeriod:
+          loanTemplate?.interestRatePerPeriod ??
+          values.loan?.interestRatePerPeriod,
+        amortizationType:
+          loanTemplate?.amortizationType?.id ?? values.loan?.amortizationType,
+        interestType:
+          loanTemplate?.interestType?.id ?? values.loan?.interestType,
+        interestCalculationPeriodType:
+          loanTemplate?.interestCalculationPeriodType?.id ??
+          values.loan?.interestType,
+        transactionProcessingStrategyId:
+          loanTemplate?.transactionProcessingStrategyId ??
+          values.loan?.transactionProcessingStrategyId,
+        charges: loanTemplate?.charges ?? values.loan?.charges,
+        dateFormat: DateFormat.SPACE_dd_MMMM_yyyy,
+        locale: DateLocale.DEFAULT,
+        loanType: "individual",
+        expectedDisbursementDate: new Date(),
+        submittedOnDate: new Date(),
+      },
+    }));
+  }, [
+    clientId,
+    clientKyc?.addresses,
+    clientKyc?.clientBanks,
+    clientKyc?.clientEmployers,
+    clientKyc?.clients,
+    dataRef,
+    loanTemplate?.amortizationType?.id,
+    loanTemplate?.charges,
+    loanTemplate?.interestCalculationPeriodType?.id,
+    loanTemplate?.interestRatePerPeriod,
+    loanTemplate?.interestType?.id,
+    loanTemplate?.minimumNetPay,
+    loanTemplate?.numberOfRepayments,
+    loanTemplate?.product?.principal,
+    loanTemplate?.repaymentEvery,
+    loanTemplate?.repaymentFrequencyType?.id,
+    loanTemplate?.transactionProcessingStrategyId,
+  ]);
+
+  const isBlacklisted = false;
+
+  const contentProps = { ...dataRef.current, dataRef };
+
+  if (isBlacklisted) {
+    return <LoanApplyBlacklisted />;
+  }
+
+  const steps = [
+    {
+      title: "KYC",
+      description: "What category of loan are you apply for?",
+      content: <LoanApplyKyc {...contentProps} />,
+    },
+    {
+      title: "My Loan Calculator",
+      content: <LoanApplyCalculator {...contentProps} />,
+    },
+    // {
+    //   title: "Loan Offer",
+    //   content: <LoanApplyOffer {...contentProps} />,
+    // },
+  ];
+
+  const currentStep = steps[stepper.step];
+  const isFirstStep = !stepper.step;
+  const isLastStep = stepper.step === steps.length - 1;
+
+  const isShowFooter = true;
+  const isFullContent = false;
+
+  if (stepper.step === 2) {
+    return (
+      <Suspense>
+        <LoanApplySuccess {...contentProps} />
+      </Suspense>
+    );
+  }
+
+  const isLoading =
+    clientKycDetailsQueryResult.isLoading || loanTemplateQueryResult.isLoading;
+  const isError =
+    clientKycDetailsQueryResult.isError || loanTemplateQueryResult.isError;
+
+  function refetch() {
+    if (clientKycDetailsQueryResult.isError) {
+      clientKycDetailsQueryResult.refetch();
+    }
+
+    if (loanTemplateQueryResult.isError) {
+      loanTemplateQueryResult.refetch();
+    }
+  }
+
+  return (
+    <LoadingUI loading={isLoading} error={isError} onRetry={refetch}>
+      {() => (
+        <>
+          {!isFullContent ? (
+            <div className="">
+              <div className="flex items-center gap-4 sticky top-0 bg-white p-4 mb-12">
+                {steps.map(({ title }, index) => (
+                  <div key={title} className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded-full bg-primary-main text-primary-contrastText flex justify-center items-center">
+                      <Typography component="span">{index + 1}</Typography>
+                    </div>
+                    <Typography>{title}</Typography>
+                  </div>
+                ))}
+              </div>
+              <Suspense>
+                {currentStep.content}
+                {isShowFooter && (
+                  <div className="flex items-center gap-4 sticky bottom-0 py-4">
+                    <div className="flex-1" />
+                    {!isFirstStep && (
+                      <Button
+                        onClick={() => stepper.previous()}
+                        disabled={formik.isSubmitting}
+                      >
+                        Back
+                      </Button>
+                    )}
+                    <LoadingButton
+                      onClick={formik.handleSubmit}
+                      loading={formik.isSubmitting}
+                    >
+                      {["Verify KYC", "Proceed", "Accept"][stepper.step] ??
+                        "Proceed"}
+                    </LoadingButton>
+                  </div>
+                )}
+              </Suspense>
+            </div>
+          ) : (
+            <div>{currentStep.content}</div>
+          )}
+        </>
+      )}
+    </LoadingUI>
+  );
+}
+
+export default LoanApply;
+
+export const Component = LoanApply;
+
+const LoanApplyKyc = lazy(() => import("features/loan/LoanApplyKyc"));
+const LoanApplyCalculator = lazy(() =>
+  import("features/loan/LoanApplyCalculator")
+);
+const LoanApplyOffer = lazy(() => import("features/loan/LoanApplyOffer"));
+const LoanApplySuccess = lazy(() => import("features/loan/LoanApplySuccess"));

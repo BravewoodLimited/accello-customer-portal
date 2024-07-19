@@ -1,0 +1,12 @@
+.Empty {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* gap: 4; */
+}
+
+.Empty__icon {
+  @apply text-text-secondary;
+  font-size: 100px;
+}
