@@ -205,7 +205,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
         <div>
           <Typography className="font-bold mb-2">Bank details</Typography>
           <div className="grid grid-cols-2 gap-4">
-            <div>
+            {formik.&& <div>
               <NumberTextField
                 freeSolo
                 fullWidth
@@ -246,7 +246,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                   />
                 )
               ) : null}
-            </div>
+            </div>}
             <div>
               <NumberTextField
                 freeSolo
