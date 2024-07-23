@@ -9,6 +9,8 @@ import {
 } from "constants/urls";
 import { createBrowserRouter } from "react-router-dom";
 import Landing from "pages/homePage/Landing";
+import AboutUs from "pages/AboutUs";
+import FAQ from "pages/FAQ";
 
 const router = createBrowserRouter([
   {
@@ -16,9 +18,13 @@ const router = createBrowserRouter([
     
     children:[
       // {path:'/', lazy: () => import ("pages/homePage/Landing")}
-      {path:'/', element:<Landing/>}
+      {path:'/', element:<Landing/>},
+      {path:'/about-us/', element:<AboutUs/>},
+      {path:'/faqs', element:<FAQ/>}
+      
     ]
   },
+ 
   {
     path: "/auth",
     lazy: () => import("./App"),
