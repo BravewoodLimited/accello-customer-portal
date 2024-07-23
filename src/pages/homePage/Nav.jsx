@@ -36,7 +36,8 @@ function Nav({handleClickOpen}) {
 
                                 <div className="hidden sm:ml-6 sm:block mt-8">
                                     <div className="flex space-x-4 pt-4">
-                                        {navigation.map((item) => (
+                                        {navigation.map((item, i) => (
+                                        <div key={i+'lkj'}>
                                             <DomLink
                                                 to={item.to}
                                                 key={item.name}
@@ -47,7 +48,7 @@ function Nav({handleClickOpen}) {
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
                                                     {item.name}
-                                            </DomLink>
+                                            </DomLink></div>
                                         ))}
                                     </div>
                                 </div>

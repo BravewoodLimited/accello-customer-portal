@@ -57,8 +57,8 @@ function HowItWorks({ handleClickOpen }) {
           <div className="sm:max-w-[50%] mt-12">
             <Tab.List>
               <ol className="relative">
-                {HowItWorksData.map((item) => (
-                  <Tab
+                {HowItWorksData.map((item , i) => (
+                  <Tab key={i+"t"}
                     className={({ selected }) =>
                       classNames(
                         "focus:outline-none tap-transparent",

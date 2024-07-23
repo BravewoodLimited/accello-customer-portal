@@ -34,9 +34,9 @@ const router = createBrowserRouter([
             lazy: () => import("./AppAuthLayout"),
             children: [
              
-              { path: `/auth/${SIGNIN}`, lazy: () => import("pages/signin/Signin") },
+              { path: `/auth${SIGNIN}`, lazy: () => import("pages/signin/Signin") },
               {
-                path: `/auth/${SIGNIN_VERIFICATION}`,
+                path: `/auth${SIGNIN_VERIFICATION}`,
                 lazy: () => import("pages/signin/SigninVerification"),
               },
             ],
@@ -51,9 +51,9 @@ const router = createBrowserRouter([
     ErrorBoundary: AppErrorBoundary,
       children: [
         { index: true, lazy: () => import("pages/dashboard/Dashboard") },
-        { path: `/dashboard/${DASHBOARD}`, lazy: () => import("pages/dashboard/Dashboard") },
-        { path: `/dashboard/${LOAN_APPLY}`, lazy: () => import("pages/loan/LoanApply") },
-        { path: `/dashboard/${FAQS}`, lazy: () => import("pages/faq/Faq") },
+        { path: `/dashboard${DASHBOARD}`, lazy: () => import("pages/dashboard/Dashboard") },
+        { path: `/dashboard${LOAN_APPLY}`, lazy: () => import("pages/loan/LoanApply") },
+        { path: `/dashboard${FAQS}`, lazy: () => import("pages/faq/Faq") },
       ],
   }
 ]);
