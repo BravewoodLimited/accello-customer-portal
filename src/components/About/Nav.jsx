@@ -67,7 +67,7 @@ function Nav() {
 
                                         <DomLink to="/sign-up">
                                             <button type="button" className="inline-flex border-2 border-accelloBlue rounded-[8px] bg-accelloBlue 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-white  gap-2 text-center items-center hover:bg-transparent hover:text-accelloBlue" >
-                                            Create Account
+                                            Get Credit
                                             <ArrowRightIcon className="block h-4 w-3" aria-hidden="true"/>
                                             </button>
                                         </DomLink>

@@ -11,6 +11,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Landing from "pages/homePage/Landing";
 import AboutUs from "pages/AboutUs";
 import FAQ from "pages/FAQ";
+import ContactUs from "pages/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
       // {path:'/', lazy: () => import ("pages/homePage/Landing")}
       {path:'/', element:<Landing/>},
       {path:'/about-us/', element:<AboutUs/>},
-      {path:'/faqs', element:<FAQ/>}
+      {path:'/faqs', element:<FAQ/>},
+      {path:'/contact', element:<ContactUs/>}
       
     ]
   },
