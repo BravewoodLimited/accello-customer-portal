@@ -34,7 +34,7 @@ function AppAuthLayout() {
       </div>
       <div className="w-full h-full flex flex-col md:w-1/2 p-4">
         <div>
-          <Link to={SIGNIN}>
+          <Link to={`/auth/${SIGNIN}`}>
             <Logo />
           </Link>
         </div>
