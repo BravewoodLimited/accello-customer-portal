@@ -48,7 +48,7 @@ function Signin() {
         //   variant: "success",
         // });
 
-        navigate(SIGNIN_VERIFICATION, { state: { mobileNo: values.mobileNo } });
+        navigate(`/auth/${SIGNIN_VERIFICATION}`, { state: { mobileNo: values.mobileNo } });
       } catch (error) {
         enqueueSnackbar(error?.data?.message || "Failed to Sign in", {
           variant: "error",

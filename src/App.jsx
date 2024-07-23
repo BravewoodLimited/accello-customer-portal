@@ -1,5 +1,6 @@
 import "./App.css";
 import { Outlet, ScrollRestoration } from "react-router-dom";
+import Landing from "pages/homePage/Landing";
 
 function App() {
   return (

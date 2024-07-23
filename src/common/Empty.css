@@ -7,6 +7,6 @@
 }
 
 .Empty__icon {
-  @apply text-text-secondary;
+  /* @apply text-text-secondary; */
   font-size: 100px;
 }

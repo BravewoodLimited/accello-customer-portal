@@ -94,7 +94,7 @@ function Dashboard() {
   });
 
   if (!authUser?.clientId) {
-    return <Navigate to={LOAN_APPLY} />;
+    return <Navigate to={`/dashboard/${LOAN_APPLY}`} />;
   }
 
   return (

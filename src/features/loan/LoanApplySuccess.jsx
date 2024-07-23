@@ -13,7 +13,7 @@ function LoanApplySuccess() {
           Just one more thing, create an account to manage your loan and get
           access to a lot more.
         </Typography>
-        <Button component={Link} to={DASHBOARD}>
+        <Button component={Link} to={`/dashboard/${DASHBOARD}`}>
           Manage your account
         </Button>
       </div>
