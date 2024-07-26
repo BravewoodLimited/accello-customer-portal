@@ -9,8 +9,20 @@ import {
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
+  // {
+  //   path:"/",
+    
+  //   children:[
+  //     // {path:'/', lazy: () => import ("pages/homePage/Landing")}
+  //     {path:'/', element:<Landing/>},
+  //     {path:'/about-us/', element:<AboutUs/>},
+  //     {path:'/faqs', element:<FAQ/>},
+  //     {path:'/contact', element:<ContactUs/>}
+      
+  //   ]
+  // },
   {
-    path: "/",
+    path: "/loan/",
     lazy: () => import("./App"),
     ErrorBoundary: AppErrorBoundary,
     children: [

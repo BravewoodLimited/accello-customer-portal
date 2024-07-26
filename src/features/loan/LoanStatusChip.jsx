@@ -13,7 +13,7 @@ function LoanStatusChip(props) {
     <Chip
       variant="soft"
       color={LoanStatusColor[status?.code]}
-      label={status?.value}
+      label={status?.value == "Loan in draft" ? "Incomplete" : status.value}
       size="small"
       {...rest}
     />
