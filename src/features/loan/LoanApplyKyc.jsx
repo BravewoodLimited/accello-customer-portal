@@ -488,7 +488,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                     "kyc.clientEmployers.0.staffId"
                   )}
                 />
-                <Dropzone
+                {/* <Dropzone
                   multiple
                   maxSize={1024 * 1024 * 2}
                   minSize={1}
@@ -545,7 +545,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                       />
                     </div>
                   )}
-                </Dropzone>
+                </Dropzone> */}
                 <TextField
                   fullWidth
                   label="Salary Range"

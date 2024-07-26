@@ -9,18 +9,39 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { getFormikTextFieldProps } from "utils/formik";
 import { urlSearchParamsExtractor } from "utils/url";
 import * as yup from "yup";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 function Signin() {
   const { enqueueSnackbar } = useSnackbar();
 
   const navigate = useNavigate();
 
-  const [searchParam] = useSearchParams();
+  // const [searchParam] = useSearchParams();
 
-  const { referralCode } = urlSearchParamsExtractor(searchParam, {
-    referralCode: "",
-  });
+  // const { referralCode } = urlSearchParamsExtractor(searchParam, {
+  //   referralCode: "",
+  // });
+
+  const [referralCode, setReferralCode] = useState('');
+
+  useEffect(() => {
+    // Step 1: Get the referral link from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const referral = urlParams.get('referral');
+
+    // Step 2: Store the referral link in sessionStorage
+    if (referral) {
+      sessionStorage.setItem('referralCode', referral);
+      setReferralCode(referral);
+    } else {
+      // If no referral in URL, check if it's already stored in sessionStorage
+      const storedReferral = sessionStorage.getItem('referralCode');
+      if (storedReferral) {
+        setReferralCode(storedReferral);
+      }
+    }
+  }, []);
+
 
   const [requestOtpMutation] = OtpApi.useRequestOtpMutation();
 
@@ -79,10 +100,10 @@ function Signin() {
           {referralCode ? (
             <Chip
               variant="soft"
-              label="You were referred by Shilla Dan"
+              label={`You were referred by ${referralCode}`}
               size="small"
               color="success"
-              className="mt-1"
+              className="mt-1 capitalize"
             />
           ) : null}
           <LoadingButton

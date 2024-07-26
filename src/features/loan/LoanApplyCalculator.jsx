@@ -66,7 +66,7 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
           </CurrencyTypography>
           <div>
             <Slider
-              step={1}
+              step={1000}
               min={loanTemplate?.product?.minPrincipal}
               max={loanTemplate?.product?.maxPrincipal}
               value={formik.values.loan.principal}

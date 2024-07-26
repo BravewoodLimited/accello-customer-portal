@@ -16,6 +16,8 @@ import useDataRef from "hooks/useDataRef";
 import * as dfns from "date-fns";
 import { removeEmptyProperties } from "utils/object";
 import { LoadingButton } from "@mui/lab";
+import LoanDocumentUpload from "features/loan/LoanDocumentUpload";
+import MiscApi from "apis/MiscApi";
 
 function LoanApply() {
   const { enqueueSnackbar } = useSnackbar();
@@ -36,14 +38,15 @@ function LoanApply() {
   const [createClientKycMutation] = ClientApi.useCreateClientKycMutation();
 
   const [createLoanMutation] = LoanApi.useCreateLoanMutation();
+  const [addDocMutation] = MiscApi.useAddDocumentMutation();
 
   const clientKycDetailsQueryResult = ClientApi.useGetClientKycDetailsQuery(
-    useMemo(() => ({ path: { id: clientId } }), [clientId]),
+    useMemo(() => ({ path: { id: clientId } }), [clientId, stepper]),
     { skip: !clientId }
   );
 
   const clientKyc = clientKycDetailsQueryResult.data?.data;
-
+  const storedReferral = sessionStorage.getItem("referralLink");
   const formik = useFormik({
     initialValues: {
       kyc: {
@@ -81,6 +84,7 @@ function LoanApply() {
         ],
         addresses: [{ addressLine1: "", addressTypeId: 36 }],
       },
+      clientIdentifiers: [],
       loan: {
         commitment: 0,
         netpay: 0,
@@ -103,6 +107,7 @@ function LoanApply() {
         loanType: "individual",
         expectedDisbursementDate: null,
         submittedOnDate: null,
+        referralLink: storedReferral || "",
       },
     },
     validateOnBlur: true,
@@ -186,6 +191,23 @@ function LoanApply() {
               nin: yup.string().label("NIN").length(11).required(),
             }),
           }),
+        },
+        {
+          clientIdentifiers: yup.array().of(
+            yup.object({
+              documentTypeId: yup
+                .number()
+                .required("Document Type is required"),
+              // expiryDate: yup.date().required("Expiry Date is required"),
+              attachment: yup.object({
+                name: yup.string().required("File name is required"),
+                fileName: yup.string().required("File name is required"),
+                size: yup.number().required("File size is required"),
+                type: yup.string().required("File type is required"),
+                location: yup.string().required("File location is required"),
+              }),
+            })
+          ),
         },
         {
           loan: yup.object({
@@ -329,8 +351,37 @@ function LoanApply() {
             );
           }
         }
-
         if (stepper.step === 1) {
+          // if no doc attached
+          if (!values.clientIdentifiers.length && !clientKyc?.clientIdentifiers?.length) {
+            throw new Error("No Document found")
+            
+          }
+          // if(allDocumentAlreadyupload){
+          //   do nothing
+          // } else do excuted whats below
+
+          // if (!clientId) {
+          const data = await addDocMutation({
+            body: removeEmptyProperties({
+              clientIdentifiers: values.clientIdentifiers,
+              clients: {
+                id: values.loan.clientId ?? values.kyc.clients?.id,
+              },
+            }),
+          }).unwrap();
+          enqueueSnackbar(
+            data?.message ||
+              (isEdit
+                ? "Loan Updated Successfully"
+                : "Loan Created Successfully"),
+            { variant: "success" }
+          );
+
+          // }
+        }
+
+        if (stepper.step === 2) {
           const data = await createLoanMutation({
             body: removeEmptyProperties({
               ...values.loan,
@@ -358,11 +409,11 @@ function LoanApply() {
             { variant: "success" }
           );
         }
-
+        refreshKyc()
         stepper.next();
       } catch (error) {
         enqueueSnackbar(
-          error?.data?.message ||
+          error?.message||error?.data?.message ||
             (isEdit ? "Failed to Update Loan" : "Failed to Create Loan"),
           { variant: "error" }
         );
@@ -538,13 +589,13 @@ function LoanApply() {
       content: <LoanApplyKyc {...contentProps} />,
     },
     {
+      title: "Supporting Document",
+      content: <LoanDocumentUpload {...contentProps} />,
+    },
+    {
       title: "My Loan Calculator",
       content: <LoanApplyCalculator {...contentProps} />,
     },
-    // {
-    //   title: "Loan Offer",
-    //   content: <LoanApplyOffer {...contentProps} />,
-    // },
   ];
 
   const currentStep = steps[stepper.step];
@@ -554,7 +605,7 @@ function LoanApply() {
   const isShowFooter = true;
   const isFullContent = false;
 
-  if (stepper.step === 2) {
+  if (stepper.step === 3) {
     return (
       <Suspense>
         <LoanApplySuccess {...contentProps} />
@@ -575,6 +626,9 @@ function LoanApply() {
     if (loanTemplateQueryResult.isError) {
       loanTemplateQueryResult.refetch();
     }
+  }
+  function refreshKyc(){
+    clientKycDetailsQueryResult.refetch();
   }
 
   return (
