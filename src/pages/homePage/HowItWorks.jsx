@@ -108,7 +108,7 @@ function HowItWorks({ handleClickOpen }) {
         </div>
       </Tab.Group>
 
-      {/* <DomLink to="/sign-up"> */}
+      {/* <DomLink to="/loan/signin"> */}
       <div className="text-center">
         <button
           

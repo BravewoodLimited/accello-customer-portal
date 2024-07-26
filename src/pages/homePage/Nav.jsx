@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon, LockClosedIcon, ArrowRightIcon} from '@heroicons/
 import Logo from '../../assets/Landing/NewLogo.png'
 import { Link } from "react-scroll";
 import { Link as DomLink } from 'react-router-dom';
+import { SIGNIN } from 'constants/urls';
 
 
 const navigation = [
@@ -60,14 +61,14 @@ function Nav({handleClickOpen}) {
                                 <div className="hidden sm:ml-6 sm:block mt-10">
                                     <div className="flex space-x-4">
                                         {/* <DomLink to="/sign-in"> */}
-                                            <DomLink to="/auth/signin" type="button" className="inline-flex border-2 border-white rounded-md bg-transparent 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-white hover:text-black hover:bg-white gap-2 text-center " >
+                                            <DomLink to={SIGNIN} type="button" className="inline-flex border-2 border-white rounded-md bg-transparent 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-white hover:text-black hover:bg-white gap-2 text-center " >
                                                 <LockClosedIcon className="block h-5 w-5" aria-hidden="true"/>
                                                 Login
                                             </DomLink>
                                         {/* </DomLink> */}
 
-                                        {/* <DomLink to="/sign-up"> */}
-                                            <DomLink to="/auth/signin" type="button" className="inline-flex border-2 border-white rounded-md bg-white 2xl:py-4 2xl:px-8 px-4 py-2.5 md:mt-2 2xl:md-1 text-black gap-2 text-center items-center hover:bg-transparent hover:text-white" >
+                                        {/* <DomLink to="/loan/signin"> */}
+                                            <DomLink to={SIGNIN}  type="button" className="inline-flex border-2 border-white rounded-md bg-white 2xl:py-4 2xl:px-8 px-4 py-2.5 md:mt-2 2xl:md-1 text-black gap-2 text-center items-center hover:bg-transparent hover:text-white" >
                                               Get Credit
                                             <ArrowRightIcon className="block h-4 w-3" aria-hidden="true"/>
                                             </DomLink>
@@ -143,14 +144,14 @@ function Nav({handleClickOpen}) {
                             ))}
 
                             <div className='flex flex-col w-[200px] gap-5'>
-                                <DomLink to="/sign-up">
+                                <DomLink to="/loan/signin">
                                     <button type="button" className="hover:text-black hover:bg-white inline-flex border-2 border-white rounded-md bg-transparent py-4 px-8 text-white gap-2 text-center " >
                                         <LockClosedIcon className="block h-5 w-5" aria-hidden="true"/>
                                         Login
                                     </button>
                                 </DomLink>
 
-                                <DomLink to="/sign-up">
+                                <DomLink to="/loan/signin">
                                     <button type="button" className="inline-flex border-2 border-white rounded-md bg-white py-4 px-8 text-black hover:text-white gap-2 text-center items-center hover:bg-transparent" >
                                     Create Account
                                     <ArrowRightIcon className="block h-4 w-3" aria-hidden="true"/>

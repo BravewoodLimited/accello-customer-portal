@@ -2,7 +2,7 @@ import Logo from "common/Logo";
 import { Link, Outlet } from "react-router-dom";
 import authBackgroundUrl from "assets/imgs/auth-background.png";
 import { Typography } from "@mui/material";
-import { SIGNIN } from "constants/urls";
+import { ENTRY, SIGNIN } from "constants/urls";
 
 function AppAuthLayout() {
   return (
@@ -34,7 +34,7 @@ function AppAuthLayout() {
       </div>
       <div className="w-full h-full flex flex-col md:w-1/2 p-4">
         <div>
-          <Link to={SIGNIN}>
+          <Link to={ENTRY}>
             <Logo />
           </Link>
         </div>

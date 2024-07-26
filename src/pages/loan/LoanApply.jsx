@@ -589,7 +589,7 @@ function LoanApply() {
       content: <LoanApplyKyc {...contentProps} />,
     },
     {
-      title: "Loan Offer",
+      title: "Supporting Document",
       content: <LoanDocumentUpload {...contentProps} />,
     },
     {
