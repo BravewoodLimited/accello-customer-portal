@@ -6,7 +6,13 @@ import Star2 from '../../assets/Landing/Star2.png'
 import Star3 from '../../assets/Landing/Star3.png'
 // import {ArrowRightIcon} from '@heroicons/react/24/outline'
 
-function Hero({handleClickOpen}) {
+import { Link as DomLink } from 'react-router-dom';
+import { SIGNIN } from 'constants/urls';
+
+function Hero() {
+
+  const handleClickOpen = () => {
+};
   return (
     <div className='p-4 text-white'>
         <div className='sm:flex gap-4 flex-row mx-auto 2xl:max-w-7xl max-w-6xl px-2 sm:px-6 lg:px-8 justify-between mt-8'>
@@ -23,8 +29,8 @@ function Hero({handleClickOpen}) {
 
               <p className='sm:w-[400px] mt-10 xl:mt-0'>Access quick unsecured loans that suit your unique profile and help you achieve your financial goals.</p>
 
-
-              <button type="button" className='border-2 border-white rounded-md bg-white py-3 sm:px-10 text-black gap-2 xl:mt-14 mt-36 text-[16px] sm:w-auto w-[100%] mb-24 text-center items-center hover:bg-transparent hover:text-white' onClick={handleClickOpen}>Get a Loan Now <span aria-hidden="true">→</span></button>
+              <DomLink to={SIGNIN} >
+              <button type="button" className='border-2 border-white rounded-md bg-white py-3 sm:px-10 text-black gap-2 xl:mt-14 mt-36 text-[16px] sm:w-auto w-[100%] mb-24 text-center items-center hover:bg-transparent hover:text-white' onClick={handleClickOpen}>Get a Loan Now <span aria-hidden="true">→</span></button></DomLink>
             </div>
 
 
