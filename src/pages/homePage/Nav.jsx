@@ -4,6 +4,10 @@ import { Bars3Icon, XMarkIcon, LockClosedIcon, ArrowRightIcon} from '@heroicons/
 import Logo from '../../assets/Landing/NewLogo.png'
 import { Link } from "react-scroll";
 import { Link as DomLink } from 'react-router-dom';
+<<<<<<< HEAD
+=======
+import { SIGNIN } from 'constants/urls';
+>>>>>>> staging
 
 
 const navigation = [
@@ -36,8 +40,12 @@ function Nav({handleClickOpen}) {
 
                                 <div className="hidden sm:ml-6 sm:block mt-8">
                                     <div className="flex space-x-4 pt-4">
+<<<<<<< HEAD
                                         {navigation.map((item, i) => (
                                         <div key={i+'lkj'}>
+=======
+                                        {navigation.map((item) => (
+>>>>>>> staging
                                             <DomLink
                                                 to={item.to}
                                                 key={item.name}
@@ -48,7 +56,11 @@ function Nav({handleClickOpen}) {
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
                                                     {item.name}
+<<<<<<< HEAD
                                             </DomLink></div>
+=======
+                                            </DomLink>
+>>>>>>> staging
                                         ))}
                                     </div>
                                 </div>
@@ -61,15 +73,25 @@ function Nav({handleClickOpen}) {
                                 <div className="hidden sm:ml-6 sm:block mt-10">
                                     <div className="flex space-x-4">
                                         {/* <DomLink to="/sign-in"> */}
+<<<<<<< HEAD
                                             <DomLink to="/auth/signin" type="button" className="inline-flex border-2 border-white rounded-md bg-transparent 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-white hover:text-black hover:bg-white gap-2 text-center " >
+=======
+                                            <DomLink to={SIGNIN} type="button" className="inline-flex border-2 border-white rounded-md bg-transparent 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-white hover:text-black hover:bg-white gap-2 text-center " >
+>>>>>>> staging
                                                 <LockClosedIcon className="block h-5 w-5" aria-hidden="true"/>
                                                 Login
                                             </DomLink>
                                         {/* </DomLink> */}
 
+<<<<<<< HEAD
                                         {/* <DomLink to="/sign-up"> */}
                                             <DomLink to="/auth/signin" type="button" className="inline-flex border-2 border-white rounded-md bg-white 2xl:py-4 2xl:px-8 px-4 py-2.5 md:mt-2 2xl:md-1 text-black gap-2 text-center items-center hover:bg-transparent hover:text-white" >
                                             Create Account
+=======
+                                        {/* <DomLink to="/loan/signin"> */}
+                                            <DomLink to={SIGNIN}  type="button" className="inline-flex border-2 border-white rounded-md bg-white 2xl:py-4 2xl:px-8 px-4 py-2.5 md:mt-2 2xl:md-1 text-black gap-2 text-center items-center hover:bg-transparent hover:text-white" >
+                                              Get Credit
+>>>>>>> staging
                                             <ArrowRightIcon className="block h-4 w-3" aria-hidden="true"/>
                                             </DomLink>
                                         {/* </DomLink> */}
@@ -144,14 +166,22 @@ function Nav({handleClickOpen}) {
                             ))}
 
                             <div className='flex flex-col w-[200px] gap-5'>
+<<<<<<< HEAD
                                 <DomLink to="/sign-up">
+=======
+                                <DomLink to="/loan/signin">
+>>>>>>> staging
                                     <button type="button" className="hover:text-black hover:bg-white inline-flex border-2 border-white rounded-md bg-transparent py-4 px-8 text-white gap-2 text-center " >
                                         <LockClosedIcon className="block h-5 w-5" aria-hidden="true"/>
                                         Login
                                     </button>
                                 </DomLink>
 
+<<<<<<< HEAD
                                 <DomLink to="/sign-up">
+=======
+                                <DomLink to="/loan/signin">
+>>>>>>> staging
                                     <button type="button" className="inline-flex border-2 border-white rounded-md bg-white py-4 px-8 text-black hover:text-white gap-2 text-center items-center hover:bg-transparent" >
                                     Create Account
                                     <ArrowRightIcon className="block h-4 w-3" aria-hidden="true"/>

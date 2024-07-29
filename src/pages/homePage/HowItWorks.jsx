@@ -57,8 +57,13 @@ function HowItWorks({ handleClickOpen }) {
           <div className="sm:max-w-[50%] mt-12">
             <Tab.List>
               <ol className="relative">
+<<<<<<< HEAD
                 {HowItWorksData.map((item , i) => (
                   <Tab key={i+"t"}
+=======
+                {HowItWorksData.map((item) => (
+                  <Tab
+>>>>>>> staging
                     className={({ selected }) =>
                       classNames(
                         "focus:outline-none tap-transparent",
@@ -108,7 +113,11 @@ function HowItWorks({ handleClickOpen }) {
         </div>
       </Tab.Group>
 
+<<<<<<< HEAD
       {/* <DomLink to="/sign-up"> */}
+=======
+      {/* <DomLink to="/loan/signin"> */}
+>>>>>>> staging
       <div className="text-center">
         <button
           

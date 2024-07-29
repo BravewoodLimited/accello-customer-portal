@@ -41,14 +41,14 @@ function Landing() {
 
     <div className='relative bg-gradient-radial from-gray-900 to-black sm:h-[758px] overflow-x-hidden'>
         <Nav handleClickOpen={handleClickOpen}/>
-        <Hero handleClickOpen={handleClickOpen}/>
+        <Hero />
 
         <div className='hidden lg:block h-[88px] bg-bgOpacity mt-[18px] text-white'>
           <div>
 
             <div className='flex justify-around 2xl:mx-[300px] items-center'>
-            {HeroBottom.map((item, i) => (
-              <div  key={i+'jdf'} className='flex gap-2 my-[20px]'>
+            {HeroBottom.map((item) => (
+              <div className='flex gap-2 my-[20px]'>
                 <img src={item.img} alt="" className='w-10 h-10'/>
                 <div className='font-NexaLight'>
                   <p className='text-[13px]'>{item.p1}</p>

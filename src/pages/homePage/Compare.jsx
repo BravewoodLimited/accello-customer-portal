@@ -12,7 +12,11 @@ const Special = [
 
 function Compare() {
   return (
+<<<<<<< HEAD
     <div className='p-4 text-black bg-background mb-16 '>
+=======
+    <div className='p-4 text-black bg-landingbackground mb-16 '>
+>>>>>>> staging
         <div className=' mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 text-center'>
           {/* <h1 className='font-NexaBold text-[36px]'>What Makes Us Special</h1>
           <p className='text-[16px] text-[#4D4D4D]'>Discover what makes us special</p> */}

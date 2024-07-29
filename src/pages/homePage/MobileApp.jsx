@@ -5,8 +5,13 @@ import AppStore from '../../assets/Landing/appstore.png'
 
 function MobileApp() {
   return (
+<<<<<<< HEAD
     // <div className='p-4 text-white bg-background lg:block mb-14'>
     <div className='hidden p-4 text-white bg-background mb-14'>
+=======
+    // <div className='p-4 text-white bg-landingbackground lg:block mb-14'>
+    <div className='hidden p-4 text-white bg-landingbackground mb-14'>
+>>>>>>> staging
 
 
         <div className='gap-4 mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between mt-8'>

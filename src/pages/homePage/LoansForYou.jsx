@@ -13,7 +13,11 @@ const LoanTypes = [
 
 function LoansForYou() {
   return (
+<<<<<<< HEAD
     <div name="Loans" className='p-4 text-black bg-background'>
+=======
+    <div name="Loans" className='p-4 text-black bg-landingbackground'>
+>>>>>>> staging
 
         <div className=' mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 text-center mt-10'>
           <h1 className='font-NexaBold text-[36px]'>Find Loans That Meet Your Needs</h1>
@@ -23,8 +27,13 @@ function LoansForYou() {
         <div className='sm:flex gap-4 flex-row mx-auto max-w-6xl px-2 sm:px-6 lg:px-8 justify-between mt-8 sm:space-y-0 space-y-6 mb-10'>
 
 
+<<<<<<< HEAD
             {LoanTypes.map((item, i) => (
                 <div key={i+'frf'} className='relative sm:max-w-[33.333%] mx-auto bg-white p-4 rounded-[15px] border'>
+=======
+            {LoanTypes.map((item) => (
+                <div className='relative sm:max-w-[33.333%] mx-auto bg-white p-4 rounded-[15px] border'>
+>>>>>>> staging
 
                     <div className='2xl:w-[350px] 2xl:h-[210px] p-2'>
                       <img src={item.img} alt="Accello Hero" className='m-auto object-cover'/>

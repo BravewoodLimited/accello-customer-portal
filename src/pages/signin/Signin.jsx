@@ -100,10 +100,10 @@ function Signin() {
           {referralCode ? (
             <Chip
               variant="soft"
-              label="You were referred by Shilla Dan"
+              label={`You were referred by ${referralCode}`}
               size="small"
               color="success"
-              className="mt-1"
+              className="mt-1 capitalize"
             />
           ) : null}
           <LoadingButton

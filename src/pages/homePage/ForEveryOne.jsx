@@ -19,7 +19,11 @@ function ForEveryOne() {
     setExpanded(newExpanded ? panel : false);
   };
   return (
+<<<<<<< HEAD
     <div name="Why" className='px-4 py-[80px] text-black bg-background'>
+=======
+    <div name="Why" className='px-4 py-[80px] text-black bg-landingbackground'>
+>>>>>>> staging
         <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 text-center'>
           <h1 className='font-NexaBold text-[36px]'>Why You'll Love Accello</h1>
           <p className='text-[16px]'>We’re 100% focused on helping thousands of individuals in both public and private sector reach their goals.</p>

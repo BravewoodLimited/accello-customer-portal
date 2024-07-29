@@ -6,7 +6,13 @@ import Star2 from '../../assets/Landing/Star2.png'
 import Star3 from '../../assets/Landing/Star3.png'
 // import {ArrowRightIcon} from '@heroicons/react/24/outline'
 
-function Hero({handleClickOpen}) {
+import { Link as DomLink } from 'react-router-dom';
+import { SIGNIN } from 'constants/urls';
+
+function Hero() {
+
+  const handleClickOpen = () => {
+};
   return (
     <div className='p-4 text-white'>
         <div className='sm:flex gap-4 flex-row mx-auto 2xl:max-w-7xl max-w-6xl px-2 sm:px-6 lg:px-8 justify-between mt-8'>

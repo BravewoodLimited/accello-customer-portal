@@ -53,7 +53,11 @@ function Calculator({handleClickOpen}) {
   
 
   return (
+<<<<<<< HEAD
     <div className='p-4 bg-background' name='calculator'>
+=======
+    <div className='p-4 bg-landingbackground' name='calculator'>
+>>>>>>> staging
       <div className=' mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 text-center'>
         {/* <h1 className='font-gilroy text-[36px]'>Personal Loan Calculator</h1>
           <p className='text-[16px] text-[#4D4D4D]'>Apply for a personal loan in minutes. Ready to get started?.</p> */}
@@ -82,7 +86,11 @@ function Calculator({handleClickOpen}) {
                       'rounded-lg sm:py-2.5 sm:px-3 sm:text-sm text-lg font-medium leading-5 py-5 px-6',
                       selected
                         ? 'bg-accelloBlue text-white shadow'
+<<<<<<< HEAD
                         : 'bg-background text-black hover:bg-accelloBlue/[0.12]'
+=======
+                        : 'bg-landingbackground text-black hover:bg-accelloBlue/[0.12]'
+>>>>>>> staging
                     )
                   }
 

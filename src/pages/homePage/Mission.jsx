@@ -2,7 +2,11 @@ import React from 'react'
 
 function Mission() {
   return (
+<<<<<<< HEAD
     <div className='p-4 text-black bg-background'>
+=======
+    <div className='p-4 text-black bg-landingbackground'>
+>>>>>>> staging
         <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between mt-8'>
 
 

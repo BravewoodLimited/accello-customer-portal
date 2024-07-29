@@ -7,6 +7,10 @@ import {
   SIGNIN,
   SIGNIN_VERIFICATION,
 } from "constants/urls";
+import AboutUs from "pages/AboutUs";
+import ContactUs from "pages/ContactUs";
+import FAQ from "pages/FAQ";
+import Landing from "pages/homePage/Landing";
 import { createBrowserRouter } from "react-router-dom";
 import Landing from "pages/homePage/Landing";
 
@@ -16,11 +20,23 @@ const router = createBrowserRouter([
     
     children:[
       // {path:'/', lazy: () => import ("pages/homePage/Landing")}
+<<<<<<< HEAD
       {path:'/', element:<Landing/>}
     ]
   },
   {
     path: "/auth",
+=======
+      {path:'/', element:<Landing/>},
+      {path:'/about-us/', element:<AboutUs/>},
+      {path:'/faqs', element:<FAQ/>},
+      {path:'/contact', element:<ContactUs/>}
+      
+    ]
+  },
+  {
+    path: "/loan/",
+>>>>>>> staging
     lazy: () => import("./App"),
     ErrorBoundary: AppErrorBoundary,
     children: [
