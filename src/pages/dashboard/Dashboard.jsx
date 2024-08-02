@@ -11,7 +11,7 @@ import LoanTransactionTable, {
   columns as transactionColumns,
 } from "features/loan/LoanTransactionTable";
 import CurrencyTypography from "common/CurrencyTypography";
-import { Fragment, useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import LoanApi from "apis/LoanApi";
 import useAuthUser from "hooks/useAuthUser";
 import usePagination from "hooks/usePagination";
@@ -19,8 +19,18 @@ import LoadingUI from "common/LoadingUI";
 import { Navigate } from "react-router-dom";
 import { LOAN_APPLY } from "constants/urls";
 
+import AccountDetailsModal from "./AccountDetailsModal";
+import PaystackModal from "./PaystackModal";
+import PaymentOptionModal from "./PaymentOptionModal";
+
+
+
 function Dashboard() {
   const authUser = useAuthUser();
+  const [accountModalOpen, setAccountModalOpen] = useState(false);
+  const [paystackModalOpen, setPaystackModalOpen] = useState(false);
+  const [paymentOptionModalOpen, setPaymentOptionModalOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const [pagination, setPagination, { offset, limit }] = usePagination();
 
@@ -29,6 +39,7 @@ function Dashboard() {
       () => ({
         params: {
           clientId: authUser?.clientId,
+          associations: "all",
           offset,
           limit,
         },
@@ -96,6 +107,25 @@ function Dashboard() {
   if (!authUser?.clientId) {
     return <Navigate to={LOAN_APPLY} />;
   }
+
+  const handleAccountModalOpen = (row) => {
+    setSelectedRow(row);
+    setPaymentOptionModalOpen(true);
+  };
+
+  const handlePaymentOptionClose = () => {
+    setPaymentOptionModalOpen(false);
+  };
+
+  const handlePaystack = () => {
+    setPaystackModalOpen(true);
+    setPaymentOptionModalOpen(false);
+  };
+
+  const handleAccount = () => {
+    setAccountModalOpen(true);
+    setPaymentOptionModalOpen(false);
+  };
 
   return (
     <>
@@ -184,10 +214,12 @@ function Dashboard() {
                         })}
                       </div>
                     </Paper>
-                    <div className="grid grid-cols-2 gap-2">
-                      <Button>Settle Loan</Button>
-                      <Button variant="outlined">Repay Loan</Button>
-                    </div>
+                    {!activeLoan.status?.active && (
+                      <div className="grid grid-cols-2 gap-2">
+                        <Button onClick={handleAccountModalOpen}>Settle Loan</Button>
+                        <Button variant="outlined">Repay Loan</Button>
+                      </div>
+                    )}
                   </>
                 ) : null}
               </div>
@@ -232,6 +264,21 @@ function Dashboard() {
           />
         </Paper>
       </div>
+      <PaymentOptionModal
+        open={paymentOptionModalOpen}
+        handleClose={handlePaymentOptionClose}
+        handlePaystack={handlePaystack}
+        handleAccount={handleAccount}
+      />
+      <AccountDetailsModal
+        open={accountModalOpen}
+        handleClose={() => setAccountModalOpen(false)}
+      />
+      <PaystackModal
+        open={paystackModalOpen}
+        handleClose={() => setPaystackModalOpen(false)}
+        email={authUser?.email}
+      />
     </>
   );
 }

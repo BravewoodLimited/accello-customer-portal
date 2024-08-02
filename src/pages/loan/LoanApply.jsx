@@ -89,7 +89,7 @@ function LoanApply() {
         commitment: 0,
         netpay: 0,
         clientId: clientId ?? "",
-        productId: 1,
+        productId: 2,
         principal: 0,
         loanTermFrequency: 0,
         loanTermFrequencyType: "",

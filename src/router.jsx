@@ -3,6 +3,7 @@ import {
   DASHBOARD,
   FAQS,
   LOAN_APPLY,
+  LOAN_DETAILS,
   SIGNIN,
   SIGNIN_VERIFICATION,
 } from "constants/urls";
@@ -10,6 +11,7 @@ import AboutUs from "pages/AboutUs";
 import ContactUs from "pages/ContactUs";
 import FAQ from "pages/FAQ";
 import Landing from "pages/homePage/Landing";
+import LoanApplication from "pages/ClientDetails";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -52,6 +54,7 @@ const router = createBrowserRouter([
           { path: DASHBOARD, lazy: () => import("pages/dashboard/Dashboard") },
           { path: LOAN_APPLY, lazy: () => import("pages/loan/LoanApply") },
           { path: FAQS, lazy: () => import("pages/faq/Faq") },
+          { path: LOAN_DETAILS+'/:loanId', element:<LoanApplication/> },
         ],
       },
     ],

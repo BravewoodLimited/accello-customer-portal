@@ -2,6 +2,8 @@
 import CurrencyTypography from "common/CurrencyTypography";
 import TanStandardTable from "common/TanStandardTable";
 import LoanStatusChip from "./LoanStatusChip";
+import { Link } from "react-router-dom";
+import { LOAN_DETAILS } from "constants/urls";
 
 /**
  *
@@ -17,6 +19,9 @@ export default LoanTable;
 /** @type {import("@tanstack/react-table").ColumnDef<any, any>[]} */
 export const columns = [
   {
+    header: "Action",
+    cell: ({row})=><Link to={LOAN_DETAILS+'/'+row?.original?.id} className="text-blue-500" >View Details</Link>
+  },{
     header: "Loan Account",
     accessorKey: "accountNo",
   },
