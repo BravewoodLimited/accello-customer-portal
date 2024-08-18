@@ -134,7 +134,7 @@ const LoanDocumentUpload = ({ formik, clientKyc }) => {
           onChange={(e) => handleDocumentTypeChange(e.target.value)}
         >
           <option value="" label="Select document type" />
-          {documentTypes.map((type) => (
+          {documentTypes.filter(x=>x.systemDefined).map((type) => (
             <option key={type.id} value={type.id} label={type.name} />
           ))}
         </select>:

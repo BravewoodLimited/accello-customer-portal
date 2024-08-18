@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CustomDialog from '../../custom/CustomDialog';
 import { useFormik } from 'formik';
 import axios from "axios";
@@ -11,7 +11,7 @@ import { loanApplication, loanApplicationValidation } from '../../helpers/loanAp
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 function LoanApplicationModal({ open, handleClose }) {
 
-
+  
     const [successMssg, setSucccessMssg] = React.useState({ status: null, type: '', message: '' })
 
 
@@ -36,6 +36,14 @@ function LoanApplicationModal({ open, handleClose }) {
             }
         }
     )
+
+    useEffect(()=>{
+        if (parseInt(formik.values.amount) < 50000) {
+          formik.setFieldValue( "amount",50000)
+        }
+      }, [formik])
+
+
     return (
         <CustomDialog open={open} handleClose={handleClose}>
             <div className='lg:w-[600px] p-6'>
@@ -60,6 +68,7 @@ function LoanApplicationModal({ open, handleClose }) {
                                         type="text"
                                         name="name"
                                         id="name"
+                                        min={50000}
                                         placeholder='John Doe'
                                         autoComplete="given-name"
                                         className="mt-2 block w-full rounded-md border-0 py-3 text-gray-900 pl-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm sm:leading-6"
@@ -117,6 +126,7 @@ function LoanApplicationModal({ open, handleClose }) {
                                         <option value="" disabled>Select sector</option>
                                         <option value="Federal">Federal Worker</option>
                                         <option value="State">State Worker</option>
+                                        <option value="State">Private Worker</option>
                                     </select>
                                     {formik.errors.sector && formik.touched.sector &&
                                         <p className='text-xs text-red-700'>{formik.errors.sector}</p>

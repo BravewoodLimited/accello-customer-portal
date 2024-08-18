@@ -170,7 +170,7 @@ const ClientDetails = () => {
             <Grid item xs={12} md={4}>
               <Paper sx={{ p: 2, mb: 3 }}>
                 <Typography variant="h5" fontWeight={'bold'}>Client Info</Typography>
-                {[
+                {/* {[
                   { label: "Name", value: "OGHENERONA ESTHER AKPOBOME" },
                   { label: "Customer Type", value: "Public Sector" },
                   { label: "Customer ID", value: "10106" },
@@ -182,7 +182,7 @@ const ClientDetails = () => {
                     <Typography color="textSecondary">{item.label}</Typography>
                     <Typography variant="body1">{item.value}</Typography>
                   </Box>
-                ))}
+                ))} */}
               </Paper>
             </Grid>
             <Grid item xs={12}>

@@ -4,7 +4,7 @@ export const MiscApi = coreApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllDocumentType: builder.mutation({
       query: () => ({
-        url: `codes/2/document`,
+        url: `codes/52/document`,
         method: "POST",
       }),
       providesTags: [{ type: "misc" }],
@@ -25,8 +25,16 @@ export const MiscApi = coreApi.injectEndpoints({
       invalidatesTags: [{ type: "misc" }],
     }),
     getStaff: builder.mutation({
-      query: ({path, ...config}) => ({
+      query: ({ path, ...config }) => ({
         url: `staff/${path}/number`,
+        method: "POST",
+        ...config,
+      }),
+      invalidatesTags: [{ type: "misc" }],
+    }),
+    sendLaff: builder.mutation({
+      query: ({ path, ...config }) => ({
+        url: `otp/${path}/send`,
         method: "POST",
         ...config,
       }),

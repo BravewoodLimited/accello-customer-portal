@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import externalApi from "apis/external";
 import { API_BASE_URL, DEVELOPMENT } from "constants/env";
 import * as tags from "constants/tags";
 import { decrypt, encrypt } from "utils/object";
@@ -95,7 +96,7 @@ export const coreApi = createApi({
   endpoints: (builder) => ({}),
 });
 
-[coreApi].forEach((api) => {
+[coreApi, externalApi].forEach((api) => {
   api.enhanceEndpoints({ addTagTypes: Object.values(tags) });
 });
 

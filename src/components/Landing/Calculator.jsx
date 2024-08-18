@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tab } from '@headlessui/react'
 import TextField from '@mui/material/TextField';
 import { CustomRangeSlider, ValueLabelComponent, marks } from '../../custom/CustomSlider';
@@ -27,6 +27,12 @@ function Calculator({handleClickOpen}) {
   const [fees] = useState(3.45)
   // const [fees, setfess] = useState(5)
   const [loanType, setloanType] = useState('Personal')
+
+  useEffect(()=>{
+    if (pass < 49999) {
+      setamountInput(50000)
+    }
+  }, [amountInput])
 
 
 

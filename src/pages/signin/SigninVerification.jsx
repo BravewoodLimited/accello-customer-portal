@@ -17,7 +17,7 @@ import useCountdown from "hooks/useCountdown";
 import useLogout from "hooks/useLogout";
 import { useSnackbar } from "notistack";
 import { useMemo } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { getFormikTextFieldProps } from "utils/formik";
 import * as yup from "yup";
 
@@ -127,7 +127,7 @@ function SigninVerification() {
             <Typography variant="body2" className="text-text-secondary">
               Please enter the verification code that was sent to{" "}
               {mobileNo?.replace(/\w(?=\w{0,2}@)/g, "*") || "******@*****"}.
-              Change number
+             <span  onClick={logoutUser} className="text-blue-900 cursor-pointer">Change number</span> 
             </Typography>
           </div>
           <TextField
