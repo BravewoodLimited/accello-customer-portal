@@ -41,7 +41,7 @@ function Landing() {
 
     <div className='relative bg-gradient-radial from-gray-900 to-black sm:h-[758px] overflow-x-hidden'>
         <Nav handleClickOpen={handleClickOpen}/>
-        <Hero handleClickOpen={handleClickOpen}/>
+        <Hero />
 
         <div className='hidden lg:block h-[88px] bg-bgOpacity mt-[18px] text-white'>
           <div>

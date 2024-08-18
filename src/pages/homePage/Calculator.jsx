@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tab } from '@headlessui/react'
 import TextField from '@mui/material/TextField';
 import { CustomRangeSlider, ValueLabelComponent, marks } from '../../custom/CustomSlider';
@@ -28,7 +28,11 @@ function Calculator({handleClickOpen}) {
   // const [fees, setfess] = useState(5)
   const [loanType, setloanType] = useState('Personal')
 
-
+  const handleBlur = () => {
+    if (parseInt(amountInput) < 50000) {
+      setamountInput(50000);
+    }
+  };
 
   const monthlyRepayment = amountInput / sliderValue
   const totalRepayment = parseFloat(amountInput) + parseFloat(monthlyRepayment)
@@ -108,7 +112,9 @@ function Calculator({handleClickOpen}) {
                     type="number"
                     className='w-full'
                     defaultValue={amountInput}
+                    value={amountInput}
                     onChange={e => setamountInput(e.target.value || 0)}
+                    onBlur={handleBlur}
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -168,12 +174,12 @@ function Calculator({handleClickOpen}) {
 
           <hr className='mx-[48px]' />
 
-          <div className='flex justify-between py-[30px] px-[48px]'>
+          {/* <div className='flex justify-between py-[30px] px-[48px]'>
             <p className='text-[#4D4D4D]'>Fees</p>
             <p className='font-medium'>{fees}%</p>
           </div>
 
-          <hr className='mx-[48px]' />
+          <hr className='mx-[48px]' /> */}
 
           <div className='flex justify-between py-[30px] px-[48px]'>
             <p className='text-[#4D4D4D]'>Monthly Payment</p>

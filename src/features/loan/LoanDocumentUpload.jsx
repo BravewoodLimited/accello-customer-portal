@@ -9,11 +9,10 @@ const LoanDocumentUpload = ({ formik, clientKyc }) => {
   const [files, setFiles] = useState([]);
   const [specificDocumentTypes, setSpecificDocumentTypes] = useState({});
   const [documentTypes, setDocumentTypes] = useState([]);
-  const [existingFile, setExistingFile] = useState([]);
+  const [existingFile, setExistingFile] = useState([]); 
   const { enqueueSnackbar } = useSnackbar();
   const [selectedDocumentType, setSelectedDocumentType] = useState("");
   const [selectedSpecificDocumentType, setSelectedSpecificDocumentType] =   useState("");
-    useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [AddNewDoc, setAddNewDoc] = useState(false);
 
@@ -22,11 +21,13 @@ const LoanDocumentUpload = ({ formik, clientKyc }) => {
 
   useEffect(() => {
     allDocMutation();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setExistingFile(clientKyc?.clientIdentifiers || []);
     setDocumentTypes(parentType?.data?.data?.codeData || []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parentType]);
 
   const fetchSpecificDocumentTypes = async (documentTypeId) => {
@@ -133,7 +134,7 @@ const LoanDocumentUpload = ({ formik, clientKyc }) => {
           onChange={(e) => handleDocumentTypeChange(e.target.value)}
         >
           <option value="" label="Select document type" />
-          {documentTypes.map((type) => (
+          {documentTypes.filter(x=>x.systemDefined).map((type) => (
             <option key={type.id} value={type.id} label={type.name} />
           ))}
         </select>:

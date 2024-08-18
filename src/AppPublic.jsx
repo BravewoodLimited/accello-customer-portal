@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import store from "configs/store";
+import { DASHBOARD } from "constants/urls";
 import { Outlet, redirect } from "react-router-dom";
 
 function AppPublic() {
@@ -18,7 +19,7 @@ export function loader() {
   const { authUser } = store.getState().global;
 
   if (authUser && authUser?.token) {
-    return redirect("/");
+    return redirect(DASHBOARD);
   }
 
   return null;

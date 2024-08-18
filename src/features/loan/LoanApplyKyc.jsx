@@ -29,6 +29,8 @@ import OtpInput from "common/OtpInput";
 import { useSnackbar } from "notistack";
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import Dropzone from "react-dropzone";
+import { differenceInMonths, isBefore, subMonths } from "date-fns";
+
 import {
   getFormikTextFieldError,
   getFormikTextFieldHelperText,
@@ -184,6 +186,30 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
       });
     }
   }, [accountNumberVerification, dataRef]);
+  useEffect(() => {
+    formik.setFieldValue("kyc.verify.token", "");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formik.values.kyc.verify?.step]);
+  
+  const handleDateChange = (value) => {
+    const currentDate = new Date();
+    const selectedDate = new Date(value);
+
+    // Calculate the difference in months
+    const monthDifference = differenceInMonths(currentDate, selectedDate);
+    console.log(monthDifference);
+
+    const nineMonthsAgo = subMonths(new Date(), 9);
+
+    if (isBefore(value, nineMonthsAgo)) {
+      formik.setFieldValue("kyc.clientEmployers.0.employmentDate", value);
+    } else {
+      formik.setFieldError(
+        "kyc.clientEmployers.0.employmentDate",
+        "Employee must have been in service for more than 9 months"
+      );
+    }
+  };
 
   return (
     <>

@@ -10,6 +10,7 @@ import { getFormikTextFieldProps } from "utils/formik";
 import { urlSearchParamsExtractor } from "utils/url";
 import * as yup from "yup";
 import { useEffect, useMemo, useState } from "react";
+import MiscApi from "apis/MiscApi";
 
 function Signin() {
   const { enqueueSnackbar } = useSnackbar();
@@ -21,34 +22,48 @@ function Signin() {
   // const { referralCode } = urlSearchParamsExtractor(searchParam, {
   //   referralCode: "",
   // });
+  const urlParams = new URLSearchParams(window.location.search);
+  const referral = urlParams.get('referral');
 
   const [referralCode, setReferralCode] = useState('');
-
-  useEffect(() => {
-    // Step 1: Get the referral link from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const referral = urlParams.get('referral');
-
-    // Step 2: Store the referral link in sessionStorage
-    if (referral) {
-      sessionStorage.setItem('referralCode', referral);
-      setReferralCode(referral);
-    } else {
-      // If no referral in URL, check if it's already stored in sessionStorage
-      const storedReferral = sessionStorage.getItem('referralCode');
-      if (storedReferral) {
-        setReferralCode(storedReferral);
-      }
-    }
-  }, []);
-
-
-  const [requestOtpMutation] = OtpApi.useRequestOtpMutation();
+  useEffect(()=>{
+    setReferralCode(referral)
+  }, [referral])
 
   const staffInfoResult = StaffApi.useGetStaffByMobileNoQuery(
     useMemo(() => ({ path: { mobileNo: referralCode } }), [referralCode]),
     { skip: !referralCode }
   );
+  useEffect(() => {
+    
+
+    // Step 2: Store the referral link in sessionStorage
+    if (referral) {
+      // getStaff({path:referral}).unwrap().then((data)=>{
+      //   console.log(data?.data?.id)
+        sessionStorage.setItem('referralCode', staffInfoResult?.data?.data?.id);
+      // })
+      setReferralCode(referral);
+    } else {
+      // // If no referral in URL, check if it's already stored in sessionStorage
+      // const storedReferral = sessionStorage.getItem('referralCode');
+      // if (storedReferral) {
+      //   setReferralCode(storedReferral);
+      // }
+    }
+  }, [staffInfoResult]);
+
+
+
+
+  const [getStaff] = MiscApi.useGetStaffMutation();
+
+
+
+
+
+  const [requestOtpMutation] = OtpApi.useRequestOtpMutation();
+
 
   const formik = useFormik({
     initialValues: {
@@ -100,7 +115,7 @@ function Signin() {
           {referralCode ? (
             <Chip
               variant="soft"
-              label={`You were referred by ${referralCode}`}
+              label={`You were referred by ${staffInfoResult?.data?.data?.displayName || referralCode}`}
               size="small"
               color="success"
               className="mt-1 capitalize"

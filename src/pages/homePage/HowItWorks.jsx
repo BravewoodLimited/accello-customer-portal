@@ -11,6 +11,8 @@ import ChooseLoan2 from "../../assets/imgs/Loan calculator.png";
 import ChooseLoan3 from "../../assets/imgs/If Eligible.png";
 import ChooseLoan4 from "../../assets/imgs/Loan.png";
 import ChooseLoan5 from "../../assets/imgs/Add account.png";
+import { Link as DomLink, NavLink } from 'react-router-dom';
+
 
 const HowItWorksData = [
   {
@@ -110,6 +112,7 @@ function HowItWorks({ handleClickOpen }) {
 
       {/* <DomLink to="/loan/signin"> */}
       <div className="text-center">
+      <DomLink to="/loan/signin">
         <button
           
           type="button"
@@ -118,6 +121,7 @@ function HowItWorks({ handleClickOpen }) {
           Get Started
           <ArrowRightIcon className="block h-4 w-3" aria-hidden="true" />
         </button>
+        </DomLink>
       </div>
       {/* </DomLink> */}
 

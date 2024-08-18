@@ -5,6 +5,8 @@ import Star1 from '../../assets/Landing/Star1.png'
 import Star2 from '../../assets/Landing/Star2.png'
 import Star3 from '../../assets/Landing/Star3.png'
 // import {ArrowRightIcon} from '@heroicons/react/24/outline'
+import { Link as DomLink, NavLink } from 'react-router-dom';
+
 
 function Hero({handleClickOpen}) {
   return (
@@ -23,8 +25,9 @@ function Hero({handleClickOpen}) {
 
               <p className='sm:w-[400px] mt-10 xl:mt-0'>Access quick unsecured loans that suit your unique profile and help you achieve your financial goals.</p>
 
-
+              <DomLink to="/loan/signin">
               <button type="button" className='border-2 border-white rounded-md bg-white py-3 sm:px-10 text-black gap-2 xl:mt-14 mt-36 text-[16px] sm:w-auto w-[100%] mb-24 text-center items-center hover:bg-transparent hover:text-white' onClick={handleClickOpen}>Get a Loan Now <span aria-hidden="true">→</span></button>
+              </DomLink>
             </div>
 
 
