@@ -23,7 +23,7 @@ export const ClientApi = coreApi.injectEndpoints({
     }),
     verifyClientOtp: builder.mutation({
       query: ({ path, ...config }) => ({
-        url: `${BASE_URL}/otp/verify/${path?.mobileNo}`,
+        url: `/otp/verify/${path?.mobileNo}`,
         method: "POST",
         ...config,
       }),
