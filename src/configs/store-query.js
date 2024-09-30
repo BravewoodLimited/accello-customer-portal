@@ -7,7 +7,7 @@ import { decrypt, encrypt } from "utils/object";
 export const coreApi = createApi({
   reducerPath: "coreApi",
   baseQuery: customFetchBaseQuery({
-    baseUrl: `${'https://safelender.accello.ng:2019'}/thompson-wrapper/api/v1`,
+    baseUrl: `${API_BASE_URL}/thompson-wrapper/api/v1`,
     prepareArgs: (args, { getState }) => {
       let body = {};
 

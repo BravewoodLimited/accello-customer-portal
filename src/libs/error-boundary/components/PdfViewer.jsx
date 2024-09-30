@@ -8,7 +8,7 @@ const PdfViewer = ({ id='7149' }) => {
 
     return (
            <iframe
-                    src={`${'https://safelender.accello.ng:2019'}/thompson-wrapper/api/v1/document/`+id}
+                    src={`${API_BASE_URL}/thompson-wrapper/api/v1/document/`+id}
                     style={{ width: '100%', height: '100%' }}
                     title="PDF: Loan Offer"
                     frameBorder="0"

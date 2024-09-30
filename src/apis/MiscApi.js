@@ -4,7 +4,7 @@ export const MiscApi = coreApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllDocumentType: builder.mutation({
       query: () => ({
-        url: `codes/52/document`,
+        url: `codes/1/document`,
         method: "POST",
       }),
       providesTags: [{ type: "misc" }],
