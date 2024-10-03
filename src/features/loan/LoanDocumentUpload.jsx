@@ -86,7 +86,7 @@ const LoanDocumentUpload = ({ formik, clientKyc }) => {
           documentKey: uuidv4(),
           documentTypeId: file.specificDocumentTypeId || file.documentTypeId,
           status: "ACTIVE",
-          expiryDate: file.expiryDate,
+          // expiryDate: file.expiryDate,
           dateFormat: "dd MMMM yyyy",
           locale: "en",
           attachment: {
@@ -152,7 +152,7 @@ const LoanDocumentUpload = ({ formik, clientKyc }) => {
             ))}
           </select>
         )}
-        {selectedDocumentType && (
+        {/* {selectedDocumentType && (
         <>
           <input
             type="date"
@@ -162,7 +162,7 @@ const LoanDocumentUpload = ({ formik, clientKyc }) => {
           />
           <div>Expiry date</div>
         </>
-        )}
+        )} */}
         {(selectedSpecificDocumentType&&selectedDocumentType )&& (
           <div
             {...getRootProps()}

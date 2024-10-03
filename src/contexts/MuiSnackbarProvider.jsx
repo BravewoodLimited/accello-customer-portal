@@ -1,5 +1,6 @@
 import { SnackbarProvider } from "notistack";
 import { Icon, IconButton } from "@mui/material";
+import { Close } from "@mui/icons-material"
 import { notistackRef } from "constants/refs";
 
 function MuiSnackbarProvider({ children }) {
@@ -9,15 +10,12 @@ function MuiSnackbarProvider({ children }) {
       preventDuplicate
       anchorOrigin={{ horizontal: "right", vertical: "top" }}
       action={(key) => (
-        <IconButton
-          onClick={() => {
+        
+          <Close onClick={() => {
             notistackRef.current.closeSnackbar(key);
           }}
           color="inherit"
-          size="small"
-        >
-          <Icon>close</Icon>
-        </IconButton>
+          size="small" />
       )}
     >
       {children}

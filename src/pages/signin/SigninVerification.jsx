@@ -8,6 +8,7 @@ import {
   IconButton,
   Icon,
 } from "@mui/material";
+import {ArrowBackIos} from "@mui/icons-material"
 import ClientApi from "apis/ClientApi";
 import OtpApi from "apis/OtpApi";
 import { DASHBOARD, LOAN_APPLY, SIGNIN } from "constants/urls";
@@ -119,7 +120,7 @@ function SigninVerification() {
         <form onSubmit={formik.handleSubmit} className="block w-full max-w-sm">
           <div className="mb-4">
             <IconButton edge="start" onClick={logoutUser} className="mb-4">
-              <Icon>arrow_back_ios</Icon>
+              <ArrowBackIos />
             </IconButton>
             <Typography variant="h5" className="font-bold mb-2">
               Verify your phone number

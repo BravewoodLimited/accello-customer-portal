@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import useAuthUser from "hooks/useAuthUser";
 import useSideNavigation from "hooks/useSideNavigation";
+import { Menu } from "@mui/icons-material"
 
 function AppProtectedHeader(props) {
   const { ...restProps } = props;
@@ -27,13 +28,13 @@ function AppProtectedHeader(props) {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <IconButton
+          <Menu
             className="lg:hidden"
             color="inherit"
             onClick={() => sideNavigation.toggle()}
           >
-            <Icon>menu</Icon>
-          </IconButton>
+            {/* <Icon>menu</Icon> */}
+          </Menu>
           <div className="flex-1" />
           {authUser?.clientId ? (
             <div className="flex items-center gap-2">
