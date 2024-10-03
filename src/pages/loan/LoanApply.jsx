@@ -53,7 +53,7 @@ function LoanApply() {
   const stepper = useStepper();
 
   const [sendNewClientOtpMutation] = ClientApi.useSendNewClientOtpMutation();
-  const [verifyClientOtpMutation] = ClientApi.useVerifyClientOtpMutation();
+  const [verifyClientOtpMutation] = ClientApi.useVerifyLafOtpMutation();
 
   const [verifyNewClientOtpMutation] =
     ClientApi.useVerifyNewClientOtpMutation();
