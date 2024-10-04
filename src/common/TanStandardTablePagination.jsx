@@ -1,5 +1,7 @@
 import { Icon, IconButton } from "@mui/material";
 import clsx from "clsx";
+import { Close, FirstPage, LastPage, NavigateBefore, NavigateNext } from "@mui/icons-material"
+
 import "./TanStandardTablePagination.css";
 
 /**
@@ -29,22 +31,21 @@ function TanStandardTablePagination(props) {
               instance.getPrePaginationRowModel().rows.length)
           : instance.getPrePaginationRowModel().rows.length}
       </span>
-      <IconButton
+      <FirstPage
         color="inherit"
         size="small"
         onClick={() => instance.setPageIndex(0)}
         disabled={!instance.getCanPreviousPage()}
       >
-        <Icon>first_page</Icon>
-      </IconButton>
-      <IconButton
+        
+      </FirstPage>
+      <NavigateBefore
         color="inherit"
         size="small"
         onClick={() => instance.previousPage()}
         disabled={!instance.getCanPreviousPage()}
       >
-        <Icon>navigate_before</Icon>
-      </IconButton>
+      </NavigateBefore>
       <div className={clsx("TanStandardTablePagination__page", classes?.page)}>
         <h5
           className={clsx(
@@ -55,22 +56,22 @@ function TanStandardTablePagination(props) {
           {instance.getState()?.pagination?.pageIndex + 1}
         </h5>
       </div>
-      <IconButton
+      <NavigateNext
         color="inherit"
         size="small"
         onClick={() => instance.nextPage()}
         disabled={!instance.getCanNextPage()}
       >
-        <Icon>navigate_next</Icon>
-      </IconButton>
-      <IconButton
+        {/* <Icon>navigate_next</Icon> */}
+      </NavigateNext>
+      <LastPage
         color="inherit"
         size="small"
         onClick={() => instance.setPageIndex(instance.getPageCount() - 1)}
         disabled={!instance.getCanNextPage()}
       >
-        <Icon>last_page</Icon>
-      </IconButton>
+        {/* <Icon>last_page</Icon> */}
+      </LastPage>
     </div>
   );
 }

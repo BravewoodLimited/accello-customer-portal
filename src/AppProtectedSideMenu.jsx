@@ -8,6 +8,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
+import { Logout } from "@mui/icons-material"
 import clsx from "clsx";
 import Logo from "common/Logo";
 import { DASHBOARD, FAQS, LOAN_APPLY } from "constants/urls";
@@ -15,6 +16,8 @@ import MediaBreakpoint from "enums/MediaBreakpoint";
 import useLogout from "hooks/useLogout";
 import useSideNavigation from "hooks/useSideNavigation";
 import { NavLink } from "react-router-dom";
+import {ArrowBackIos, Dashboard, ChevronLeft, SignalCellular0Bar, Quiz} from "@mui/icons-material"
+
 
 function AppProtectedSideMenu() {
   const islg = useMediaQuery(MediaBreakpoint.LG);
@@ -37,9 +40,7 @@ function AppProtectedSideMenu() {
       <Toolbar className="flex items-center justify-between">
         <Logo color="white" />
         {!islg && (
-          <IconButton color="inherit" onClick={() => sideNavigation.toggle()}>
-            <Icon>chevron_left</Icon>
-          </IconButton>
+            <ChevronLeft color="inherit" onClick={() => sideNavigation.toggle()}/>
         )}
       </Toolbar>
       <List className="p-4 md:p-8 flex-1 min-h-0 overflow-y-auto space-y-4">
@@ -60,7 +61,7 @@ function AppProtectedSideMenu() {
               }
               {...linkProps}
             >
-              <Icon fontSize="medium">{icon}</Icon>
+              {icon}
               <Typography component="span" className="font-medium">
                 {children}
               </Typography>
@@ -75,7 +76,7 @@ function AppProtectedSideMenu() {
           className="text-left gap-2 px-4 py-3 rounded-xl"
           onClick={() => logout()}
         >
-          <Icon>logout</Icon>
+          <Logout />
           <div>
             <Typography>Logout</Typography>
             <Typography variant="body2">23481370002223</Typography>
@@ -90,17 +91,17 @@ export default AppProtectedSideMenu;
 
 const NAV_LINKS = [
   {
-    icon: "dashboard",
+    icon: <Dashboard/>,
     children: "Dashboard",
     to: DASHBOARD,
   },
   {
-    icon: "real_estate_agent",
+    icon: <SignalCellular0Bar/>,
     children: "Loan application",
     to: LOAN_APPLY,
   },
   {
-    icon: "quiz",
+    icon: <Quiz />,
     children: "FAQS",
     to: FAQS,
   },

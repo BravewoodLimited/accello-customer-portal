@@ -4,6 +4,8 @@ import useStepper from "hooks/useStepper";
 import { useState } from "react";
 import AssetPreviewer from "./AssetPreviewer";
 import "./MultiPreviewer.css";
+import { Close, FirstPage, LastPage, NavigateBefore, NavigateNext } from "@mui/icons-material"
+
 
 /**
  *
@@ -28,7 +30,7 @@ function MultiPreviewer(props) {
           }}
         >
           <div className="flex-1" />
-          <IconButton
+          <NavigateBefore
             size="small"
             className={clsx(
               "MultiPreviewer__navigator MultiPreviewer__navigatorLeft"
@@ -36,9 +38,9 @@ function MultiPreviewer(props) {
             onClick={() => stepper.prevStep()}
             disabled={!stepper.canPrevStep()}
           >
-            <Icon>navigate_before</Icon>
-          </IconButton>
-          <IconButton
+            {/* <Icon>navigate_before</Icon> */}
+          </NavigateBefore>
+          <NavigateNext
             size="small"
             className={clsx(
               "MultiPreviewer__navigator MultiPreviewer__navigatorRight"
@@ -46,8 +48,8 @@ function MultiPreviewer(props) {
             onClick={() => stepper.nextStep()}
             disabled={!stepper.canNextStep()}
           >
-            <Icon>navigate_next</Icon>
-          </IconButton>
+            {/* <Icon>navigate_next</Icon> */}
+          </NavigateNext>
         </div>
       )}
     </div>
