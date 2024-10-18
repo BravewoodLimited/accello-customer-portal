@@ -79,7 +79,7 @@ function AppProtectedSideMenu() {
           <Logout />
           <div>
             <Typography>Logout</Typography>
-            <Typography variant="body2">23481370002223</Typography>
+            {/* <Typography variant="body2">23481370002223</Typography> */}
           </div>
         </ButtonBase>
       </div>

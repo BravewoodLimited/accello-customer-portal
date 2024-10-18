@@ -69,8 +69,9 @@ function LoanApply() {
     { skip: !clientId }
   );
 
+
   const clientKyc = clientKycDetailsQueryResult.data?.data;
-  const storedReferral = sessionStorage.getItem("referralLink");
+  const storedReferral = sessionStorage.getItem("referralCode");
   const formik = useFormik({
     initialValues: {
       kyc: {
@@ -98,6 +99,7 @@ function LoanApply() {
             // countryId: '',
             staffId: "",
             officeAddress: "",
+            employmentTypeId:null,
             // employmentStatusId: "",
             employmentSectorId: "",
             employmentDate: null,
@@ -114,7 +116,7 @@ function LoanApply() {
         commitment: 0,
         netpay: 0,
         clientId: clientId ?? "",
-        productId: 2,
+        productId: null,
         principal: 0,
         loanTermFrequency: 0,
         loanTermFrequencyType: "",
@@ -132,7 +134,7 @@ function LoanApply() {
         loanType: "individual",
         expectedDisbursementDate: null,
         submittedOnDate: null,
-        referralLink: storedReferral || "",
+        loanOfficerId: storedReferral || "1457",
       },
     },
     validateOnBlur: true,
@@ -198,6 +200,7 @@ function LoanApply() {
                           .label("Salary Range")
                           .required(),
                         employerId: yup.string().label("Employer").required(),
+                        // employmentTypeId:yup.string().label("employmentTypeId").required(),
                       })
                     )
                     .required(),
@@ -236,7 +239,7 @@ function LoanApply() {
         {
           loan: yup.object({
             // commitment: yup.number().label("Commitment").required(),
-            netpay: yup.number().label("Netpay").required(),
+            netpay: yup.number().label("Netpay").required().moreThan(50000),
             productId: yup.number().label("Product").required(),
             principal: yup.number().label("Principal").required(),
             loanTermFrequency: yup
@@ -409,9 +412,19 @@ function LoanApply() {
         }
 
         if (stepper.step === 2) {
+          // console.log(values.kyc.clientEmployers[0].employmentSectorId, {
+          //   2826: 57,
+          //   67: 55,
+          //   68: 56
+          // }[values.kyc.clientEmployers[0].employmentTypeId],)
           const data = await createLoanMutation({
             body: removeEmptyProperties({
               ...values.loan,
+              productId: {
+                2826: 57,
+                67: 55,
+                68: 56
+              }[values.kyc.clientEmployers[0].employmentTypeId],
               clientId: values.loan.clientId ?? values.kyc.clients?.id,
               numberOfRepayments: values.loan.loanTermFrequency,
               expectedDisbursementDate: values.loan?.expectedDisbursementDate
@@ -478,12 +491,16 @@ function LoanApply() {
         path: { id: clientId },
         params: {
           templateType: "individual",
-          productId: formik.values.loan.productId,
+          productId:{
+            2826: 57,
+            67: 55,
+            68: 56
+          }[formik.values.kyc.clientEmployers[0].employmentTypeId||clientKyc?.clientEmployers[0].employer?.parent?.clientType?.id],
         },
       }),
-      [clientId, formik.values.loan.productId]
+      [clientId, formik.values.kyc.clientEmployers]
     ),
-    { skip: !clientId }
+    { skip: !clientId },
   );
 
   const loanTemplate = loanTemplateQueryResult.data?.data;
@@ -533,6 +550,7 @@ function LoanApply() {
                 //   clientKyc?.clientEmployers?.[0]?.employmentStatus?.id,
                 employmentSectorId:
                   clientKyc?.clientEmployers?.[0]?.employer?.sector?.id,
+                  employmentTypeId:values.kyc.clientEmployers[0].employmentTypeId || clientKyc?.clientEmployers[0].employer?.parent?.clientType?.id,
                 employmentDate: clientKyc?.clientEmployers?.[0]?.employmentDate
                   ? new Date(
                       clientKyc?.clientEmployers?.[0]?.employmentDate?.[0],
@@ -569,7 +587,11 @@ function LoanApply() {
         // commitment: 0,
         netpay: loanTemplate?.minimumNetPay ?? values.loan?.netpay,
         clientId: clientId ?? values.loan.clientId,
-        productId: values.loan.productId,
+        productId: {
+          2826: 57,
+          67: 55,
+          68: 56
+        }[values.kyc.clientEmployers[0].employmentTypeId],
         principal: loanTemplate?.product?.principal ?? values.principal,
         loanTermFrequency:
           loanTemplate?.numberOfRepayments ?? values.loan?.loanTermFrequency,
@@ -602,6 +624,7 @@ function LoanApply() {
         loanType: "individual",
         expectedDisbursementDate: new Date(),
         submittedOnDate: new Date(),
+        loanOfficerId: parseInt(storedReferral || 1457),
       },
     }));
   }, [
@@ -622,6 +645,7 @@ function LoanApply() {
     loanTemplate?.repaymentEvery,
     loanTemplate?.repaymentFrequencyType?.id,
     loanTemplate?.transactionProcessingStrategyId,
+    storedReferral
   ]);
 
   const isBlacklisted = false;
@@ -736,7 +760,7 @@ function LoanApply() {
                       </Button>
                     )}
                     <LoadingButton
-                      onClick={formik.handleSubmit}
+                      onClick={()=>formik.handleSubmit()}
                       loading={formik.isSubmitting}
                       disabled={!agreed && stepper.step == 3}
                     >
@@ -764,7 +788,7 @@ function LoanApply() {
                           formik
                             .setFieldValue("kyc.verify.token", token)
                             .then(() => {
-                              if (token.length === 6) {
+                              if (token.length === 4) {
                                 formik.handleSubmit();
                               }
                             });

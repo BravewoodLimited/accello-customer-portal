@@ -10,8 +10,8 @@ function LoanApplySuccess() {
           Your loan request received and is undergoing review
         </Typography>
         <Typography className="text-text-secondary text-center">
-          Just one more thing, create an account to manage your loan and get
-          access to a lot more.
+          {/* Just one more thing, create an account to manage your loan and get
+          access to a lot more. */}
         </Typography>
         <Button component={Link} to={DASHBOARD}>
           Manage your account

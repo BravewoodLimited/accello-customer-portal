@@ -79,7 +79,7 @@ const ClientDetails = () => {
                           {data?.currency?.displaySymbol}
                           {formatNumberToCurrency(
                             data?.summary?.totalOutstanding || 0
-                          )}
+                          )|| 0}
                         </>
                       ),
                     },
@@ -89,7 +89,7 @@ const ClientDetails = () => {
                       label: "Net Pay",
                       value: `${
                         data?.currency?.displaySymbol || ""
-                      }${formatNumberToCurrency(data?.netPay)}`,
+                      }${formatNumberToCurrency(data?.netPay)|| 0}`,
                     },
                     {
                       label: "Disbursement Date",
@@ -108,7 +108,7 @@ const ClientDetails = () => {
                       value: `${data?.currency?.displaySymbol || ""}${
                         data?.status?.id === 10
                           ? 0
-                          : formatNumberToCurrency(data?.approvedPrincipal)
+                          : formatNumberToCurrency(data?.approvedPrincipal)|| 0
                       }`,
                     },
                     {
@@ -123,7 +123,7 @@ const ClientDetails = () => {
                         // (data?.summary?.principalDisbursed ||
                         //   data?.approvedPrincipal ||
                         //   0) - (data?.feeChargesAtDisbursementCharged || 0)
-                      )}`,
+                      )|| 0}`,
                     },
                     {
                       label: "Monthly Repayment:",
@@ -133,7 +133,7 @@ const ClientDetails = () => {
                   ${formatNumberToCurrency(
                     data?.repaymentSchedule?.periods?.[1]
                       ?.totalOriginalDueForPeriod || 0
-                  )}`,
+                  )|| 0}`,
                     },
                     {
                       label: "Employer:",

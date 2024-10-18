@@ -1,6 +1,7 @@
 import {
   Typography,
   Slider,
+  TextField,
   Link as MuiLink,
   ButtonBase,
   CircularProgress,
@@ -89,6 +90,20 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
               </CurrencyTypography>
             </div>
           </div>
+          {/* Input field for loan amount */}
+          <TextField
+            fullWidth
+            label="Enter Loan Amount"
+            type="number"
+            value={formik.values.loan.principal}
+            onChange={(e) => formik.setFieldValue("loan.principal", e.target.value)}
+            inputProps={{
+              min: loanTemplate?.product?.minPrincipal,
+              max: loanTemplate?.product?.maxPrincipal,
+              step: 1000,
+            }}
+            
+          />
         </div>
 
         <div>
@@ -114,6 +129,19 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
               </Typography>
             </div>
           </div>
+          {/* Input field for loan term frequency */}
+          <TextField
+            fullWidth
+            label="Enter Loan Duration (Months)"
+            type="number"
+            value={formik.values.loan.loanTermFrequency}
+            onChange={(e) => formik.setFieldValue("loan.loanTermFrequency", e.target.value)}
+            inputProps={{
+              min: loanTemplate?.product?.minNumberOfRepayments,
+              max: loanTemplate?.product?.maxNumberOfRepayments,
+              step: 1,
+            }}
+          />
         </div>
 
         <div>

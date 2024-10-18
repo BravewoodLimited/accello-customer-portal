@@ -114,11 +114,12 @@ function Signin() {
           />
           {referralCode ? (
             <Chip
-              variant="soft"
+              variant="outlined"
               label={`You were referred by ${staffInfoResult?.data?.data?.displayName || referralCode}`}
               size="small"
-              color="success"
-              className="mt-1 capitalize"
+              color="primary"
+              className="mt-1 capitalize bg-green-100"
+              
             />
           ) : null}
           <LoadingButton

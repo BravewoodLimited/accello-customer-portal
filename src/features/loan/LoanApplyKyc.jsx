@@ -43,6 +43,8 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
 
   const [employerQ, setEmployerQ] = useState("");
 
+  
+
   const deferredEmployerQ = useDeferredValue(employerQ);
 
   const employmentSectorId =
@@ -50,6 +52,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
 
   const employmentTypeId =
     formik.values.kyc?.clientEmployers?.[0]?.employmentTypeId;
+    
 
   const employmentSectorsQueryResult = CodeApi.useGetCodeValuesInfoQuery(
     useMemo(() => ({ path: { id: 36 } }), [])
@@ -71,10 +74,11 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
         params: {
           selectOnlyParentEmployer: true,
           sectorId: employmentSectorId,
+          employmentTypeId:employmentTypeId,
           name: deferredEmployerQ,
         },
       }),
-      [deferredEmployerQ, employmentSectorId]
+      [deferredEmployerQ, employmentSectorId,employmentTypeId]
     ),
     { skip: !(employmentSectorId && deferredEmployerQ && employmentTypeId) }
   );
