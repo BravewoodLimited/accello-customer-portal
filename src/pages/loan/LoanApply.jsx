@@ -61,6 +61,7 @@ function LoanApply() {
   const [createClientKycMutation] = ClientApi.useCreateClientKycMutation();
 
   const [createLoanMutation] = LoanApi.useCreateLoanMutation();
+  const [approvedLoanMutation] = LoanApi.useApproveLoanMutation();
   const [addDocMutation] = MiscApi.useAddDocumentMutation();
   const [sendLaf] = MiscApi.useSendLaffMutation();
 
@@ -420,11 +421,13 @@ function LoanApply() {
           const data = await createLoanMutation({
             body: removeEmptyProperties({
               ...values.loan,
-              productId: {
-                2826: 57,
-                67: 55,
-                68: 56
-              }[values.kyc.clientEmployers[0].employmentTypeId],
+              // productId: {
+              //   2826: 57,
+              //   67: 55,
+              //   68: 56
+              // }[values.kyc.clientEmployers[0].employmentTypeId],
+              netpay:parseFloat(values.loan?.netpay|| 0),
+              productId: 2,
               clientId: values.loan.clientId ?? values.kyc.clients?.id,
               numberOfRepayments: values.loan.loanTermFrequency,
               expectedDisbursementDate: values.loan?.expectedDisbursementDate
@@ -451,11 +454,14 @@ function LoanApply() {
           );
         }
         if (stepper.step == 3) {
+          console.log(otpModal ,token);
+          
           if (otpModal && token.length > 5) {
             const data = await verifyClientOtpMutation({
               path: { mobileNo: clientKyc?.clients?.mobileNo },
               params: { token: token },
             }).unwrap();
+            approvedLoanMutation({path:{id:loanId}, params:{command: 'draftApprove'}})
 
             enqueueSnackbar("verified" || data?.message, {
               variant: "success",
@@ -491,11 +497,12 @@ function LoanApply() {
         path: { id: clientId },
         params: {
           templateType: "individual",
-          productId:{
-            2826: 57,
-            67: 55,
-            68: 56
-          }[formik.values.kyc.clientEmployers[0].employmentTypeId||clientKyc?.clientEmployers[0].employer?.parent?.clientType?.id],
+          productId:2,
+          // productId:{
+          //   2826: 57,
+          //   67: 55,
+          //   68: 56
+          // }[formik.values.kyc.clientEmployers[0].employmentTypeId||clientKyc?.clientEmployers[0]?.employer?.parent?.clientType?.id],
         },
       }),
       [clientId, formik.values.kyc.clientEmployers]
@@ -550,7 +557,7 @@ function LoanApply() {
                 //   clientKyc?.clientEmployers?.[0]?.employmentStatus?.id,
                 employmentSectorId:
                   clientKyc?.clientEmployers?.[0]?.employer?.sector?.id,
-                  employmentTypeId:values.kyc.clientEmployers[0].employmentTypeId || clientKyc?.clientEmployers[0].employer?.parent?.clientType?.id,
+                  employmentTypeId:values.kyc.clientEmployers[0].employmentTypeId || clientKyc?.clientEmployers[0]?.employer?.parent?.clientType?.id,
                 employmentDate: clientKyc?.clientEmployers?.[0]?.employmentDate
                   ? new Date(
                       clientKyc?.clientEmployers?.[0]?.employmentDate?.[0],
@@ -585,13 +592,14 @@ function LoanApply() {
       },
       loan: {
         // commitment: 0,
-        netpay: loanTemplate?.minimumNetPay ?? values.loan?.netpay,
+        netpay:  parseFloat(values.loan?.netpay|| 0) ?? loanTemplate?.minimumNetPay,
         clientId: clientId ?? values.loan.clientId,
-        productId: {
-          2826: 57,
-          67: 55,
-          68: 56
-        }[values.kyc.clientEmployers[0].employmentTypeId],
+        productId:2,
+        // productId: {
+        //   2826: 57,
+        //   67: 55,
+        //   68: 56
+        // }[values.kyc.clientEmployers[0].employmentTypeId],
         principal: loanTemplate?.product?.principal ?? values.principal,
         loanTermFrequency:
           loanTemplate?.numberOfRepayments ?? values.loan?.loanTermFrequency,
@@ -734,7 +742,7 @@ function LoanApply() {
 
               <Suspense>
                 {currentStep.content}
-                <div className="flex-1" />
+                <div className="!min-h-[10vh] flex-1" />
 
                 {isShowFooter && (
                   <div className="flex items-center gap-4 sticky bottom-0 py-4 px-5 bg-blue-50 shadow-lg ">
@@ -788,7 +796,7 @@ function LoanApply() {
                           formik
                             .setFieldValue("kyc.verify.token", token)
                             .then(() => {
-                              if (token.length === 4) {
+                              if (token.length === 6) {
                                 formik.handleSubmit();
                               }
                             });

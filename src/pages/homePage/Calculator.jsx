@@ -34,8 +34,10 @@ function Calculator({handleClickOpen}) {
     }
   };
 
-  const monthlyRepayment = amountInput / sliderValue
-  const totalRepayment = parseFloat(amountInput) + parseFloat(monthlyRepayment)
+  const interestamount = amountInput * fees / 100
+  const monthlyRepayment = (amountInput/ sliderValue)+interestamount
+  // const totalRepayment = parseFloat(amountInput) + parseFloat(monthlyRepayment)
+  const totalRepayment = parseFloat(amountInput) + parseFloat(interestamount* sliderValue )
 
   function sliderValueAction(e) {
     const value = e.target.value

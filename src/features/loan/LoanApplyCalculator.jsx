@@ -122,10 +122,10 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
             />
             <div className="flex justify-between items-center">
               <Typography variant="body2" className="text-text-secondary">
-                1 month(s)
+                {loanTemplate?.product?.minNumberOfRepayments} month(s)
               </Typography>
               <Typography variant="body2" className="text-text-secondary">
-                12 months
+                {loanTemplate?.product?.maxNumberOfRepayments} months
               </Typography>
             </div>
           </div>

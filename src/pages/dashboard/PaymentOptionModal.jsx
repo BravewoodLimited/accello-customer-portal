@@ -25,14 +25,15 @@ const PaymentOptionModal = ({ open, handleClose, handlePaystack, handleAccount }
           Choose Payment Method
         </Typography>
         <Typography id="payment-option-modal-description" sx={{ mt: 2 }}>
-          How would you like to proceed with your payment?
+          {/* How would you like to proceed with your payment? */}
+          Coming Soon..
         </Typography>
         {/* <Button onClick={handlePaystack} sx={{ mt: 2, mr: 2 }} variant="contained" color="primary">
           Paystack
         </Button> */}
-        <Button onClick={handleAccount} sx={{ mt: 2 }} variant="contained" color="secondary">
+        {/* <Button onClick={handleAccount} sx={{ mt: 2 }} variant="contained" color="secondary">
           Direct to Account
-        </Button>
+        </Button> */}
       </Box>
     </Modal>
   );
