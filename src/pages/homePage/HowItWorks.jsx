@@ -72,7 +72,7 @@ function HowItWorks({ handleClickOpen }) {
                       <h3 className="flex items-center mb-1 sm:text-[22px] font-NexaBold font-extrabold">
                         {item.h1}
                       </h3>
-                      <p className="mb-4 text-base text-left font-normal font-dmsans dark:text-gray-400 text-[14px]">
+                      <p className=" text-base text-left font-normal font-dmsans dark:text-gray-400 text-[14px]">
                         {item.p}
                       </p>
                     </li>
