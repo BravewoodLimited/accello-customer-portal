@@ -76,7 +76,8 @@ export default {
         bgOpacity: "rgba(255, 255, 255, 0.1)",
       },
       backgroundImage: {
-        "gradient-radial": 'radial-gradient(ellipse at center, #213149 -2%, black 100%)',
+        "gradient-radial":
+          "radial-gradient(ellipse at center, #213149 -2%, black 100%)",
         "gradient-dash":
           "linear-gradient(87.93deg, #E9E6CE 3.83%, #97ADB1 87.25%);",
       },
@@ -85,8 +86,6 @@ export default {
           "0px 1px 2px rgba(34, 34, 38, 0.15), 0px 4px 6px rgba(34, 34, 38, 0.08);",
       },
       fontFamily: {
-        dmsans: ["DM Sans", "sans-serif"], // Default Tailwind sans font
-
         inherit: ["inherit"],
         "nunito-sans": [
           "var(--font-nunito-sans)",
@@ -102,7 +101,9 @@ export default {
           "Helvetica Neue",
           "sans-serif",
         ],
+        dmsans: ["DM Sans"],
         gilroy: ["gilroy"],
+        gilroySemibold:["gilroySemibold"],
         gilroyLight: ["gilroy-light"],
         NexaBold: ["NexaBold"],
         NexaLight: ["NexaLight"],
