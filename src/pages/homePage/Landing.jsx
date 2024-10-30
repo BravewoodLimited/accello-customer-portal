@@ -48,7 +48,7 @@ function Landing() {
                   </div>
                   <div className="font-NexaLight">
                     <p className="text-[13px] font-normal font-dmsans">{item.p1}</p>
-                    <p className="font-bold nexaBold text-[20px] ">{item.p2}</p>
+                    <p className="font-bold font-NexaBold text-[20px] ">{item.p2}</p>
                   </div>
                 </div>
               ))}
