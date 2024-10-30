@@ -76,7 +76,7 @@ function Nav({ handleClickOpen }) {
                   />
                 </div>
 
-                <div className="hidden sm:ml-6 sm:block mt-8">
+                <div className="hidden sm:ml-6 lg:block mt-8">
                   <div className="flex space-x-4 pt-4">
                     {navigation.map((item) => (
                       <DomLink
@@ -96,7 +96,7 @@ function Nav({ handleClickOpen }) {
                   </div>
                 </div>
 
-                <div className="hidden sm:ml-6 sm:block mt-10">
+                <div className="hidden sm:ml-6 lg:block mt-10">
                   <div className="flex space-x-4">
                     {/* <DomLink to="/sign-in"> */}
                     <DomLink
@@ -129,7 +129,7 @@ function Nav({ handleClickOpen }) {
                 </div>
               </div>
 
-              <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
+              <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
@@ -143,7 +143,7 @@ function Nav({ handleClickOpen }) {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="lg:hidden">
             <div className="block space-y-6 px-2 pt-2 pb-3 mt-8">
               {navigation.map((item) => (
                 <>
