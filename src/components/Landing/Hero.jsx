@@ -20,7 +20,7 @@ function Hero({handleClickOpen}) {
 
 
             <div className='sm:max-w-[50%] mt-12'>
-              <h1 className='font-NexaBold lg:text-[64px] md:text-[48px] text-[36px] font-bold text-center xl:text-left'>Fast & Easy Personal Loans</h1>
+              <h1 className='font-NexaBold nexaBold lg:text-[64px] md:text-[48px] text-[36px] font-bold text-center xl:text-left'>Stress Free, Compassionate Loans</h1>
 
 
               <p className='sm:w-[400px] mt-10 xl:mt-0'>Access quick unsecured loans that suit your unique profile and help you achieve your financial goals.</p>

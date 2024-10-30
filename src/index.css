@@ -33,3 +33,11 @@
     /* display: none; */
   }
 }
+
+@font-face {
+  font-family: nexaBold;
+  src: url("/src/fonts/nexa/NexaBold.otf");
+}
+.nexaBold {
+  font-family: nexaBold, sans-serif;
+}
