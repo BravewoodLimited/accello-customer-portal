@@ -71,18 +71,22 @@ export default {
           disabledBackground: "var(--color-action-disabledBackground)",
           focus: "var(--color-action-focus)",
         },
-        'accelloBlue': '#04265F',
-          'landingbackground': '#F9F9FB',
-          'bgOpacity': 'rgba(255, 255, 255, 0.1)',
+        accelloBlue: "#04265F",
+        landingbackground: "#F9F9FB",
+        bgOpacity: "rgba(255, 255, 255, 0.1)",
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-dash': 'linear-gradient(87.93deg, #E9E6CE 3.83%, #97ADB1 87.25%);',
+        "gradient-radial": 'radial-gradient(ellipse at center, #213149 -2%, black 100%)',
+        "gradient-dash":
+          "linear-gradient(87.93deg, #E9E6CE 3.83%, #97ADB1 87.25%);",
       },
       boxShadow: {
-        'difference': '0px 1px 2px rgba(34, 34, 38, 0.15), 0px 4px 6px rgba(34, 34, 38, 0.08);',
+        difference:
+          "0px 1px 2px rgba(34, 34, 38, 0.15), 0px 4px 6px rgba(34, 34, 38, 0.08);",
       },
       fontFamily: {
+        dmsans: ["DM Sans", "sans-serif"], // Default Tailwind sans font
+
         inherit: ["inherit"],
         "nunito-sans": [
           "var(--font-nunito-sans)",
@@ -98,10 +102,10 @@ export default {
           "Helvetica Neue",
           "sans-serif",
         ],
-        gilroy: ['gilroy'],
-        gilroyLight: ['gilroy-light'],
-        NexaBold: ['NexaBold'],
-        NexaLight: ['NexaLight'],
+        gilroy: ["gilroy"],
+        gilroyLight: ["gilroy-light"],
+        NexaBold: ["NexaBold"],
+        NexaLight: ["NexaLight"],
       },
       zIndex: {
         mobileStepper: 1000,
@@ -113,12 +117,12 @@ export default {
         tooltip: 1500,
       },
       screens: {
-        'xs': '420px',
-        'sm': '640px',
-        'md': '768px',
-        'lg': '1024px',
-        'xl': '1280px',
-        '2xl': '1536px',
+        xs: "420px",
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
       },
     },
   },
