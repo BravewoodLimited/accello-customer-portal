@@ -38,6 +38,9 @@
   font-family: nexaBold;
   src: url("/src/fonts/nexa/NexaBold.otf");
 }
-.nexaBold {
-  font-family: nexaBold, sans-serif;
+
+
+@font-face {
+  font-family: gilroySemibold;
+  src: url("/src/fonts/gilroy/Gilroy-SemiBold.ttf");
 }
