@@ -30,7 +30,7 @@ function Hero() {
               <p className='sm:max-w-[400px] w-full  mt-10 xl:mt-4 font-dmsans font-normal lg:text-start text-center'>Get quick loans without collateral to meet your personal needs and help you reach your financial goals.</p>
               <img src={HeroImg} alt="Accello Hero" className='block lg:hidden mt-10 2xl:max-w-[800px]' />
               <DomLink to={SIGNIN} >
-              <button type="button" className='border-2 border-white rounded-md bg-white py-3 sm:px-10 text-accelloBlue font-dmsans text-base mx-auto   gap-2 xl:mt-14 mt-36 text-[16px] sm:w-auto w-[100%] mb-8 text-center items-center  mx-autohover:bg-transparent hover:text-white' onClick={handleClickOpen}>Get a Loan Today</button></DomLink>
+              <button type="button" className='border-2 border-white rounded-md bg-white py-3 sm:px-10 text-accelloBlue font-dmsans text-base mx-auto   gap-2 xl:mt-14 mt-36 text-[16px] sm:w-auto w-[100%] mb-20 text-center items-center  mx-autohover:bg-transparent hover:text-white' onClick={handleClickOpen}>Get a Loan Today</button></DomLink>
             </div>
 
 
