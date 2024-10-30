@@ -23,14 +23,14 @@ function Hero() {
 
 
 
-            <div className='sm:max-w-[50%] mt-12 mx-auto'>
+            <div className='sm:max-w-[50%] w-full mt-12 mx-auto flex flex-col items-center lg:items-start'>
               <h1 className='nexaBold lg:text-[60px] md:text-[48px] text-[36px] font-bold text-center   leading-[59px] xl:text-left'>Stress Free, Compassionate Loans</h1>
 
 
-              <p className='sm:w-[400px] mt-10 xl:mt-4 font-dmsans font-normal lg:text-start text-center'>Get quick loans without collateral to meet your personal needs and help you reach your financial goals.</p>
+              <p className='sm:max-w-[400px] w-full  mt-10 xl:mt-4 font-dmsans font-normal lg:text-start text-center'>Get quick loans without collateral to meet your personal needs and help you reach your financial goals.</p>
               <img src={HeroImg} alt="Accello Hero" className='block lg:hidden mt-10 2xl:max-w-[800px]' />
               <DomLink to={SIGNIN} >
-              <button type="button" className='border-2 border-white rounded-md bg-white py-3 sm:px-10 text-accelloBlue font-dmsans text-base  gap-2 xl:mt-14 mt-36 text-[16px] sm:w-auto w-[100%] mb-24 text-center items-center hover:bg-transparent hover:text-white' onClick={handleClickOpen}>Get a Loan Today</button></DomLink>
+              <button type="button" className='border-2 border-white rounded-md bg-white py-3 sm:px-10 text-accelloBlue font-dmsans text-base mx-auto   gap-2 xl:mt-14 mt-36 text-[16px] sm:w-auto w-[100%] mb-8 text-center items-center  mx-autohover:bg-transparent hover:text-white' onClick={handleClickOpen}>Get a Loan Today</button></DomLink>
             </div>
 
 
