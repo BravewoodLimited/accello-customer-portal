@@ -48,7 +48,7 @@ function Difference() {
         </p>
       </div>
 
-      <div className="2xl:max-w-[70%] md:max-w-[90%] sm:mx-auto mx-4 mt-14 grid sm:grid-cols-3 2xl:gap-x-[100px] md:gap-x-[30px] sm:gap-0">
+      <div className="2xl:max-w-[70%] md:max-w-[90%] sm:mx-auto mx-4 mt-14 grid sm:grid-cols-2 lg:grid-cols-3 2xl:gap-x-[100px] md:gap-x-[30px] sm:gap-4">
         {LoveAccello.map((item) => (
           <div className="bg-white p-8 2xl:w-[440px] hover:scale-105 cursor-default duration-500  rounded-[15px] my-2">
             <div className="text-center">

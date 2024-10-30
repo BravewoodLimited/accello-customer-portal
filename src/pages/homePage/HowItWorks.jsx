@@ -1,5 +1,5 @@
 import React from "react";
-import { Tab } from "@headlessui/react";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/react";
 import {
   Bars3Icon,
   XMarkIcon,
@@ -11,8 +11,7 @@ import ChooseLoan2 from "../../assets/imgs/Loan calculator.png";
 import ChooseLoan3 from "../../assets/imgs/If Eligible.png";
 import ChooseLoan4 from "../../assets/imgs/Loan.png";
 import ChooseLoan5 from "../../assets/imgs/Add account.png";
-import { Link as DomLink, NavLink } from 'react-router-dom';
-
+import { Link as DomLink, NavLink } from "react-router-dom";
 
 const HowItWorksData = [
   {
@@ -54,10 +53,10 @@ function HowItWorks({ handleClickOpen }) {
         <p className="text-[16px] text-white">Get started in 5 steps</p>
       </div>
 
-      <Tab.Group>
-        <div className="sm:flex gap-4 flex-row mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between mt-8">
-          <div className="sm:max-w-[50%] mt-12">
-            <Tab.List>
+      <TabGroup>
+        <div className="sm:flex gap-4 flex-row mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between items-center mt-8">
+          <div className="sm:max-w-[50%] mt-12 lg:mt-0">
+            <TabList>
               <ol className="relative">
                 {HowItWorksData.map((item) => (
                   <Tab
@@ -70,57 +69,56 @@ function HowItWorks({ handleClickOpen }) {
                   >
                     <li className={item.class}>
                       <span className="absolute flex items-center justify-center w-[10px] h-[10px] bg-white rounded-full sm:left-[19px] -left-[5px] ring-8 ring-transparent"></span>
-                      <h3 className="flex items-center mb-1 sm:text-[22px] font-NexaLight font-extrabold">
+                      <h3 className="flex items-center mb-1 sm:text-[22px] font-NexaBold font-extrabold">
                         {item.h1}
                       </h3>
-                      <p className="mb-4 text-base text-left font-normal dark:text-gray-400 font-NexaLight">
+                      <p className="mb-4 text-base text-left font-normal font-dmsans dark:text-gray-400 text-[14px]">
                         {item.p}
                       </p>
                     </li>
                   </Tab>
                 ))}
               </ol>
-            </Tab.List>
+            </TabList>
           </div>
 
-          <Tab.Panels>
+          <TabPanels>
             <div className="sm:mx-2 mx-auto">
-              <Tab.Panel>
+              <TabPanel>
                 {" "}
                 <img src={ChooseLoan} alt="Accello Hero" />
-              </Tab.Panel>
-              <Tab.Panel>
+              </TabPanel>
+              <TabPanel>
                 {" "}
                 <img src={ChooseLoan2} alt="Accello Hero" />
-              </Tab.Panel>
-              <Tab.Panel>
+              </TabPanel>
+              <TabPanel>
                 {" "}
                 <img src={ChooseLoan3} alt="Accello Hero" />
-              </Tab.Panel>
-              <Tab.Panel>
+              </TabPanel>
+              <TabPanel>
                 {" "}
                 <img src={ChooseLoan4} alt="Accello Hero" />
-              </Tab.Panel>
-              <Tab.Panel>
+              </TabPanel>
+              <TabPanel>
                 {" "}
                 <img src={ChooseLoan5} alt="Accello Hero" />
-              </Tab.Panel>
+              </TabPanel>
             </div>
-          </Tab.Panels>
+          </TabPanels>
         </div>
-      </Tab.Group>
+      </TabGroup>
 
       {/* <DomLink to="/loan/signin"> */}
       <div className="text-center">
-      <DomLink to="/loan/signin">
-        <button
-          
-          type="button"
-          className="inline-flex border-2 border-white rounded-md bg-white 2xl:py-4 2xl:px-8 px-4 py-2.5 md:mt-2 2xl:md-1 text-[#04265F] gap-2 text-center items-center hover:bg-transparent hover:text-white"
-        >
-          Get Started
-          <ArrowRightIcon className="block h-4 w-3" aria-hidden="true" />
-        </button>
+        <DomLink to="/loan/signin">
+          <button
+            type="button"
+            className="inline-flex border-2 border-white rounded-lg  bg-white 2xl:py-4 2xl:px-8 font-dmsans font-medium mb-8 py-2.5 md:mt-2 2xl:md-1 text-[#04265F]  px-10 gap-2 text-center items-center hover:bg-transparent hover:text-white"
+          >
+            Get Started
+            <ArrowRightIcon className="block h-4 w-3" aria-hidden="true" />
+          </button>
         </DomLink>
       </div>
       {/* </DomLink> */}
