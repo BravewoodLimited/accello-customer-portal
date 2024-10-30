@@ -1,12 +1,12 @@
 import React from 'react'
 
 
-import Thunder from '../../assets/Landing/Difference/thunder.png'
+import Thunder from '../../assets/Landing/Difference/thunder.svg'
 import Percentage from '../../assets/Landing/Difference/percentage.png'
 import Diamond from '../../assets/Landing/Difference/diamond.png'
-import Cash from '../../assets/Landing/Difference/cash.png'
-import Shield from '../../assets/Landing/Difference/shield.png'
-import WebGear from '../../assets/Landing/Difference/web.png'
+import Cash from '../../assets/Landing/Difference/cash.svg'
+import Shield from '../../assets/Landing/Difference/shield.svg'
+import WebGear from '../../assets/Landing/Difference/web.svg'
 
 
 const LoveAccello = [

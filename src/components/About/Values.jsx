@@ -1,9 +1,9 @@
 import React from 'react'
 import Rocket from '../../assets/Landing/rocket.png'
-import Thunder from '../../assets/Landing/Difference/thunder.png'
-import Trophy from '../../assets/Landing/Difference/cash.png'
-import Tele from '../../assets/Landing/Difference/shield.png'
-import User from '../../assets/Landing/Difference/web.png'
+import Thunder from '../../assets/Landing/Difference/thunder.svg'
+import Trophy from '../../assets/Landing/Difference/cash.svg'
+import Tele from '../../assets/Landing/Difference/shield.svg'
+import User from '../../assets/Landing/Difference/web.svg'
 
 function Values() {
   return (
