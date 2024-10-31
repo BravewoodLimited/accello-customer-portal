@@ -93,11 +93,9 @@ const Testimonials = () => {
             pagination: false,
             arrows: false,
             autoplay: true,
-            drag: false,
             perPage: 4,
             speed: 1500, // Adjusted for smoother scrolling
             waitForTransition: true, // Prevents skipping frames
-            drag: false, // Disables dragging, keeping scroll consistent
             autoScroll: {
               pauseOnHover: true,
               pauseOnFocus: true,
