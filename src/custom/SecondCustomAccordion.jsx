@@ -9,7 +9,8 @@ const Accordion = styled((props) => (
     ))(({ theme }) => ({
         backgroundColor: 'white',
         color: 'black',
-        fontStyle: 'font-NexaLight',
+        fontStyle: 'font-NexaBold',
+        borderRadius: 0,
         '&:not(:last-child)': {
             borderBottom: '1px solid #F9F9FB',
         },
