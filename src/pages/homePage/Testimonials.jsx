@@ -99,8 +99,8 @@ const Testimonials = () => {
             waitForTransition: true, // Prevents skipping frames
             drag: false, // Disables dragging, keeping scroll consistent
             autoScroll: {
-              pauseOnHover: false,
-              pauseOnFocus: false,
+              pauseOnHover: true,
+              pauseOnFocus: true,
               rewind: true,
               speed: 0.5,
             },
