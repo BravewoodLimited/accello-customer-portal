@@ -6,6 +6,7 @@ import Compare from '../components/Landing/Compare'
 import Footer from '../components/Landing/Footer'
 import MobileApp from '../components/Landing/MobileApp'
 import Values from '../components/About/Values'
+import CompetitiveAdvantage from '../components/About/CompetitiveAdvantage'
 
 function AboutUs() {
   return (
@@ -17,6 +18,7 @@ function AboutUs() {
             <Compare/>
             {/* <ForEveryOne/> */}
             <Values/>
+            <CompetitiveAdvantage />
             <div className='my-28'></div>
             <MobileApp/>
             <Footer/>

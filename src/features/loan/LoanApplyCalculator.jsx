@@ -253,7 +253,7 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
               Your Monthly Repayment is
             </Typography>
             <CurrencyTypography variant="h6" className="font-bold">
-              {firstRepayment?.principalDue}
+              {firstRepayment?.principalDue+(formik.values.loan.principal * 3.45/100)}
             </CurrencyTypography>
           </div>
         </div>

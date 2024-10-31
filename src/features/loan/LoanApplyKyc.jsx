@@ -43,8 +43,6 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
 
   const [employerQ, setEmployerQ] = useState("");
 
-  
-
   const deferredEmployerQ = useDeferredValue(employerQ);
 
   const employmentSectorId =
@@ -52,17 +50,63 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
 
   const employmentTypeId =
     formik.values.kyc?.clientEmployers?.[0]?.employmentTypeId;
-    
 
-  const employmentSectorsQueryResult = CodeApi.useGetCodeValuesInfoQuery(
-    useMemo(() => ({ path: { id: 36 } }), [])
-  );
+    const employmentSectorsQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+      useMemo(() => ({ path: { id: 36 } }), [])
+    ); 
+    const titleQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+      useMemo(() => ({ path: { id: 37 } }), [])
+    );
+    const genderQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+      useMemo(() => ({ path: { id: 4 } }), [])
+    );
+    const maritalQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+      useMemo(() => ({ path: { id: 30 } }), [])
+    );
+    const educationQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+      useMemo(() => ({ path: { id: 38 } }), [])
+    );
+
+    const relationshipQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+      useMemo(() => ({ path: { id: 31 } }), [])
+    );
+
+    const stateQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+      useMemo(() => ({ path: { id: 27 } }), [])
+    );
+
+    const { data: LGAIdList } = CodeApi.useGetStateLGAQuery(
+      useMemo(
+        () => formik.values?.kyc?.addresses?.[1]?.stateProvinceId,
+        // eslint-disable-next-line
+        [formik.values?.kyc?.addresses?.[1]?.stateProvinceId]
+      ),
+      { skip: !formik.values?.kyc?.addresses?.[1]?.stateProvinceId }
+    );
 
   const employmentSectors = employmentSectorsQueryResult.data?.data;
 
   const employmentTypesQueryResult = CodeApi.useGetCodeValuesInfoQuery(
     useMemo(() => ({ path: { id: 16 } }), [])
   );
+
+  useEffect(() => {
+    console.log(formik?.values?.kyc?.clientEmployers?.[0]?.employmentTypeId);
+    
+    if (formik?.values?.kyc?.clientEmployers?.[0]?.employmentTypeId) {
+      if (
+        formik?.values?.kyc?.clientEmployers?.[0]?.employmentTypeId === 67 ||
+        formik?.values?.kyc?.clientEmployers?.[0]?.employmentTypeId === 68 ||
+        formik?.values?.kyc?.clientEmployers?.[0]?.employmentTypeId === 2492
+      ) {
+        formik.setFieldValue("kyc.clientEmployers.0.employmentSectorId", 18);
+      } else {
+        formik.setFieldValue("kyc.clientEmployers.0.employmentSectorId", 17);
+      }
+    }
+    // eslint-disable-next-line
+  }, [formik?.values?.kyc?.clientEmployers?.[0]?.employmentTypeId]);
+
 
   const employmentTypes = employmentTypesQueryResult.data?.data;
 
@@ -74,11 +118,11 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
         params: {
           selectOnlyParentEmployer: true,
           sectorId: employmentSectorId,
-          employmentTypeId:employmentTypeId,
+          employmentTypeId: employmentTypeId,
           name: deferredEmployerQ,
         },
       }),
-      [deferredEmployerQ, employmentSectorId,employmentTypeId]
+      [deferredEmployerQ, employmentSectorId, employmentTypeId]
     ),
     { skip: !(employmentSectorId && deferredEmployerQ && employmentTypeId) }
   );
@@ -167,6 +211,8 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
   const ninVerification = verifyClientNINQueryResult.data?.data;
 
   useEffect(() => {
+    console.log(clientKyc);
+
     if (clientKyc?.clientEmployers?.[0]?.employer?.name) {
       setEmployerQ(clientKyc?.clientEmployers?.[0]?.employer?.name);
     }
@@ -192,9 +238,9 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
   }, [accountNumberVerification, dataRef]);
   useEffect(() => {
     formik.setFieldValue("kyc.verify.token", "");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formik.values.kyc.verify?.step]);
-  
+
   const handleDateChange = (value) => {
     const currentDate = new Date();
     const selectedDate = new Date(value);
@@ -235,93 +281,93 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
         <div>
           <Typography className="font-bold mb-2">Bank details</Typography>
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <NumberTextField
-                freeSolo
-                fullWidth
-                label="Bank Verification Number (BVN)"
-                {...getFormikTextFieldProps(formik, "kyc.clients.bvn")}
-                {...(clientId && clientKyc?.clients?.bvn
-                  ? { disabled: true, onChange: () => {} }
-                  : {})}
-              />
-              {verifyClientBVNQueryResult.isFetching ? (
-                <div className="flex items-center gap-1 mb-2">
-                  <CircularProgress size={12} thickness={8} />
-                  <Typography
-                    variant="body2"
-                    color="primary"
-                    className="font-bold"
-                  >
-                    Validating BVN
-                  </Typography>
-                </div>
-              ) : bvnVerification &&
-                formik.values.kyc?.clients?.bvn?.length == 11 ? (
-                bvnVerification?.status ? (
-                  <Chip
-                    label={`${bvnVerification?.data?.first_name} ${bvnVerification?.data?.middle_name} ${bvnVerification?.data?.last_name}`}
-                    variant="soft"
-                    color="info"
-                    size="small"
-                    className="mt-2"
-                  />
-                ) : (
-                  <Chip
-                    label={bvnVerification?.message || "Invalid BVN"}
-                    variant="soft"
-                    color="error"
-                    size="small"
-                    className="mt-2"
-                  />
-                )
-              ) : null}
-            </div>
-            <div>
-              <NumberTextField
-                freeSolo
-                fullWidth
-                label="National Identification Number (NIN)"
-                {...getFormikTextFieldProps(formik, "kyc.clients.nin")}
-                {...(clientId && clientKyc?.clients?.nin
-                  ? { disabled: true, onChange: () => {} }
-                  : {})}
-              />
-              {verifyClientNINQueryResult.isFetching ? (
-                <div className="flex items-center gap-1 mb-2">
-                  <CircularProgress size={12} thickness={8} />
-                  <Typography
-                    variant="body2"
-                    color="primary"
-                    className="font-bold"
-                  >
-                    Validating NIN
-                  </Typography>
-                </div>
-              ) : ninVerification &&
-                formik.values.kyc?.clients?.nin?.length == 11 ? (
-                ninVerification?.status ? (
-                  <Chip
-                    label={`${ninVerification?.data?.first_name} ${ninVerification?.data?.middle_name} ${ninVerification?.data?.surname}`}
-                    variant="soft"
-                    color="info"
-                    size="small"
-                    className="mt-2"
-                  />
-                ) : (
-                  <Chip
-                    label={ninVerification?.message || "Invalid NIN"}
-                    variant="soft"
-                    color="error"
-                    size="small"
-                    className="mt-2"
-                  />
-                )
-              ) : null}
-            </div>
-
             {!clientId ? (
               <>
+                <div>
+                  <NumberTextField
+                    freeSolo
+                    fullWidth
+                    label="Bank Verification Number (BVN)"
+                    {...getFormikTextFieldProps(formik, "kyc.clients.bvn")}
+                    {...(clientId && clientKyc?.clients?.bvn
+                      ? { disabled: true, onChange: () => {} }
+                      : {})}
+                  />
+                  {verifyClientBVNQueryResult.isFetching ? (
+                    <div className="flex items-center gap-1 mb-2">
+                      <CircularProgress size={12} thickness={8} />
+                      <Typography
+                        variant="body2"
+                        color="primary"
+                        className="font-bold"
+                      >
+                        Validating BVN
+                      </Typography>
+                    </div>
+                  ) : bvnVerification &&
+                    formik.values.kyc?.clients?.bvn?.length == 11 ? (
+                    bvnVerification?.status ? (
+                      <Chip
+                        label={`${bvnVerification?.data?.first_name} ${bvnVerification?.data?.middle_name} ${bvnVerification?.data?.last_name}`}
+                        variant="soft"
+                        color="info"
+                        size="small"
+                        className="mt-2"
+                      />
+                    ) : (
+                      <Chip
+                        label={bvnVerification?.message || "Invalid BVN"}
+                        variant="soft"
+                        color="error"
+                        size="small"
+                        className="mt-2"
+                      />
+                    )
+                  ) : null}
+                </div>
+                <div>
+                  <NumberTextField
+                    freeSolo
+                    fullWidth
+                    label="National Identification Number (NIN)"
+                    {...getFormikTextFieldProps(formik, "kyc.clients.nin")}
+                    {...(clientId && clientKyc?.clients?.nin
+                      ? { disabled: true, onChange: () => {} }
+                      : {})}
+                  />
+                  {verifyClientNINQueryResult.isFetching ? (
+                    <div className="flex items-center gap-1 mb-2">
+                      <CircularProgress size={12} thickness={8} />
+                      <Typography
+                        variant="body2"
+                        color="primary"
+                        className="font-bold"
+                      >
+                        Validating NIN
+                      </Typography>
+                    </div>
+                  ) : ninVerification &&
+                    formik.values.kyc?.clients?.nin?.length == 11 ? (
+                    ninVerification?.status ? (
+                      <Chip
+                        label={`${ninVerification?.data?.first_name} ${ninVerification?.data?.middle_name} ${ninVerification?.data?.surname}`}
+                        variant="soft"
+                        color="info"
+                        size="small"
+                        className="mt-2"
+                      />
+                    ) : (
+                      <Chip
+                        label={ninVerification?.message || "Invalid NIN"}
+                        variant="soft"
+                        color="error"
+                        size="small"
+                        className="mt-2"
+                      />
+                    )
+                  ) : null}
+                </div>
+
                 <div className="col-span-2">
                   <FormControl>
                     <FormLabel>Verify with</FormLabel>
@@ -337,11 +383,11 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                         control={<Radio />}
                         label="BVN"
                       />
-                      <FormControlLabel
+                      {/* <FormControlLabel
                         value="nin"
                         control={<Radio />}
                         label="NIN"
-                      />
+                      /> */}
                     </RadioGroup>
                   </FormControl>
                 </div>
@@ -412,6 +458,241 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
           <>
             <div>
               <Typography className="font-bold mb-2">
+                Personal information
+              </Typography>
+              <div className="grid grid-cols-2 gap-4">
+                <TextField
+                  fullWidth
+                  label="Title"
+                  select
+                  {...getFormikTextFieldProps(formik, "kyc.clients.titleId")}
+                >
+                  {titleQueryResult?.data?.data?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
+                <TextField
+                  fullWidth
+                  disabled={clientKyc.clients.firstname}
+                  label="First Name"
+                  {...getFormikTextFieldProps(formik, "kyc.clients.firstname")}
+                />
+
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  disabled={clientKyc.clients.lastname}
+                  {...getFormikTextFieldProps(formik, "kyc.clients.lastname")}
+                />
+                <TextField
+                  fullWidth
+                  // disabled={clientKyc.clients.middlename}
+                  label="Middle Name"
+                  {...getFormikTextFieldProps(formik, "kyc.clients.middlename")}
+                />
+
+                <DatePicker
+                  fullWidth
+                  label="Date of Birth"
+                  disabled={clientKyc.clients.dateOfBirth}
+                  value={formik.values.kyc.clients?.dateOfBirth}
+                  onChange={(value) => {
+                    formik.setFieldValue("kyc.clients.dateOfBirth", value);
+                  }}
+                  disableFuture
+                  slotProps={{
+                    textField: {
+                      ...getFormikTextFieldHelperTextAndErrorProps(
+                        formik,
+                        "kyc.clients.dateOfBirth"
+                      ),
+                    },
+                  }}
+                />
+                <TextField
+                  fullWidth
+                  label="Gender"
+                  select
+                  {...getFormikTextFieldProps(formik, "kyc.clients.genderId")}
+                >
+                  {genderQueryResult?.data?.data?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  fullWidth
+                  label="Marital status"
+                  select
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.clients.maritalStatusId"
+                  )}
+                >
+                  {maritalQueryResult?.data?.data?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
+                <TextField
+                  fullWidth
+                  label="Email address"
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.clients.emailAddress"
+                  )}
+                />
+
+                {/* <TextField
+                  fullWidth
+                  label="Office Address"
+                  className=""
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.clientEmployers.0.officeAddress"
+                  )}
+                /> */}
+                <TextField
+                  fullWidth
+                  label="Residential address"
+                  className=""
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.addresses.0.addressLine1"
+                  )}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Typography className="font-bold mb-2">
+                Next of Kin Details
+              </Typography>
+              <div className="grid grid-cols-2 gap-4">
+                <TextField
+                  fullWidth
+                  label="First Name"
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.familyMembers.0.firstName"
+                  )}
+                />
+
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.familyMembers.0.lastName"
+                  )}
+                />
+                <TextField
+                  fullWidth
+                  label="Middle Name"
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.familyMembers.0.middleName"
+                  )}
+                />
+
+                <TextField
+                  fullWidth
+                  label="Relationship"
+                  select
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.familyMembers.0.relationshipId"
+                  )}
+                >
+                  {relationshipQueryResult?.data?.data?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
+                <TextField
+                  fullWidth
+                  label="Phone Number"
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.familyMembers.0.mobileNumber"
+                  )}
+                />
+
+                <TextField
+                  fullWidth
+                  label="Residential state"
+                  select
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.addresses.1.stateProvinceId"
+                  )}
+                >
+                  {stateQueryResult.data?.data?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
+<TextField
+  fullWidth
+  label="Residential LGA"
+  select
+  {...getFormikTextFieldProps(
+    formik,
+    "kyc.addresses.1.lgaId"
+  )}
+>
+  {LGAIdList?.data?.map((option) => (
+    <MenuItem key={option.id} value={option.id}>
+      {option.name}
+    </MenuItem>
+  ))}
+</TextField>
+
+                {/* <TextField
+          fullWidth
+          label="LGA"
+          select
+          {...getFormikTextFieldProps(formik, "kyc.nextOfKin.relationshipId")}
+        >
+          {[]?.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.name}
+            </MenuItem>
+          ))}
+        </TextField> */}
+
+                <TextField
+                  fullWidth
+                  label="Residential Address"
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.addresses.1.addressLine1"
+                  )}
+                />
+
+                <TextField
+                  fullWidth
+                  label=" Email Address"
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.familyMembers.0.emailAddress"
+                  )}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Typography className="font-bold mb-2">
                 Verify employment details
               </Typography>
               <div className="grid grid-cols-2 gap-4">
@@ -419,6 +700,8 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                   fullWidth
                   label="Employment sector"
                   select
+                  disabled
+
                   {...getFormikTextFieldProps(
                     formik,
                     "kyc.clientEmployers.0.employmentSectorId"
@@ -512,70 +795,13 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                 />
                 <TextField
                   fullWidth
-                  label="Staff ID"
+                  label="Staff ID (IPPIS/Oracle Number)"
                   {...getFormikTextFieldProps(
                     formik,
                     "kyc.clientEmployers.0.staffId"
                   )}
                 />
-                {/* <Dropzone
-                  multiple
-                  maxSize={1024 * 1024 * 2}
-                  minSize={1}
-                  accept={{
-                    "image/*": [".png", ".jpg", ".jpeg"],
-                    "application/pdf": [],
-                  }}
-                  onDropRejected={async (files) => {
-                    try {
-                      for (const fileR of files) {
-                        for (const error of fileR.errors) {
-                          enqueueSnackbar(
-                            error?.message || "Failed to attach file",
-                            {
-                              variant: "error",
-                            }
-                          );
-                        }
-                      }
-                    } catch (error) {}
-                  }}
-                  onDropAccepted={(files) =>
-                    formik.setFieldValue("assets_ids", [
-                      ...formik.values.assets_ids,
-                      ...files,
-                      // ...files.map((url) => ({ name: url.name, url })),
-                    ])
-                  }
-                >
-                  {({ getRootProps, getInputProps, open }) => (
-                    <div>
-                      <input {...getInputProps()} />
-                      <TextField
-                        {...getRootProps({
-                          label: "Proof of Employment",
-                          fullWidth: true,
-                          margin: "normal",
-                          disableRipple: true,
-                          onClick: open,
-                          className: "flex items-center w-full",
-                          InputProps: {
-                            readOnly: true,
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <Chip
-                                  color="default"
-                                  label="Upload"
-                                  className="bg-slate-700 text-white"
-                                />
-                              </InputAdornment>
-                            ),
-                          },
-                        })}
-                      />
-                    </div>
-                  )}
-                </Dropzone> */}
+
                 <TextField
                   fullWidth
                   label="Salary Range"
@@ -598,21 +824,6 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                   {...getFormikTextFieldProps(
                     formik,
                     "kyc.clientEmployers.0.officeAddress"
-                  )}
-                />
-              </div>
-            </div>
-
-            <div>
-              <Typography className="font-bold mb-2">Other details</Typography>
-              <div className="grid grid-cols-2 gap-4">
-                <TextField
-                  fullWidth
-                  label="Address"
-                  className="col-span-2"
-                  {...getFormikTextFieldProps(
-                    formik,
-                    "kyc.addresses.0.addressLine1"
                   )}
                 />
               </div>

@@ -35,14 +35,12 @@ import {
 
 const nineMonthsAgo = dfns.subMonths(new Date(), 9);
 
-
 function LoanApply() {
   const [agreed, setAgreed] = useState(false);
   const [otpModal, setOtpModal] = useState(false);
   const [token, settoken] = useState("");
   const [loanId, setLoanID] = useState();
   const { enqueueSnackbar } = useSnackbar();
-
 
   const authUser = useAuthUser();
 
@@ -64,12 +62,13 @@ function LoanApply() {
   const [approvedLoanMutation] = LoanApi.useApproveLoanMutation();
   const [addDocMutation] = MiscApi.useAddDocumentMutation();
   const [sendLaf] = MiscApi.useSendLaffMutation();
+  const today = new Date();
+  const minDate = new Date(today.setFullYear(today.getFullYear() - 18));
 
   const clientKycDetailsQueryResult = ClientApi.useGetClientKycDetailsQuery(
     useMemo(() => ({ path: { id: clientId } }), [clientId, stepper]),
     { skip: !clientId }
   );
-
 
   const clientKyc = clientKycDetailsQueryResult.data?.data;
   const storedReferral = sessionStorage.getItem("referralCode");
@@ -84,7 +83,16 @@ function LoanApply() {
         clients: {
           bvn: "",
           nin: "",
-          active: true
+          active: true,
+          titleId: "",
+          firstname: "",
+          lastname: "",
+          middlename: "",
+          dateOfBirth: "",
+          genderId: "",
+          maritalStatusId: "",
+          emailAddress: "",
+          dateFormat: "dd MMMM yyyy"
         },
         clientBanks: [
           {
@@ -100,7 +108,7 @@ function LoanApply() {
             // countryId: '',
             staffId: "",
             officeAddress: "",
-            employmentTypeId:null,
+            employmentTypeId: null,
             // employmentStatusId: "",
             employmentSectorId: "",
             employmentDate: null,
@@ -110,7 +118,41 @@ function LoanApply() {
             locale: DateLocale.DEFAULT,
           },
         ],
-        addresses: [{ addressLine1: "", addressTypeId: 36 }],
+        addresses: [
+          {
+            addressTypeId: 36,
+            addressLine1: "",
+            // "nearestLandMark": "General Hospital",
+            stateProvinceId: null,
+            // "dateMovedIn": "24 June 2020",
+            // "countryId": 29,
+            dateFormat: "dd MMMM yyyy",
+            locale: "en",
+          },
+          {
+            addressTypeId: 36,
+            addressLine1: "",
+            // "nearestLandMark": "General Hospital",
+            stateProvinceId: null,
+            // "dateMovedIn": "24 June 2020",
+            // "countryId": 29,
+            dateFormat: "dd MMMM yyyy",
+            locale: "en",
+          },
+        ],
+        familyMembers: [
+          {
+            id:null,
+            titleId: null,
+            firstName: " ",
+            middleName: "",
+            lastName: "",
+            relationshipId: null,
+            maritalStatusId: null,
+            mobileNumber: "",
+            emailAddress: "",
+          },
+        ],
       },
       clientIdentifiers: [],
       loan: {
@@ -162,6 +204,52 @@ function LoanApply() {
                   }),
                 }
               : {
+                  clients: yup.object().shape({
+                    // bvn: yup.string()
+                    //     .required("BVN is required")
+                    //     .length(11, "BVN must be exactly 11 digits")
+                    //     .matches(/^\d{11}$/, "BVN must be numeric"),
+
+                    // nin: yup.string()
+                    //     .required("NIN is required")
+                    //     .length(11, "NIN must be exactly 11 digits")
+                    //     .matches(/^\d{11}$/, "NIN must be numeric"),
+
+                    titleId: yup.number().required("Title ID is required"),
+
+                    firstname: yup
+                      .string()
+                      .required("First name is required")
+                      .min(2, "First name must be at least 2 characters")
+                      .max(50, "First name cannot exceed 50 characters"),
+
+                    lastname: yup
+                      .string()
+                      .required("Last name is required")
+                      .min(2, "Last name must be at least 2 characters")
+                      .max(50, "Last name cannot exceed 50 characters"),
+
+                    middlename: yup
+                      .string()
+                      .optional() // Assuming middle name is optional
+                      .max(50, "Middle name cannot exceed 50 characters"),
+
+                    dateOfBirth: yup
+                      .date()
+                      .required("Date of birth is required")
+                      .max(minDate, "You must be at least 18 years old"),
+
+                    genderId: yup.string().required("Gender is required"),
+
+                    maritalStatusId: yup
+                      .string()
+                      .required("Marital status is required"),
+                    emailAddress: yup
+                      .string()
+                      .required("Email is required")
+                      .email("Email must be a valid email address"),
+                  }),
+
                   clientBanks: yup
                     .array(
                       yup.object({
@@ -192,10 +280,14 @@ function LoanApply() {
                           .string()
                           .label("Sector")
                           .required(),
-                        employmentDate: yup.date()
-                        .label("Employment Date")
-                        .max(nineMonthsAgo, "Employee must have been in service for more than 9 months")
-                        .required("Employment Date is required"),
+                        employmentDate: yup
+                          .date()
+                          .label("Employment Date")
+                          .max(
+                            nineMonthsAgo,
+                            "Employee must have been in service for more than 9 months"
+                          )
+                          .required("Employment Date is required"),
                         salaryRangeId: yup
                           .string()
                           .label("Salary Range")
@@ -213,6 +305,42 @@ function LoanApply() {
                       })
                     )
                     .required(),
+                  familyMembers: yup
+                  .array(yup.object().shape({
+                    titleId: yup.string().nullable(), // Allows titleId to be null
+
+                    firstName: yup
+                      .string()
+                      .trim() // Removes leading and trailing whitespace
+                      .required("First name is required")
+                      .min(2, "First name must be at least 2 characters")
+                      .max(50, "First name cannot exceed 50 characters"),
+
+                    middleName: yup
+                      .string()
+                      .trim() // Removes leading and trailing whitespace
+                      .max(50, "Middle name cannot exceed 50 characters")
+                      .nullable(), // Allows middleName to be null or empty
+
+                    lastName: yup
+                      .string()
+                      .trim() // Removes leading and trailing whitespace
+                      .required("Last name is required")
+                      .min(2, "Last name must be at least 2 characters")
+                      .max(50, "Last name cannot exceed 50 characters"),
+
+                    relationshipId: yup.number().nullable(), // Allows relationshipId to be null
+                    // .required("Relationship ID is required"), // Optional based on your requirements
+                    maritalStatusId: yup.string().nullable(), // Allows maritalStatusId to be null
+                    // .required("Marital status is required"), // Optional based on your requirements
+
+                    mobileNumber: yup.string(), // Assuming 10 digits
+
+                    // emailAddress: yup
+                    //   .string()
+                    //   .required("Email address is required")
+                    //   .email("Email address must be a valid email format"),
+                  })),
                 }),
             clients: yup.object({
               bvn: yup.string().label("BVN").length(11).required(),
@@ -329,6 +457,9 @@ function LoanApply() {
                       nin: values.kyc.clients.nin,
                     }[values.kyc.verify.type],
                   },
+                  body: {
+                    nin: values.kyc.clients.nin,
+                  },
                 }).unwrap();
                 enqueueSnackbar(
                   data?.message || "KYC OTP Verified Successfully!!",
@@ -338,6 +469,7 @@ function LoanApply() {
                 );
                 helper.setFieldValue("kyc.verify.message", data?.message || "");
                 helper.setFieldValue("kyc.verify.step", 0);
+                helper.resetForm();
 
                 break;
               }
@@ -350,11 +482,21 @@ function LoanApply() {
             const data = await createClientKycMutation({
               body: removeEmptyProperties({
                 ...values.kyc,
+                addresses: values.kyc.addresses.map(x=>({...x, addressTypeId: 36})),
                 verify: undefined,
                 clients: {
                   ...values.kyc.clients,
+                  locale: "en",
                   doYouWantToUpdateCustomerInfo: !!clientId,
-                  active: true
+                  active: true,
+                  dateOfBirth:values.kyc.clients?.dateOfBirth
+                  ? dfns.format(
+                      values.kyc.clients?.dateOfBirth,
+                      values.kyc.clients?.dateFormat
+                    )
+                  : undefined,
+                  nin:null,
+                  bvn:null
                 },
                 clientEmployers: [
                   {
@@ -426,7 +568,8 @@ function LoanApply() {
               //   67: 55,
               //   68: 56
               // }[values.kyc.clientEmployers[0].employmentTypeId],
-              netpay:parseFloat(values.loan?.netpay|| 0),
+              activationChannelId: 58,
+              netpay: parseFloat(values.loan?.netpay || 0),
               productId: 2,
               clientId: values.loan.clientId ?? values.kyc.clients?.id,
               numberOfRepayments: values.loan.loanTermFrequency,
@@ -454,14 +597,17 @@ function LoanApply() {
           );
         }
         if (stepper.step == 3) {
-          console.log(otpModal ,token);
-          
+          console.log(otpModal, token);
+
           if (otpModal && token.length > 5) {
             const data = await verifyClientOtpMutation({
               path: { mobileNo: clientKyc?.clients?.mobileNo },
               params: { token: token },
             }).unwrap();
-            approvedLoanMutation({path:{id:loanId}, params:{command: 'draftApprove'}})
+            approvedLoanMutation({
+              path: { id: loanId },
+              params: { command: "draftApprove" },
+            });
 
             enqueueSnackbar("verified" || data?.message, {
               variant: "success",
@@ -484,6 +630,8 @@ function LoanApply() {
       }
     },
   });
+
+  formik.errors
   useEffect(() => {
     settoken("");
     formik.setFieldValue("kyc.verify.token", "");
@@ -497,7 +645,7 @@ function LoanApply() {
         path: { id: clientId },
         params: {
           templateType: "individual",
-          productId:2,
+          productId: 2,
           // productId:{
           //   2826: 57,
           //   67: 55,
@@ -507,7 +655,7 @@ function LoanApply() {
       }),
       [clientId, formik.values.kyc.clientEmployers]
     ),
-    { skip: !clientId },
+    { skip: !clientId }
   );
 
   const loanTemplate = loanTemplateQueryResult.data?.data;
@@ -522,15 +670,32 @@ function LoanApply() {
   });
 
   useEffect(() => {
+    console.log(formik.errors);
+    
     dataRef.current.formik.setValues((values) => ({
       ...values,
       kyc: {
         ...values.kyc,
         clients: clientKyc?.clients
           ? {
+            ...values.kyc.clients,
               id: clientKyc?.clients?.id,
               bvn: clientKyc?.clients?.bvn,
               nin: clientKyc?.clients?.nin,
+              titleId: clientKyc?.clients?.title?.id,
+              firstname: clientKyc?.clients?.firstname,
+              lastname: clientKyc?.clients?.lastname,
+              middlename: clientKyc?.clients?.middlename,
+              dateOfBirth: clientKyc?.clients?.dateOfBirth
+              ? new Date(
+                  clientKyc?.clients?.dateOfBirth?.[0],
+                  clientKyc?.clients?.dateOfBirth?.[1] - 1,
+                  clientKyc?.clients?.dateOfBirth?.[2]
+                )
+              : null,
+              genderId: clientKyc?.clients?.gender?.id,
+              maritalStatusId: clientKyc?.clients?.maritalStatus?.id,
+              emailAddress: clientKyc?.clients?.emailAddress,
             }
           : values.kyc.clients,
         clientBanks: clientKyc?.clientBanks?.length
@@ -557,7 +722,10 @@ function LoanApply() {
                 //   clientKyc?.clientEmployers?.[0]?.employmentStatus?.id,
                 employmentSectorId:
                   clientKyc?.clientEmployers?.[0]?.employer?.sector?.id,
-                  employmentTypeId:values.kyc.clientEmployers[0].employmentTypeId || clientKyc?.clientEmployers[0]?.employer?.parent?.clientType?.id,
+                employmentTypeId:
+                  values.kyc.clientEmployers[0].employmentTypeId ||
+                  clientKyc?.clientEmployers[0]?.employer?.parent?.clientType
+                    ?.id,
                 employmentDate: clientKyc?.clientEmployers?.[0]?.employmentDate
                   ? new Date(
                       clientKyc?.clientEmployers?.[0]?.employmentDate?.[0],
@@ -575,26 +743,42 @@ function LoanApply() {
               },
             ]
           : values.kyc.clientEmployers,
-        addresses: (() => {
-          const address = clientKyc?.addresses?.find(
-            (address) => address.addressTypeId == 36
-          );
-          return address
-            ? [
-                {
-                  addressId: address?.addressId,
-                  addressLine1: address?.addressLine1,
-                  addressTypeId: address?.addressTypeId,
-                },
-              ]
-            : values.kyc.addresses;
-        })(),
+        addresses: [
+          {
+            id:clientKyc?.addresses?.[0]?.id,
+            addressId: clientKyc?.addresses?.[0]?.addressId,
+            addressLine1: clientKyc?.addresses?.[0]?.addressLine1,
+            addressTypeId: 36,
+          },
+          {
+            id:clientKyc?.addresses?.[1]?.id,
+            addressId: clientKyc?.addresses?.[1]?.addressId,
+            addressLine1: clientKyc?.addresses?.[1]?.addressLine1,
+            lgaId: clientKyc?.addresses?.[1]?.lgaId,
+            stateProvinceId: clientKyc?.addresses?.[1]?.stateProvinceId,
+            addressTypeId: 36,
+          },
+        ],
+        familyMembers:[
+          {
+            id: clientKyc?.familyMembers?.[0]?.id,
+            emailAddress: clientKyc?.familyMembers?.[0]?.emailAddress,
+            firstName: clientKyc?.familyMembers?.[0]?.firstName,
+            lastName: clientKyc?.familyMembers?.[0]?.lastName,
+            middleName: clientKyc?.familyMembers?.[0]?.middleName,
+            maritalStatusId: clientKyc?.familyMembers?.[0]?.maritalStatusId,
+            mobileNumber: clientKyc?.familyMembers?.[0]?.mobileNumber,
+            relationshipId: clientKyc?.familyMembers?.[0]?.relationshipId,
+            titleId: clientKyc?.familyMembers?.[0]?.titleId,
+          }
+        ]
       },
       loan: {
         // commitment: 0,
-        netpay:  parseFloat(values.loan?.netpay|| 0) ?? loanTemplate?.minimumNetPay,
+        netpay:
+          parseFloat(values.loan?.netpay || 0) ?? loanTemplate?.minimumNetPay,
         clientId: clientId ?? values.loan.clientId,
-        productId:2,
+        productId: 2,
         // productId: {
         //   2826: 57,
         //   67: 55,
@@ -640,6 +824,7 @@ function LoanApply() {
     clientKyc?.addresses,
     clientKyc?.clientBanks,
     clientKyc?.clientEmployers,
+    clientKyc?.familyMembers,
     clientKyc?.clients,
     dataRef,
     loanTemplate?.amortizationType?.id,
@@ -653,7 +838,7 @@ function LoanApply() {
     loanTemplate?.repaymentEvery,
     loanTemplate?.repaymentFrequencyType?.id,
     loanTemplate?.transactionProcessingStrategyId,
-    storedReferral
+    storedReferral,
   ]);
 
   const isBlacklisted = false;
@@ -768,7 +953,7 @@ function LoanApply() {
                       </Button>
                     )}
                     <LoadingButton
-                      onClick={()=>formik.handleSubmit()}
+                      onClick={() => formik.handleSubmit()}
                       loading={formik.isSubmitting}
                       disabled={!agreed && stepper.step == 3}
                     >

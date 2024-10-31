@@ -11,6 +11,11 @@ export const CodeApi = coreApi.injectEndpoints({
         ...config,
       }),
     }),
+    getStateLGA: builder.query({
+      query: (stateId) => ({
+        url: `/codes/27/child/${stateId}`,
+      }),
+    }),
   }),
 });
 

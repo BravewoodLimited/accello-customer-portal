@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon, LockClosedIcon, ArrowRightIcon} from '@heroicons/
 import Logo from '../../assets/Landing/NewLogo2.png'
 // import { Link } from "react-scroll";
 import { Link as DomLink, NavLink } from 'react-router-dom';
+import { SIGNIN } from 'constants/urls';
 
 
 const navigation = [
@@ -58,14 +59,14 @@ function Nav() {
 
                                 <div className="hidden sm:ml-6 sm:block mt-10">
                                     <div className="flex space-x-4">
-                                        <DomLink to="/sign-in">
+                                        <DomLink to={SIGNIN} >
                                             <button type="button" className="inline-flex border-2 border-accelloBlue rounded-[8px] bg-transparent 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-accelloBlue hover:text-white hover:bg-accelloBlue gap-2 text-center " >
                                                 <LockClosedIcon className="block h-5 w-5" aria-hidden="true"/>
                                                 Login
                                             </button>
                                         </DomLink>
 
-                                        <DomLink to="/loan/signin">
+                                        <DomLink to={SIGNIN} >
                                             <button type="button" className="inline-flex border-2 border-accelloBlue rounded-[8px] bg-accelloBlue 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-white  gap-2 text-center items-center hover:bg-transparent hover:text-accelloBlue" >
                                             Get Credit
                                             <ArrowRightIcon className="block h-4 w-3" aria-hidden="true"/>

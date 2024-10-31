@@ -81,7 +81,7 @@ const ClientDetails = () => {
       <Container maxWidth="lg">
         <div className="flex items-center gap-4 sticky top-0 bg-white p-4 mb-12">
           <Typography variant="h5" fontWeight={"bold"}>
-            Client Details
+            Loan Details
           </Typography>
         </div>
         {/* <Paper  sx={{ p: 4 }}> */}
@@ -93,9 +93,9 @@ const ClientDetails = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Link to={DASHBOARD}>Back</Link>
+            <Link  className="text-primary-main hover:text-info-dark" to={DASHBOARD}>Back</Link>
           </Grid>
-          <Grid border={"WindowFrame"} item xs={12} md={8}>
+          <Grid border={"WindowFrame"} item xs={12} md={12}>
             <Paper sx={{ p: 2, mb: 3 }}>
               <Typography variant="h5" fontWeight={"bold"}>
                 Loan Details
@@ -157,7 +157,7 @@ const ClientDetails = () => {
                   },
                   {
                     label: "Monthly Repayment:",
-                    value: `${data?.repaymentSchedule?.currency?.displaySymbol}
+                    value: `${"₦ " || ""}
                   ${
                     formatNumberToCurrency(
                       data?.repaymentSchedule?.periods?.[1]
@@ -195,12 +195,12 @@ const ClientDetails = () => {
               Generate Payment Link
             </Button>
           </Grid>
-          <Grid item xs={12} md={4}>
+          {/* <Grid item xs={12} md={4}>
             <Paper sx={{ p: 2, mb: 3 }}>
               <Typography variant="h5" fontWeight={"bold"}>
                 Client Info
               </Typography>
-              {/* {[
+              {[
                   { label: "Name", value: "OGHENERONA ESTHER AKPOBOME" },
                   { label: "Customer Type", value: "Public Sector" },
                   { label: "Customer ID", value: "10106" },
@@ -212,11 +212,11 @@ const ClientDetails = () => {
                     <Typography color="textSecondary">{item.label}</Typography>
                     <Typography variant="body1">{item.value}</Typography>
                   </Box>
-                ))} */}
+                ))}
             </Paper>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
-            <Typography variant="subtitle1" gutterBottom>
+            <Typography variant="subtitle1" gutterBottom className="text-lg font-bold underline">
               Repayment Schedule
             </Typography>
             <RepaymentScheduleTable data={repaymentSchedule} />
