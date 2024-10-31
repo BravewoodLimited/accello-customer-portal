@@ -62,9 +62,9 @@ function Calculator({handleClickOpen}) {
         {/* <h1 className='font-gilroy text-[36px]'>Personal Loan Calculator</h1>
           <p className='text-[16px] text-[#4D4D4D]'>Apply for a personal loan in minutes. Ready to get started?.</p> */}
       </div>
-      <div className='sm:flex gap-4 flex-row mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between mt-8 sm:h-[600px]'>
+      <div className='sm:flex gap-4 flex-row mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 justify-between mt-8 '>
 
-        <div className='sm:max-w-[50%] mt-12 '>
+        <div className='sm:max-w-[50%] mt-12'>
           <h1 className='font-NexaBold lg:text-[36px] md:text-[28px] text-[22px] font-bold'>Personal Loan Calculator</h1>
 
           <p className='sm:w-[400px] text-[#4D4D4D]'>How much would you like to borrow?</p>
@@ -151,9 +151,9 @@ function Calculator({handleClickOpen}) {
 
         </div>
 
-        <div className='sm:max-w-[50%] mt-12 bg-white sm:w-[548px] rounded-[25px] sm:h-[470px]'>
-
-          <div className='hidden justify-between py-[30px] px-[48px]'>
+        <div className='sm:max-w-[50%] mt-12 bg-white sm:w-[548px] rounded-[25px] '>
+          
+        <div className='hidden justify-between py-[30px] px-[48px]'>
             <p className='text-[#4D4D4D]'>Loan Type</p>
             <p className='font-medium'>{loanType}</p>
           </div>
@@ -195,8 +195,9 @@ function Calculator({handleClickOpen}) {
 
 
           <div className='mx-auto max-w-7xl flex items-center'>
-            <button type="button" className='border-2 border-white rounded-[8px] bg-accelloBlue py-3 px-16 text-white gap-2 mt-6 text-[16px] w-auto text-center items-center mx-auto mb-10 hover:bg-transparent hover:border-accelloBlue hover:text-accelloBlue' onClick={handleClickOpen}>Apply for Loan <span aria-hidden="true">→</span></button>
+            <button type="button" className='border-2 border-white rounded-[8px] bg-accelloBlue py-3 px-16 text-white gap-2 mt-6 text-[16px] w-auto text-center items-center mx-auto mb-10 hover:bg-transparent hover:border-accelloBlue hover:text-accelloBlue ' onClick={handleClickOpen}>Apply for Loan <span aria-hidden="true">→</span></button>
           </div>
+
 
         </div>
 

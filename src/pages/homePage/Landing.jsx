@@ -13,6 +13,7 @@ import Difference from "./Difference";
 import Footer from "./Footer";
 import MobileApp from "./MobileApp";
 import LoanApplicationModal from "./LoanApplicationModal";
+import Testimonials from "./Testimonials";
 
 const HeroBottom = [
   { img: money, p1: "Loans Up to", p2: "₦5,000,000" },
@@ -39,25 +40,27 @@ function Landing() {
         <Hero />
 
         <div className="hidden lg:flex flex-col gap-4 pt-4 min-h-[88px] bg-bgOpacity mt-[18px] text-white">
-        
-            <div className="flex justify-around 2xl:mx-[300px] items-center">
-              {HeroBottom.map((item) => (
-                <div className="flex gap-2 ">
-                  <div className="bg-white/10 h-10 w-10 rounded-full  flex items-center justify-center">
-                    <img src={item.img} alt="" className="object-contain" />
-                  </div>
-                  <div className="font-NexaLight">
-                    <p className="text-[13px] font-normal font-dmsans">{item.p1}</p>
-                    <p className="font-bold font-NexaBold text-[20px] ">{item.p2}</p>
-                  </div>
+          <div className="flex justify-around 2xl:mx-[300px] items-center">
+            {HeroBottom.map((item) => (
+              <div className="flex gap-2 ">
+                <div className="bg-white/10 h-10 w-10 rounded-full  flex items-center justify-center">
+                  <img src={item.img} alt="" className="object-contain" />
                 </div>
-              ))}
-            </div>
-            <p className="text-white font-dmsans   text-center text-[10.42px] ">
-              *Rates are determined by several factors, terms and the conditions
-              of loans
-            </p>
-         
+                <div className="font-NexaLight">
+                  <p className="text-[13px] font-normal font-dmsans">
+                    {item.p1}
+                  </p>
+                  <p className="font-bold font-NexaBold text-[20px] ">
+                    {item.p2}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="text-white font-dmsans   text-center text-[10.42px] ">
+            *Rates are determined by several factors, terms and the conditions
+            of loans
+          </p>
         </div>
       </div>
 
@@ -67,6 +70,7 @@ function Landing() {
         <HowItWorks handleClickOpen={handleClickOpen} />
         <Calculator handleClickOpen={handleClickOpen} />
         <MobileApp />
+        <Testimonials />
         <Footer />
       </div>
 
