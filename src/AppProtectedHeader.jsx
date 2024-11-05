@@ -15,15 +15,17 @@ function AppProtectedHeader(props) {
   const { ...restProps } = props;
 
   const authUser = useAuthUser();
+  // console.log(authUser);
+  
 
   const sideNavigation = useSideNavigation();
 
   return (
     <AppBar
-      elevation={0}
+      elevation={99}
       position="sticky"
-      color="transparent"
-      className="left-0 lg:left-[270px] w-full lg:w-[calc(100%-270px)]"
+      // color="transparent"
+      className="left-0 bg-white lg:left-[270px] w-full lg:w-[calc(100%-270px)]"
       {...restProps}
     >
       <Container maxWidth="xl">

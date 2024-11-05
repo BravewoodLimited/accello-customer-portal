@@ -13,7 +13,7 @@ export const LoanStatusColor = {
   "loanStatusType.closed.written.off": "error",
   "charges.StatusType.active.true": "success",
   "loanStatusType.failed": "error",
-  "loanStatusType.submitted.and.pending.approval": "warning",
+  "loanStatusType.submitted.and.pending.approval": "info",
   "loanStatusType.approved": "info",
   "loanStatusType.active": "success",
   "loanStatusType.overpaid": "info",

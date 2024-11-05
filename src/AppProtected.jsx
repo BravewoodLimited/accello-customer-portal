@@ -10,7 +10,7 @@ function AppProtected() {
     <>
       <AppProtectedHeader />
       <AppProtectedSideMenu />
-      <div className="px-4 md:px-8 lg:ml-[270px]">{<Outlet />}</div>
+      <div className="px-4 pt-6 md:px-8 lg:ml-[270px]">{<Outlet />}</div>
     </>
   );
 }

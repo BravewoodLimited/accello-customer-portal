@@ -49,7 +49,7 @@ export const slice = createSlice({
       .addMatcher(
         ClientApi.endpoints.verifyNewClientOtp.matchFulfilled,
         (state, { payload }) => {
-          state.authUser.clientId = payload?.data?.clientId;
+          state.authUser.clientId = payload?.data?.clientId || payload?.data?.resourceId || payload?.data?.resourceId;
         }
       ),
 });

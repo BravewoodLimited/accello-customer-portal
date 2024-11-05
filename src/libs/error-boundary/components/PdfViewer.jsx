@@ -12,7 +12,7 @@ const PdfViewer = ({ id='7149' }) => {
                     style={{ width: '100%', height: '100%' }}
                     title="PDF: Loan Offer"
                     frameBorder="0"
-
+  
                 />
     );
 };

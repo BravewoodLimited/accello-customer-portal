@@ -1,6 +1,7 @@
 import {
   Typography,
   Slider,
+  TextField,
   Link as MuiLink,
   ButtonBase,
   CircularProgress,
@@ -89,6 +90,20 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
               </CurrencyTypography>
             </div>
           </div>
+          {/* Input field for loan amount */}
+          <TextField
+            fullWidth
+            label="Enter Loan Amount"
+            type="number"
+            value={formik.values.loan.principal}
+            onChange={(e) => formik.setFieldValue("loan.principal", e.target.value)}
+            inputProps={{
+              min: loanTemplate?.product?.minPrincipal,
+              max: loanTemplate?.product?.maxPrincipal,
+              step: 1000,
+            }}
+            
+          />
         </div>
 
         <div>
@@ -107,13 +122,26 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
             />
             <div className="flex justify-between items-center">
               <Typography variant="body2" className="text-text-secondary">
-                1 month(s)
+                {loanTemplate?.product?.minNumberOfRepayments} month(s)
               </Typography>
               <Typography variant="body2" className="text-text-secondary">
-                12 months
+                {loanTemplate?.product?.maxNumberOfRepayments} months
               </Typography>
             </div>
           </div>
+          {/* Input field for loan term frequency */}
+          <TextField
+            fullWidth
+            label="Enter Loan Duration (Months)"
+            type="number"
+            value={formik.values.loan.loanTermFrequency}
+            onChange={(e) => formik.setFieldValue("loan.loanTermFrequency", e.target.value)}
+            inputProps={{
+              min: loanTemplate?.product?.minNumberOfRepayments,
+              max: loanTemplate?.product?.maxNumberOfRepayments,
+              step: 1,
+            }}
+          />
         </div>
 
         <div>
@@ -225,7 +253,7 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
               Your Monthly Repayment is
             </Typography>
             <CurrencyTypography variant="h6" className="font-bold">
-              {firstRepayment?.principalDue}
+              {firstRepayment?.principalDue+(formik.values.loan.principal * 3.45/100)}
             </CurrencyTypography>
           </div>
         </div>
