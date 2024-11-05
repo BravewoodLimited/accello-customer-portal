@@ -39,7 +39,7 @@ function Landing() {
         <Nav handleClickOpen={handleClickOpen} />
         <Hero />
 
-        <p className="text-center text-[#D48305] text-[16px] font-dmsans italic font-semibold">
+        <p className="text-center text-[#D48305] font-dmsans italic font-semibold">
           A product of Bravewood Finance Company Limited.
         </p>
         <div className="hidden lg:flex flex-col gap-4 pt-4 min-h-[88px] bg-bgOpacity mt-[18px] text-white">
