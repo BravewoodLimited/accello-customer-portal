@@ -1,10 +1,4 @@
-import React from "react";
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "../../custom/SecondCustomAccordion";
-import Typography from "@mui/material/Typography";
+
 import React from "react";
 import {
   Accordion,
@@ -14,12 +8,10 @@ import {
 import Typography from "@mui/material/Typography";
 
 function Faqs(props) {
-  const [expanded, setExpanded] = React.useState("panel1");
+
   const [expanded, setExpanded] = React.useState("panel1");
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
@@ -656,9 +648,8 @@ function Faqs(props) {
       {/* <hr className='mx-auto max-w-7xl my-16'/> */}
     </div>
   );
-  );
+
 }
 
-export default Faqs;
 
 export default Faqs;
