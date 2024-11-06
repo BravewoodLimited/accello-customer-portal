@@ -8,10 +8,12 @@ import { IoMailOutline } from "react-icons/io5";
 import { BiPhone } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import cbnlogo from "../../assets/Landing/cbnlogo.png";
+import Regulated from "common/Regulated";
 
 function Footer() {
   return (
-    <div className="px-4 py-[80px] text-white bg-black lg:block flex flex-col items-center">
+    <div className="px-4 py-[80px] pb-4 text-white bg-black lg:block flex flex-col items-center">
       <div className="grid   sm:grid-cols-1  items-start sm:gap-6  lg:grid-cols-4  lg:gap-16   mx-auto max-w-7xl px-2 sm:px-6 lg:px-8  sm:space-y-0 space-y-16">
         <div className="space-y-4 text-white w-full  ">
           <div>
@@ -42,7 +44,7 @@ function Footer() {
           <p>Contact Us</p>
         </div>
 
-        <div className="space-y-6 w-full ">
+        <div className="space-y-2 w-full ">
           <p className="text-[#A7A7A7]">Follow:</p>
 
           <div className="flex gap-x-4">
@@ -80,7 +82,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="space-y-6 w-full">
+        <div className="space-y-2 w-full">
           <p className="text-[#A7A7A7]">Legal:</p>
           <div className="space-y-6">
             <p>Terms and conditions</p>
@@ -91,13 +93,7 @@ function Footer() {
 
       {/* <hr className='opacity-20 my-12'/> */}
 
-      <div className="mx-auto text-center mt-16 -mb-14">
-        <p>
-          © {new Date().getFullYear()} Accello Limited. All rights
-          reserved-Powered by{" "}
-          <span className="text-[#077DBB]">Bravewood Finance Limited</span>
-        </p>
-      </div>
+      <Regulated />
     </div>
   );
 }

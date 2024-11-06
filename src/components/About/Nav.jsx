@@ -44,7 +44,7 @@ function Nav() {
                   </DomLink>
                 </div>
 
-                <div className="hidden sm:ml-6 sm:block mt-8 ">
+                <div className="hidden lg:ml-6 lg:block mt-8 ">
                   <div className="flex space-x-4 pt-4">
                     {navigation.map((item) => (
                       <NavLink
@@ -67,7 +67,7 @@ function Nav() {
                   </div>
                 </div>
 
-                <div className="hidden sm:ml-6 sm:block mt-10">
+                <div className="hidden lg:ml-6 lg:block mt-10">
                   <div className="flex space-x-4">
                     <DomLink to="/sign-in">
                       <button
@@ -98,7 +98,7 @@ function Nav() {
                 </div>
               </div>
 
-              <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
+              <div className="absolute inset-y-0 right-0 flex items-center lg:hidden">
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-accelloBlue hover:bg-accelloBlue hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accelloBlue">
                   <span className="sr-only">Open main menu</span>
@@ -112,14 +112,14 @@ function Nav() {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
+          <Disclosure.Panel className="lg:hidden">
             <div className="block space-y-6 px-2 pt-2 pb-3 mt-8">
               {navigation.map((item) => (
                 <NavLink
                   to={item.to}
                   className={({ isActive, isPending }) =>
                     classNames(
-                      "w-full px-3 py-2 rounded-md text-sm font-medium cursor-pointer",
+                      "w-full px-3 py-2 flex flex-col rounded-md text-sm font-medium cursor-pointer",
                       isActive
                         ? "text-white bg-accelloBlue w-full"
                         : isPending

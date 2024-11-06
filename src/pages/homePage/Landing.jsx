@@ -39,10 +39,10 @@ function Landing() {
         <Nav handleClickOpen={handleClickOpen} />
         <Hero />
 
-        <p className="text-center text-[#D48305] font-dmsans italic font-semibold">
+        <p className="text-center text-[#D48305] font-dmsans  text-sm italic lg:mt-10 ">
           A product of Bravewood Finance Company Limited.
         </p>
-        <div className="hidden lg:flex flex-col gap-4 pt-4 min-h-[88px] bg-bgOpacity mt-[18px] text-white">
+        <div className="hidden lg:flex flex-col gap-4 pt-4 min-h-[88px] bg-bgOpacity mt-[2px] text-white">
           <div className="flex justify-around 2xl:mx-[300px] items-center">
             {HeroBottom.map((item) => (
               <div className="flex gap-2 ">

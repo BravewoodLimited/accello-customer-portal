@@ -34,45 +34,22 @@ const values = [
       "The time frame between applying and getting the loan was short, to my surprise. I thought it was going to take longer. Great one from the team!",
   },
   {
-    client: "Abdullahi Musa (0000003121)",
+    client: "Stephen Amon (0000002547)",
     testimonial:
-      "I was pleased with the smooth application process. Customer support was very responsive and helped me every step of the way.",
+      "I was really impressed with the exceptional service I received. The entire process, from application to disbursement, was smooth and efficient. I highly recommend Accello.",
   },
   {
-    client: "Chinwe Okeke (0000001785)",
+    client: "Zakari Ibrahim (0000002176)",
     testimonial:
-      "The loan terms were clearly explained, and I appreciate the transparency. No hidden fees, which is rare these days. Thanks for the great service!",
+      "I was surprised to know that the deduction percentage for my loan repayments was very reasonable. The deduction percentage was clearly explained to me upfront, and I had no issues with it",
   },
+
   {
-    client: "Emeka Udo (0000001967)",
+    client: "Najamuddeen Musa (0000002183)",
     testimonial:
-      "I had some doubts initially, but the team reassured me throughout the process. Disbursement was quick, and I will recommend this service to others.",
+      "My experience when I applied for a loan was not a stressful one. From the initial application to the final repayment, I was supported and guided every step of the way.",
   },
-  {
-    client: "Aisha Bello (0000003042)",
-    testimonial:
-      "Excellent service! The staff was very professional, and they answered all my questions. I felt supported throughout the loan application.",
-  },
-  {
-    client: "Ibrahim Sule (0000002559)",
-    testimonial:
-      "From start to finish, everything went smoothly. I like how the company follows up to ensure customer satisfaction after disbursement.",
-  },
-  {
-    client: "Ngozi Eze (0000001789)",
-    testimonial:
-      "I appreciate the fast disbursement and the clear communication throughout the process. Keep up the good work!",
-  },
-  {
-    client: "John Doe (0000003210)",
-    testimonial:
-      "The experience was great. I applied in the morning and got my loan by the afternoon. Such efficiency is commendable!",
-  },
-  {
-    client: "Mary Ann (0000003874)",
-    testimonial:
-      "I was worried about the application process, but it turned out to be very straightforward. The team was very helpful.",
-  },
+ 
 ];
 
 const Testimonials = () => {

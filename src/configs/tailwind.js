@@ -103,6 +103,7 @@ export default {
         ],
         dmsans: ["DM Sans"],
         gilroy: ["gilroy"],
+        gilroyBold:["gilroyBold"],
         gilroySemibold:["gilroySemibold"],
         gilroyLight: ["gilroy-light"],
         NexaBold: ["NexaBold"],

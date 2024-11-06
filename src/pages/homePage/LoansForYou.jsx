@@ -51,7 +51,7 @@ function LoansForYou() {
               item.h3 === "dots" ? "w-64 -m-6 object-contain lg:flex flex-col items-center hidden " : "w-full mx-auto bg-white p-4 rounded-[15px] border z-10 max-w-[320px]"
             } `}
           >
-            <div className={`2xl:w-[350px] 2xl:h-[210px] p-2 ${  item.p === "dots1" &&" mt-14"} ${  item.p === "dots2" &&" mt-48"}`}>
+            <div className={`p-2 ${  item.p === "dots1" &&" mt-14"} ${  item.p === "dots2" &&" mt-48"}`}>
               <img
                 src={item.img}
                 alt="Accello Hero"

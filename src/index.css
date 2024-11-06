@@ -44,3 +44,9 @@
   font-family: gilroySemibold;
   src: url("/src/fonts/gilroy/Gilroy-SemiBold.ttf");
 }
+
+
+@font-face {
+  font-family: gilroyBold;
+  src: url("/src/fonts/gilroy/Gilroy-Bold.ttf");
+}
