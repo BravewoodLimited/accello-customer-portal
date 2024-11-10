@@ -39,6 +39,11 @@
   src: url("/src/fonts/nexa/NexaBold.otf");
 }
 
+@font-face {
+  font-family: nexaLight;
+  src: url("/src/fonts/nexa/NexaLight.otf");
+}
+
 
 @font-face {
   font-family: gilroySemibold;

@@ -114,7 +114,7 @@ function HowItWorks({ handleClickOpen }) {
         <DomLink to="/loan/signin">
           <button
             type="button"
-            className="inline-flex border-2 border-white rounded-lg  bg-white 2xl:py-4 2xl:px-8 font-dmsans font-medium mb-8 py-2.5 md:mt-2 2xl:md-1 text-[#04265F]  px-10 gap-2 text-center items-center hover:bg-transparent hover:text-white"
+            className="inline-flex border-2 border-white rounded-lg  bg-white mt-8 lg:mt-0 2xl:py-4 2xl:px-8 font-dmsans font-medium mb-8 py-2.5 md:mt-2 2xl:md-1 text-[#04265F]  px-10 gap-2 text-center items-center hover:bg-transparent hover:text-white"
           >
             Get Started
             <ArrowRightIcon className="block h-4 w-3" aria-hidden="true" />
