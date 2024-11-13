@@ -8,7 +8,7 @@ import MobileApp from "../components/Landing/MobileApp";
 import Values from "../components/About/Values";
 import CompetitiveAdvantage from "../components/About/CompetitiveAdvantage";
 import ContactForm from "../components/Contact/ContactForm";
-import GetInTouch from "common/GetInTouch";
+// import GetInTouch from "common/GetInTouch";
 
 function AboutUs() {
   return (
@@ -22,7 +22,7 @@ function AboutUs() {
         <CompetitiveAdvantage />
         <div className="mt-6"></div>
         <ContactForm />
-        <GetInTouch />
+        {/* <GetInTouch /> */}
         <div className="my-28"></div>
         <MobileApp />
         <Footer />
