@@ -8,7 +8,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import { Logout } from "@mui/icons-material"
+import { Logout } from "@mui/icons-material";
 import clsx from "clsx";
 import Logo from "common/Logo";
 import { DASHBOARD, FAQS, LOAN_APPLY } from "constants/urls";
@@ -16,8 +16,16 @@ import MediaBreakpoint from "enums/MediaBreakpoint";
 import useLogout from "hooks/useLogout";
 import useSideNavigation from "hooks/useSideNavigation";
 import { NavLink } from "react-router-dom";
-import {ArrowBackIos, Dashboard, ChevronLeft, SignalCellular0Bar, Quiz} from "@mui/icons-material"
-
+import {
+  ArrowBackIos,
+  Dashboard,
+  ChevronLeft,
+  SignalCellular0Bar,
+  Quiz,
+} from "@mui/icons-material";
+import dashboardicon from "./assets/dashboardicons/dashboard.svg";
+import loanapplicationicon from "./assets/dashboardicons/loanapplication.svg";
+import faqicon from "./assets/dashboardicons/faq.svg";
 
 function AppProtectedSideMenu() {
   const islg = useMediaQuery(MediaBreakpoint.LG);
@@ -40,7 +48,10 @@ function AppProtectedSideMenu() {
       <Toolbar className="flex items-center justify-between">
         <Logo color="white" />
         {!islg && (
-            <ChevronLeft color="inherit" onClick={() => sideNavigation.toggle()}/>
+          <ChevronLeft
+            color="inherit"
+            onClick={() => sideNavigation.toggle()}
+          />
         )}
       </Toolbar>
       <List className="p-4 md:p-8 flex-1 min-h-0 overflow-y-auto space-y-4">
@@ -50,10 +61,10 @@ function AppProtectedSideMenu() {
               key={index}
               className={({ isActive }) =>
                 clsx(
-                  "flex items-center justify-start text-left gap-2 px-4 py-3 rounded-xl",
+                  "flex items-center justify-start    text-left gap-2 px-4 py-3 rounded-xl",
                   isActive
-                    ? "bg-primary-contrastText text-primary-main"
-                    : "text-primary-contrastText",
+                    ? "text-white text-primary-main bg-primary-main"
+                    : "text-primary-contrastText ",
                   typeof linkProps?.className === "function"
                     ? linkProps?.className?.({ isActive })
                     : linkProps?.className
@@ -61,7 +72,7 @@ function AppProtectedSideMenu() {
               }
               {...linkProps}
             >
-              {icon}
+              <img src={icon} alt={children} className="w-[1.27rem]" />
               <Typography component="span" className="font-medium">
                 {children}
               </Typography>
@@ -69,17 +80,25 @@ function AppProtectedSideMenu() {
           );
         })}
       </List>
+
       <div className="p-4 md:px-8">
+        <Typography
+          variant="body2"
+          className=" gap-2 px-4 py-3 flex flex-col font-semibold"
+        >
+          <span className="font-semibold font-nunito-sans text-[16px] text-[#FFEFCABF]">Contact us </span>
+          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">+234 81370002223,</span>
+          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">+234 80349981573</span>
+        </Typography>
         <ButtonBase
           variant="text"
           color="error"
-          className="text-left gap-2 px-4 py-3 rounded-xl"
+          className="text-left gap-2 px-4 py-3 rounded-xl mt-4 mb-4"
           onClick={() => logout()}
         >
           <Logout />
           <div>
             <Typography>Logout</Typography>
-            {/* <Typography variant="body2">23481370002223</Typography> */}
           </div>
         </ButtonBase>
       </div>
@@ -91,18 +110,18 @@ export default AppProtectedSideMenu;
 
 const NAV_LINKS = [
   {
-    icon: <Dashboard/>,
+    icon: dashboardicon,
     children: "Dashboard",
-    to: DASHBOARD,
+    to: "",
   },
   {
-    icon: <SignalCellular0Bar/>,
+    icon: loanapplicationicon,
     children: "Loan application",
-    to: LOAN_APPLY,
+    to: "",
   },
   {
-    icon: <Quiz />,
+    icon: faqicon,
     children: "FAQS",
-    to: FAQS,
+    to: "",
   },
 ];
