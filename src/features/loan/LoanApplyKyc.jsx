@@ -369,7 +369,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                 </div>
 
                 <div className="col-span-2">
-                  <FormControl>
+                  {/* <FormControl>
                     <FormLabel>Verify with</FormLabel>
                     <RadioGroup
                       row
@@ -383,13 +383,9 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                         control={<Radio />}
                         label="BVN"
                       />
-                      {/* <FormControlLabel
-                        value="nin"
-                        control={<Radio />}
-                        label="NIN"
-                      /> */}
+                     
                     </RadioGroup>
-                  </FormControl>
+                  </FormControl> */}
                 </div>
               </>
             ) : (
