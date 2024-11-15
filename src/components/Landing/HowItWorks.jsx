@@ -36,7 +36,7 @@ function HowItWorks({ handleClickOpen }) {
   return (
     <div className="p-4 text-white bg-gradient-radial from-gray-900 to-black">
       <div className=" mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 sm:text-center mt-12">
-        <h1 className="font-NexaBold text-[36px]">How to Apply</h1>
+        <h1 className="font-NexaBold text-[36px]">How to Applys</h1>
         <p className="text-[16px] text-white">Get started in 4 steps</p>
       </div>
 
