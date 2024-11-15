@@ -92,7 +92,7 @@ function LoanApply() {
           genderId: "",
           maritalStatusId: "",
           emailAddress: "",
-          dateFormat: "dd MMMM yyyy"
+          dateFormat: "dd MMMM yyyy",
         },
         clientBanks: [
           {
@@ -142,7 +142,7 @@ function LoanApply() {
         ],
         familyMembers: [
           {
-            id:null,
+            id: null,
             titleId: null,
             firstName: " ",
             middleName: "",
@@ -305,42 +305,43 @@ function LoanApply() {
                       })
                     )
                     .required(),
-                  familyMembers: yup
-                  .array(yup.object().shape({
-                    titleId: yup.string().nullable(), // Allows titleId to be null
+                  familyMembers: yup.array(
+                    yup.object().shape({
+                      titleId: yup.string().nullable(), // Allows titleId to be null
 
-                    firstName: yup
-                      .string()
-                      .trim() // Removes leading and trailing whitespace
-                      .required("First name is required")
-                      .min(2, "First name must be at least 2 characters")
-                      .max(50, "First name cannot exceed 50 characters"),
+                      firstName: yup
+                        .string()
+                        .trim() // Removes leading and trailing whitespace
+                        .required("First name is required")
+                        .min(2, "First name must be at least 2 characters")
+                        .max(50, "First name cannot exceed 50 characters"),
 
-                    middleName: yup
-                      .string()
-                      .trim() // Removes leading and trailing whitespace
-                      .max(50, "Middle name cannot exceed 50 characters")
-                      .nullable(), // Allows middleName to be null or empty
+                      middleName: yup
+                        .string()
+                        .trim() // Removes leading and trailing whitespace
+                        .max(50, "Middle name cannot exceed 50 characters")
+                        .nullable(), // Allows middleName to be null or empty
 
-                    lastName: yup
-                      .string()
-                      .trim() // Removes leading and trailing whitespace
-                      .required("Last name is required")
-                      .min(2, "Last name must be at least 2 characters")
-                      .max(50, "Last name cannot exceed 50 characters"),
+                      lastName: yup
+                        .string()
+                        .trim() // Removes leading and trailing whitespace
+                        .required("Last name is required")
+                        .min(2, "Last name must be at least 2 characters")
+                        .max(50, "Last name cannot exceed 50 characters"),
 
-                    relationshipId: yup.number().nullable(), // Allows relationshipId to be null
-                    // .required("Relationship ID is required"), // Optional based on your requirements
-                    maritalStatusId: yup.string().nullable(), // Allows maritalStatusId to be null
-                    // .required("Marital status is required"), // Optional based on your requirements
+                      relationshipId: yup.number().nullable(), // Allows relationshipId to be null
+                      // .required("Relationship ID is required"), // Optional based on your requirements
+                      maritalStatusId: yup.string().nullable(), // Allows maritalStatusId to be null
+                      // .required("Marital status is required"), // Optional based on your requirements
 
-                    mobileNumber: yup.string(), // Assuming 10 digits
+                      mobileNumber: yup.string(), // Assuming 10 digits
 
-                    // emailAddress: yup
-                    //   .string()
-                    //   .required("Email address is required")
-                    //   .email("Email address must be a valid email format"),
-                  })),
+                      // emailAddress: yup
+                      //   .string()
+                      //   .required("Email address is required")
+                      //   .email("Email address must be a valid email format"),
+                    })
+                  ),
                 }),
             clients: yup.object({
               bvn: yup.string().label("BVN").length(11).required(),
@@ -371,6 +372,7 @@ function LoanApply() {
             netpay: yup.number().label("Netpay").required().moreThan(50000),
             productId: yup.number().label("Product").required(),
             principal: yup.number().label("Principal").required(),
+            // loanPurposeId:yup.number().label("Loan Purpose").required(),
             loanTermFrequency: yup
               .string()
               .label("Loan Term Frequency Type")
@@ -482,21 +484,24 @@ function LoanApply() {
             const data = await createClientKycMutation({
               body: removeEmptyProperties({
                 ...values.kyc,
-                addresses: values.kyc.addresses.map(x=>({...x, addressTypeId: 36})),
+                addresses: values.kyc.addresses.map((x) => ({
+                  ...x,
+                  addressTypeId: 36,
+                })),
                 verify: undefined,
                 clients: {
                   ...values.kyc.clients,
                   locale: "en",
                   doYouWantToUpdateCustomerInfo: !!clientId,
                   active: true,
-                  dateOfBirth:values.kyc.clients?.dateOfBirth
-                  ? dfns.format(
-                      values.kyc.clients?.dateOfBirth,
-                      values.kyc.clients?.dateFormat
-                    )
-                  : undefined,
-                  nin:null,
-                  bvn:null
+                  dateOfBirth: values.kyc.clients?.dateOfBirth
+                    ? dfns.format(
+                        values.kyc.clients?.dateOfBirth,
+                        values.kyc.clients?.dateFormat
+                      )
+                    : undefined,
+                  nin: null,
+                  bvn: null,
                 },
                 clientEmployers: [
                   {
@@ -631,7 +636,7 @@ function LoanApply() {
     },
   });
 
-  formik.errors
+  formik.errors;
   useEffect(() => {
     settoken("");
     formik.setFieldValue("kyc.verify.token", "");
@@ -671,14 +676,14 @@ function LoanApply() {
 
   useEffect(() => {
     console.log(formik.errors);
-    
+
     dataRef.current.formik.setValues((values) => ({
       ...values,
       kyc: {
         ...values.kyc,
         clients: clientKyc?.clients
           ? {
-            ...values.kyc.clients,
+              ...values.kyc.clients,
               id: clientKyc?.clients?.id,
               bvn: clientKyc?.clients?.bvn,
               nin: clientKyc?.clients?.nin,
@@ -687,12 +692,12 @@ function LoanApply() {
               lastname: clientKyc?.clients?.lastname,
               middlename: clientKyc?.clients?.middlename,
               dateOfBirth: clientKyc?.clients?.dateOfBirth
-              ? new Date(
-                  clientKyc?.clients?.dateOfBirth?.[0],
-                  clientKyc?.clients?.dateOfBirth?.[1] - 1,
-                  clientKyc?.clients?.dateOfBirth?.[2]
-                )
-              : null,
+                ? new Date(
+                    clientKyc?.clients?.dateOfBirth?.[0],
+                    clientKyc?.clients?.dateOfBirth?.[1] - 1,
+                    clientKyc?.clients?.dateOfBirth?.[2]
+                  )
+                : null,
               genderId: clientKyc?.clients?.gender?.id,
               maritalStatusId: clientKyc?.clients?.maritalStatus?.id,
               emailAddress: clientKyc?.clients?.emailAddress,
@@ -745,13 +750,13 @@ function LoanApply() {
           : values.kyc.clientEmployers,
         addresses: [
           {
-            id:clientKyc?.addresses?.[0]?.id,
+            id: clientKyc?.addresses?.[0]?.id,
             addressId: clientKyc?.addresses?.[0]?.addressId,
             addressLine1: clientKyc?.addresses?.[0]?.addressLine1,
             addressTypeId: 36,
           },
           {
-            id:clientKyc?.addresses?.[1]?.id,
+            id: clientKyc?.addresses?.[1]?.id,
             addressId: clientKyc?.addresses?.[1]?.addressId,
             addressLine1: clientKyc?.addresses?.[1]?.addressLine1,
             lgaId: clientKyc?.addresses?.[1]?.lgaId,
@@ -759,19 +764,19 @@ function LoanApply() {
             addressTypeId: 36,
           },
         ],
-        familyMembers:[
+        familyMembers: [
           {
             id: clientKyc?.familyMembers?.[0]?.id,
             emailAddress: clientKyc?.familyMembers?.[0]?.emailAddress,
             firstName: clientKyc?.familyMembers?.[0]?.firstName,
             lastName: clientKyc?.familyMembers?.[0]?.lastName,
             middleName: clientKyc?.familyMembers?.[0]?.middleName,
-            maritalStatusId: clientKyc?.familyMembers?.[0]?.maritalStatusId,
+            maritalStatusId: clientKyc?.familyMembers?.[0]?.maritalStatusId||null,
             mobileNumber: clientKyc?.familyMembers?.[0]?.mobileNumber,
             relationshipId: clientKyc?.familyMembers?.[0]?.relationshipId,
-            titleId: clientKyc?.familyMembers?.[0]?.titleId,
-          }
-        ]
+            titleId: clientKyc?.familyMembers?.[0]?.titleId || null,
+          },
+        ],
       },
       loan: {
         // commitment: 0,
@@ -930,7 +935,7 @@ function LoanApply() {
                 <div className="!min-h-[10vh] flex-1" />
 
                 {isShowFooter && (
-                  <div className="flex items-center gap-4 z-10 sticky bottom-0 py-4 px-5 bg-white border border-[#353D411A]/[0.1] shadow-lg ">
+                  <div className="flex items-center gap-4 z-10 sticky bottom-0 py-4 px-5 bg-white border border-[#353D411A]/[0.1] shadow-lg max-w-[1240px] m-auto w-full  ">
                     <div className="flex-1" />
                     {stepper.step == 3 && (
                       <div className="flex items-center">
