@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import useAuthUser from "hooks/useAuthUser";
 import useSideNavigation from "hooks/useSideNavigation";
-import { Menu } from "@mui/icons-material"
+import { Menu } from "@mui/icons-material";
 import ClientApi from "apis/ClientApi";
 import { useMemo } from "react";
 import useStepper from "hooks/useStepper";
@@ -25,10 +25,8 @@ function AppProtectedHeader(props) {
     { skip: !clientId }
   );
   console.log(clientKycDetailsQueryResult.data.data.avatar);
-  
 
   // console.log(authUser);
-  
 
   const sideNavigation = useSideNavigation();
 
@@ -52,7 +50,10 @@ function AppProtectedHeader(props) {
           <div className="flex-1" />
           {authUser?.clientId ? (
             <div className="flex items-center gap-2">
-              <Avatar><img src={clientKycDetailsQueryResult.data.data.avatar} alt="" /></Avatar>
+              <Avatar
+                src={clientKycDetailsQueryResult?.data?.data?.avatar ?? ""}
+                alt={authUser?.displayName}
+              />
               <Typography className="font-semibold text-black">
                 {authUser?.displayName}
               </Typography>
