@@ -5,6 +5,7 @@ import {
   Link as MuiLink,
   ButtonBase,
   CircularProgress,
+  MenuItem,
 } from "@mui/material";
 import LoanApi from "apis/LoanApi";
 import currencyImage from "assets/imgs/naira-nigeria-currency.png";
@@ -54,6 +55,22 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
     loanRepaymentSchedule?.periods?.[
       loanRepaymentSchedule?.periods?.length - 1
     ];
+  const loanPurpose = [
+    {
+      id: 81,
+      name: "Personal",
+      position: 0,
+      active: true,
+      mandatory: false,
+    },
+    {
+      id: 82,
+      name: "Schooling",
+      position: 1,
+      active: true,
+      mandatory: false,
+    },
+  ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -96,13 +113,14 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
             label="Enter Loan Amount"
             type="number"
             value={formik.values.loan.principal}
-            onChange={(e) => formik.setFieldValue("loan.principal", e.target.value)}
+            onChange={(e) =>
+              formik.setFieldValue("loan.principal", e.target.value)
+            }
             inputProps={{
               min: loanTemplate?.product?.minPrincipal,
               max: loanTemplate?.product?.maxPrincipal,
               step: 1000,
             }}
-            
           />
         </div>
 
@@ -135,7 +153,9 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
             label="Enter Loan Duration (Months)"
             type="number"
             value={formik.values.loan.loanTermFrequency}
-            onChange={(e) => formik.setFieldValue("loan.loanTermFrequency", e.target.value)}
+            onChange={(e) =>
+              formik.setFieldValue("loan.loanTermFrequency", e.target.value)
+            }
             inputProps={{
               min: loanTemplate?.product?.minNumberOfRepayments,
               max: loanTemplate?.product?.maxNumberOfRepayments,
@@ -162,6 +182,19 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
             )}
           />
         </div>
+
+        <TextField
+          fullWidth
+          label="Loan Purpose"
+          select
+          {...getFormikTextFieldProps(formik, "loan.loanPurposeId")}
+        >
+          {loanPurpose.map((option) => (
+            <MenuItem key={option.id} value={option.id}>
+              {option.name}
+            </MenuItem>
+          ))}
+        </TextField>
 
         <div className="space-y-4">
           {[
@@ -253,7 +286,8 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
               Your Monthly Repayment is
             </Typography>
             <CurrencyTypography variant="h6" className="font-bold">
-              {firstRepayment?.principalDue+(formik.values.loan.principal * 3.45/100)}
+              {firstRepayment?.principalDue +
+                (formik.values.loan.principal * 3.45) / 100}
             </CurrencyTypography>
           </div>
         </div>
