@@ -7,10 +7,10 @@ import {
   ArrowRightIcon,
 } from "@heroicons/react/24/outline";
 import ChooseLoan from "../../assets/imgs/Sign in page.png";
-import ChooseLoan2 from "../../assets/imgs/Loan calculator.png";
-import ChooseLoan3 from "../../assets/imgs/If Eligible.png";
-import ChooseLoan4 from "../../assets/imgs/Loan.png";
-import ChooseLoan5 from "../../assets/imgs/Add account.png";
+import ChooseLoan2 from "../../assets/imgs/images/step2.svg";
+import ChooseLoan3 from "../../assets/imgs/images/step3.svg";
+import ChooseLoan4 from "../../assets/imgs/images/step4.svg";
+import ChooseLoan5 from "../../assets/imgs/images/step5.svg";
 import { Link as DomLink, NavLink } from "react-router-dom";
 
 const HowItWorksData = [
