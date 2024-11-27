@@ -935,7 +935,7 @@ function LoanApply() {
                 <div className="!min-h-[10vh] flex-1" />
 
                 {isShowFooter && (
-                  <div className="flex items-center gap-4 z-10 sticky bottom-0 py-4 px-5 bg-white border border-[#353D411A]/[0.1] shadow-lg max-w-[1240px] m-auto w-full  ">
+                  <div className="flex items-center gap-4 z-10 sticky bottom-0 py-4 px-5 !bg-white border border-[#353D411A]/[0.1] shadow-lg max-w-[1240px] m-auto w-full  ">
                     <div className="flex-1" />
                     {stepper.step == 3 && (
                       <div className="flex items-center">

@@ -24,8 +24,7 @@ function AppProtectedHeader(props) {
     useMemo(() => ({ path: { id: clientId } }), [clientId, stepper]),
     { skip: !clientId }
   );
-  console.log(clientKycDetailsQueryResult.data.data.avatar);
-
+ 
   // console.log(authUser);
 
   const sideNavigation = useSideNavigation();

@@ -63,7 +63,7 @@ function AppProtectedSideMenu() {
                 clsx(
                   "flex items-center justify-start    text-left gap-2 px-4 py-3 rounded-xl",
                   isActive
-                    ? "text-white text-primary-main bg-primary-main"
+                    ? "text-white text-primary-main bg-primary-main bg-[#203c6d]"
                     : "text-primary-contrastText ",
                   typeof linkProps?.className === "function"
                     ? linkProps?.className?.({ isActive })
@@ -71,6 +71,7 @@ function AppProtectedSideMenu() {
                 )
               }
               {...linkProps}
+              
             >
               <img src={icon} alt={children} className="w-[1.27rem]" />
               <Typography component="span" className="font-medium">
@@ -112,16 +113,16 @@ const NAV_LINKS = [
   {
     icon: dashboardicon,
     children: "Dashboard",
-    to: "",
+    to: DASHBOARD,
   },
   {
     icon: loanapplicationicon,
     children: "Loan application",
-    to: "",
+    to: LOAN_APPLY,
   },
   {
     icon: faqicon,
     children: "FAQS",
-    to: "",
+    to:FAQS,
   },
 ];
