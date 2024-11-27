@@ -3,7 +3,8 @@ import CurrencyTypography from "common/CurrencyTypography";
 import TanStandardTable from "common/TanStandardTable";
 import LoanStatusChip from "./LoanStatusChip";
 import { Link } from "react-router-dom";
-import { LOAN_DETAILS } from "constants/urls";
+import { LOAN_DETAILS, LOAN_SIGN } from "constants/urls";
+import { ToggleButton } from "@mui/material";
 
 /**
  *
@@ -66,9 +67,12 @@ export const columns = [
             color={"error"}
             label={row?.original?.status?.value}
           />
-        ) : (
-          <LoanStatusChip variant="soft" status={row?.original?.status} />
-        )}
+        ) : row?.original?.status?.value == "Loan in draft" ?(
+          <span className="flex text-nowrap gap-3"> <LoanStatusChip variant="soft" status={row?.original?.status} /><Link to={LOAN_SIGN+'/'+row?.original?.id} className="text-green-800">Sign Agreement</Link></span>
+        )
+        :
+        <LoanStatusChip variant="soft" status={row?.original?.status} />
+      }
       </>
     ),
   },

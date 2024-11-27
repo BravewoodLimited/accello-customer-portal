@@ -9,21 +9,32 @@ import {
 } from "@mui/material";
 import useAuthUser from "hooks/useAuthUser";
 import useSideNavigation from "hooks/useSideNavigation";
-import { Menu } from "@mui/icons-material"
+import { Menu } from "@mui/icons-material";
+import ClientApi from "apis/ClientApi";
+import { useMemo } from "react";
+import useStepper from "hooks/useStepper";
 
 function AppProtectedHeader(props) {
   const { ...restProps } = props;
 
   const authUser = useAuthUser();
+  const stepper = useStepper();
+  const clientId = authUser?.clientId;
+  const clientKycDetailsQueryResult = ClientApi.useGetClientKycDetailsQuery(
+    useMemo(() => ({ path: { id: clientId } }), [clientId, stepper]),
+    { skip: !clientId }
+  );
+ 
+  // console.log(authUser);
 
   const sideNavigation = useSideNavigation();
 
   return (
     <AppBar
-      elevation={0}
+      elevation={99}
       position="sticky"
-      color="transparent"
-      className="left-0 lg:left-[270px] w-full lg:w-[calc(100%-270px)]"
+      // color="transparent"
+      className="left-0 bg-white lg:left-[270px] w-full lg:w-[calc(100%-270px)]"
       {...restProps}
     >
       <Container maxWidth="xl">
@@ -38,8 +49,11 @@ function AppProtectedHeader(props) {
           <div className="flex-1" />
           {authUser?.clientId ? (
             <div className="flex items-center gap-2">
-              <Avatar>{authUser?.displayName?.[0]}</Avatar>
-              <Typography className="font-semibold">
+              <Avatar
+                src={clientKycDetailsQueryResult?.data?.data?.avatar ?? ""}
+                alt={authUser?.displayName}
+              />
+              <Typography className="font-semibold text-black">
                 {authUser?.displayName}
               </Typography>
             </div>

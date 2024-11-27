@@ -1,8 +1,58 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import externalApi from "apis/external";
+import axios from "axios";
 import { API_BASE_URL, DEVELOPMENT } from "constants/env";
 import * as tags from "constants/tags";
 import { decrypt, encrypt } from "utils/object";
+
+// Function to refresh the token and store it in sessionStorage
+
+function refreshAuthToken(refreshToken) {
+  return axios
+    .post(
+      `${API_BASE_URL}/refresh-token`,
+      { refreshToken },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+    .then((response) => {
+      const result = response.data;
+      if (result?.authToken) {
+        // Store the new authToken in sessionStorage
+        sessionStorage.setItem("authToken", result.authToken);
+        return result.authToken;
+      }
+      return null;
+    })
+    .catch((error) => {
+      console.error("Failed to refresh token:", error);
+      return null;
+    });
+}
+
+// Function to get the auth token initially and store it in sessionStorage
+function getAuthToken() {
+  axios
+    .get(`${API_BASE_URL}/auth/token`, {
+      headers: { "Content-Type": "application/json" },
+    })
+    .then((response) => {
+      const result = response.data;
+      if (result?.access_token) {
+        // Store the authToken in sessionStorage
+        sessionStorage.setItem("authToken", result.access_token);
+        sessionStorage.setItem("refreshToken", result.refresh_token);
+        // return null
+      }
+      // return null;
+    })
+    .catch((error) => {
+      console.error("Failed to get token:", error);
+      // return null;
+    });
+    let a = 1
+}
 
 export const coreApi = createApi({
   reducerPath: "coreApi",
@@ -10,11 +60,26 @@ export const coreApi = createApi({
     baseUrl: `${API_BASE_URL}/thompson-wrapper/api/v1`,
     prepareArgs: (args, { getState }) => {
       let body = {};
-
+      let authToken = sessionStorage.getItem("authToken");
+      // const refreshToken = getState().global.authUser?.refreshToken;
       const authUser = getState().global.authUser;
 
       const base64EncodedAuthenticationKey =
         authUser?.base64EncodedAuthenticationKey;
+
+      // if (!authToken || authToken == "null") {
+      //   getAuthToken();
+      //   // Store in sessionStorage after getting a new token
+      //   sessionStorage.setItem("authToken", authToken);
+      // }
+
+      // // Attach authToken to headers
+      // if (authToken || authToken != "null") {
+      //   args.headers = {
+      //     ...args.headers,
+      //     Authorization: `Bearer ${authToken}`,
+      //   };
+      // }
 
       if (base64EncodedAuthenticationKey) {
         if (args.body) {
@@ -57,7 +122,7 @@ export const coreApi = createApi({
 
       return args;
     },
-    responseHandler: async (response) => {
+    responseHandler: async (response, args, api) => {
       try {
         const resultText = await response.text();
         const resultData = resultText.length ? JSON.parse(resultText) : null;
@@ -67,6 +132,26 @@ export const coreApi = createApi({
             ? decrypt(resultData.data)
             : resultData?.data;
 
+        // if (response.status === 401) {
+        //   // If Unauthorized, attempt token refresh
+        //   const authUser = api.getState().global.authUser;
+        //   const refreshToken = authUser?.refreshToken;
+        //   if (refreshToken) {
+        //     const newAuthToken = await refreshAuthToken(refreshToken);
+
+        //     if (newAuthToken) {
+        //       // Update store with the new authToken
+        //       api.dispatch({
+        //         type: "auth/setAuthToken",
+        //         payload: newAuthToken,
+        //       });
+
+        //       // Retry the original request with new token
+        //       args.headers.Authorization = `Bearer ${newAuthToken}`;
+        //       return fetchBaseQuery(args, api);
+        //     }
+        //   }
+        // }
         if (DEVELOPMENT) {
           // console.info("@Response", {
           //   url: response.url,

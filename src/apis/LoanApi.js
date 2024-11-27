@@ -22,7 +22,7 @@ export const LoanApi = coreApi.injectEndpoints({
     }),
     getLoan: builder.query({
       query: ({ path, ...config }) => ({
-        url: `${BASE_URL}/business/${path?.id}/info`,
+        url: `${BASE_URL}/business/${path?.id}/info?associations=all&exclude=guarantors,futureSchedule`,
         method: "GET",
         ...config,
       }),
@@ -50,6 +50,22 @@ export const LoanApi = coreApi.injectEndpoints({
         ...config,
       }),
       providesTags: [{ type: LOAN }],
+    }),
+    approveLoan: builder.mutation({
+      query: ({ path, ...config }) => ({
+        url: `${BASE_URL}/${path.id}/approve`,
+        method: "GET",
+        ...config,
+      }),
+      providesTags: [{ type: LOAN }],
+    }),
+    getCRMClientsLoanTransactionTemplate: builder.query({
+      query: ({ loanId, ...params }) => ({
+        url: `/loans/${loanId}/transactions/template`,
+        params,
+      }),
+      providesTags: [{ type: LOAN }],
+        
     }),
   }),
 });

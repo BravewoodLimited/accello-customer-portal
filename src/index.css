@@ -33,3 +33,25 @@
     /* display: none; */
   }
 }
+
+@font-face {
+  font-family: nexaBold;
+  src: url("/src/fonts/nexa/NexaBold.otf");
+}
+
+@font-face {
+  font-family: nexaLight;
+  src: url("/src/fonts/nexa/NexaLight.otf");
+}
+
+
+@font-face {
+  font-family: gilroySemibold;
+  src: url("/src/fonts/gilroy/Gilroy-SemiBold.ttf");
+}
+
+
+@font-face {
+  font-family: gilroyBold;
+  src: url("/src/fonts/gilroy/Gilroy-Bold.ttf");
+}

@@ -46,7 +46,7 @@ function Dashboard() {
       }),
       [authUser?.clientId, limit, offset]
     ),
-    { skip: !authUser?.clientId }
+    { skip: !authUser?.clientId, }
   );
 
   const loansSingleQueryResult = LoanApi.useGetLoansQuery(
