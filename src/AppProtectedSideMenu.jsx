@@ -88,7 +88,7 @@ function AppProtectedSideMenu() {
           className=" gap-2 px-4 py-3 flex flex-col font-semibold"
         >
           <span className="font-semibold font-nunito-sans text-[16px] text-[#FFEFCABF]">Contact us </span>
-          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">+234 81370002223,</span>
+          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">+234 81370002223</span>
           <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">+234 80349981573</span>
         </Typography>
         <ButtonBase
