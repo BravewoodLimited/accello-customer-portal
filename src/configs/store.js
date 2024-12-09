@@ -8,9 +8,11 @@ import { mergeDeep, isEmpty } from "utils/object";
 import { logout, refresh } from "./store-actions";
 import { throttle } from "utils/function";
 import * as tags from "constants/tags";
+import userCredReducer from "./store-slicecred"
 
 export const store = configureStore({
   reducer: {
+    userCred: userCredReducer,
     [coreApi.reducerPath]: coreApi.reducer,
     [globalStore.slice.reducerPath]: globalStore.slice.reducer,
   },
