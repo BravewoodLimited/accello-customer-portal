@@ -71,7 +71,6 @@ function AppProtectedSideMenu() {
                 )
               }
               {...linkProps}
-              
             >
               <img src={icon} alt={children} className="w-[1.27rem]" />
               <Typography component="span" className="font-medium">
@@ -87,9 +86,15 @@ function AppProtectedSideMenu() {
           variant="body2"
           className=" gap-2 px-4 py-3 flex flex-col font-semibold"
         >
-          <span className="font-semibold font-nunito-sans text-[16px] text-[#FFEFCABF]">Contact us </span>
-          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">+234 81370002223</span>
-          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">+234 80349981573</span>
+          <span className="font-semibold font-nunito-sans text-[16px] text-[#FFEFCABF]">
+            Contact us{" "}
+          </span>
+          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">
+            +234 81370002223
+          </span>
+          <span className="text-[#FFEFCABF]/[75%] font-nunito-sans text-[14px]">
+            +234 80349981573
+          </span>
         </Typography>
         <ButtonBase
           variant="text"
@@ -123,6 +128,6 @@ const NAV_LINKS = [
   {
     icon: faqicon,
     children: "FAQS",
-    to:FAQS,
+    to: FAQS,
   },
 ];
