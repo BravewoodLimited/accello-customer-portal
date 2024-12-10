@@ -2,12 +2,14 @@ import React from "react";
 import Loan1 from "../../assets/Landing/Loans/personal.png";
 import Loan2 from "../../assets/Landing/Loans/edu.png";
 import Loan3 from "../../assets/Landing/Loans/bridge.png";
+import { Link as DomLink } from 'react-router-dom';
 import dots from "../../assets/Landing/Loans/dots.png";
+import { SIGNIN } from "constants/urls";
 
 const LoanTypes = [
   {
     img: Loan1,
-    h3: "Personal Loan",
+    h3: "Public Sector Loan",
     p: "Pay bills, manage unexpected expenses, cover gaps and major life purchases.",
   },
   {
@@ -16,9 +18,9 @@ const LoanTypes = [
     p: "dots1",
   },
   {
-    img: Loan2,
-    h3: "Eduloan",
-    p: "Afford the education you want for yourself and your children.",
+    img: Loan3,
+    h3: "SME Loan",
+    p: "Access the funding you need to grow and sustain your small or medium-sized business.",
   },
   {
     img: dots,
@@ -26,9 +28,9 @@ const LoanTypes = [
     p: "dots2",
   },
   {
-    img: Loan3,
-    h3: "Bridge Loan",
-    p: "Loans to help you sustain and grow your business. We get you through a rough patch.",
+    img: Loan2,
+    h3: "Tetiary Institutions",
+    p: "Secure loans to support your education and achieve your academic goals seamlessly.",
   },
 ];
 
@@ -66,7 +68,7 @@ function LoansForYou() {
                     (item.p === "dots1" || "dots2") && "abs"
                   }`}
                 />
-                <div
+                {/* <div
                   className={` ${
                     (item.p === "dots1") && "hidden"
                   }  ${
@@ -76,7 +78,7 @@ function LoansForYou() {
                   }  absolute text-white bg-accelloBlue rounded-[5px] font-dmsans py-[3px] px-[6px] -top-4 -right-5  `}
                 >
                   coming soon
-                </div>
+                </div> */}
               </div>
             </div>
             {item.h3 !== "dots" && (
@@ -92,13 +94,15 @@ function LoansForYou() {
           </div>
         ))}
       </div>
-      <div className="mx-auto max-w-2xl w-full flex items-center">
+      <div className="mx-auto max-w-2xl w-full flex items-center justify-center">
+      <DomLink to={SIGNIN} >
         <button
           type="button"
-          className="hidden sm:block border-2 border-white rounded-lg font-dmsans  bg-accelloBlue py-3 px-10 text-white hover:text-white gap-2 mt-10 text-[16px] sm:w-auto w-[100%] mb-10 text-center items-center mx-auto"
+          className="hidden sm:block rounded-lg  font-dmsans  bg-accelloBlue py-3 px-10 text-white hover:text-white gap-2 mt-10 text-[16px] sm:w-auto w-[100%] mb-10 text-center items-center mx-auto"
         >
           Get a Loan Today
         </button>
+       </DomLink>
       </div>
     </div>
   );
