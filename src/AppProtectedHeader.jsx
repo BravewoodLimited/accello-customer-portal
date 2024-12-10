@@ -25,7 +25,6 @@ function AppProtectedHeader(props) {
     { skip: !clientId }
   );
  
-  // console.log(authUser);
 
   const sideNavigation = useSideNavigation();
 
@@ -51,10 +50,10 @@ function AppProtectedHeader(props) {
             <div className="flex items-center gap-2">
               <Avatar
                 src={clientKycDetailsQueryResult?.data?.data?.avatar ?? ""}
-                alt={authUser?.displayName}
+                alt={clientKycDetailsQueryResult?.data?.data?.clients?.displayName}
               />
               <Typography className="font-semibold text-black">
-                {authUser?.displayName}
+                {clientKycDetailsQueryResult?.data?.data?.clients?.displayName}
               </Typography>
             </div>
           ) : null}

@@ -716,22 +716,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                 Verify employment details
               </Typography>
               <div className="grid grid-cols-2 gap-4">
-                <TextField
-                  fullWidth
-                  label="Employment sector"
-                  select
-                  disabled
-                  {...getFormikTextFieldProps(
-                    formik,
-                    "kyc.clientEmployers.0.employmentSectorId"
-                  )}
-                >
-                  {employmentSectors?.map((option) => (
-                    <MenuItem key={option.id} value={option.id}>
-                      {option.name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                
 
                 <TextField
                   fullWidth
@@ -743,6 +728,22 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                   )}
                 >
                   {sectorEmploymentTypes?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  fullWidth
+                  label="Employment sector"
+                  select
+                  disabled
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.clientEmployers.0.employmentSectorId"
+                  )}
+                >
+                  {employmentSectors?.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
                       {option.name}
                     </MenuItem>

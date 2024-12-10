@@ -22,11 +22,24 @@ import { LOAN_APPLY } from "constants/urls";
 import AccountDetailsModal from "./AccountDetailsModal";
 import PaystackModal from "./PaystackModal";
 import PaymentOptionModal from "./PaymentOptionModal";
+import useStepper from "hooks/useStepper";
+import ClientApi from "apis/ClientApi";
 
 
 
 function Dashboard() {
   const authUser = useAuthUser();
+  console.log("authUser", authUser);
+  const stepper = useStepper();
+  const clientId = authUser?.clientId;
+  const clientKycDetailsQueryResult = ClientApi.useGetClientKycDetailsQuery(
+    useMemo(() => ({ path: { id: clientId } }), [clientId, stepper]),
+    { skip: !clientId }
+  );
+ 
+  
+
+  
   const [accountModalOpen, setAccountModalOpen] = useState(false);
   const [paystackModalOpen, setPaystackModalOpen] = useState(false);
   const [paymentOptionModalOpen, setPaymentOptionModalOpen] = useState(false);
@@ -152,7 +165,7 @@ function Dashboard() {
             <div className="flex flex-wrap gap-4 md:gap-8 mb-8">
               <div className="w-full md:w-1/3 space-y-4">
                 <Typography variant="h5" className="font-bold">
-                  Hi {authUser?.displayName},
+                  Hi {clientKycDetailsQueryResult?.data?.data?.clients?.displayName},
                 </Typography>
                 {activeLoan ? (
                   <>
