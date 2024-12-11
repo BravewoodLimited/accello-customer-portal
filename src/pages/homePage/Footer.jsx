@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/imgs/footerlogo.svg";
 import { RiFacebookCircleLine, RiLinkedinBoxLine } from "react-icons/ri";
@@ -7,11 +7,26 @@ import { FaInstagram } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
 import { BiPhone } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { Link as DomLink } from "react-router-dom";
+import { Link as DomLink, useLocation } from "react-router-dom";
 import cbnlogo from "../../assets/Landing/cbnlogo.png";
 import Regulated from "common/Regulated";
 
 function Footer() {
+  const location = useLocation();
+  useEffect(() => {
+    const scrollToTop = () => {
+      // Scroll after a small delay to ensure content is loaded
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
+      }, 10000); // Delay of 100ms before scrolling to the top
+    };
+
+    scrollToTop();
+  }, [location]);
   return (
     <div className="px-4 py-[80px] pb-4 text-white bg-black lg:block flex flex-col items-center">
       <div className="grid   sm:grid-cols-1  items-start sm:gap-6  lg:grid-cols-4  lg:gap-16   mx-auto max-w-7xl px-2 sm:px-6 lg:px-8  sm:space-y-0 space-y-16">
