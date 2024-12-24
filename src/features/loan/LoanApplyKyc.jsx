@@ -77,6 +77,10 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
     useMemo(() => ({ path: { id: 27 } }), [])
   );
 
+  const personalInfostateQueryResult = CodeApi.useGetCodeValuesInfoQuery(
+    useMemo(() => ({ path: { id: 27 } }), [])
+  );
+
   const { data: LGAIdList } = CodeApi.useGetStateLGAQuery(
     useMemo(
       () => formik.values?.kyc?.addresses?.[1]?.stateProvinceId,
@@ -84,6 +88,15 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
       [formik.values?.kyc?.addresses?.[1]?.stateProvinceId]
     ),
     { skip: !formik.values?.kyc?.addresses?.[1]?.stateProvinceId }
+  );
+
+  const { data: personalInfoLGAIdList } = CodeApi.useGetStateLGAQuery(
+    useMemo(
+      () => formik.values?.kyc?.addresses?.[0]?.stateProvinceId,
+      // eslint-disable-next-line
+      [formik.values?.kyc?.addresses?.[0]?.stateProvinceId]
+    ),
+    { skip: !formik.values?.kyc?.addresses?.[0]?.stateProvinceId }
   );
 
   const employmentSectors = employmentSectorsQueryResult.data?.data;
@@ -211,7 +224,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
 
   const ninVerification = verifyClientNINQueryResult.data?.data;
 
- // Access state
+  // Access state
   const dispatch = useDispatch(); // Dispatch actions
   useEffect(() => {
     dispatch(updateBVNCred(verifyClientBVNQueryResult.data?.data.data));
@@ -571,17 +584,7 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                     "kyc.clients.emailAddress"
                   )}
                 />
-
-                {/* <TextField
-                  fullWidth
-                  label="Office Address"
-                  className=""
-                  {...getFormikTextFieldProps(
-                    formik,
-                    "kyc.clientEmployers.0.officeAddress"
-                  )}
-                /> */}
-                <TextField
+                 <TextField
                   fullWidth
                   label="Residential address"
                   className=""
@@ -590,6 +593,35 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                     "kyc.addresses.0.addressLine1"
                   )}
                 />
+                
+               
+                <TextField
+                  fullWidth
+                  label="Residential state"
+                  select
+                  {...getFormikTextFieldProps(
+                    formik,
+                    "kyc.addresses.0.stateProvinceId"
+                  )}
+                >
+                  {personalInfostateQueryResult.data?.data?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  fullWidth
+                  label="Residential LGA"
+                  select
+                  {...getFormikTextFieldProps(formik, "kyc.addresses.0.lgaId")}
+                >
+                  {personalInfoLGAIdList?.data?.map((option) => (
+                    <MenuItem key={option.id} value={option.id}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </div>
             </div>
 
@@ -700,14 +732,14 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                   )}
                 />
 
-                <TextField
+                {/* <TextField
                   fullWidth
                   label=" Email Address"
                   {...getFormikTextFieldProps(
                     formik,
-                    "kyc.familyMembers.0.emailAddress"
+                    "kyc.familyMembers.1.emailAddress"
                   )}
-                />
+                /> */}
               </div>
             </div>
 
@@ -716,8 +748,6 @@ function LoanApplyEligibility({ dataRef, formik, clientKyc, clientId }) {
                 Verify employment details
               </Typography>
               <div className="grid grid-cols-2 gap-4">
-                
-
                 <TextField
                   fullWidth
                   label="Employment Type"
