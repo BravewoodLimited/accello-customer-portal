@@ -191,9 +191,9 @@ const ClientDetails = () => {
                 ))}
               </Grid>
             </Paper>
-            <Button variant="contained" color="primary">
+            {/* <Button variant="contained" color="primary">
               Generate Payment Link
-            </Button>
+            </Button> */}
           </Grid>
           {/* <Grid item xs={12} md={4}>
             <Paper sx={{ p: 2, mb: 3 }}>
