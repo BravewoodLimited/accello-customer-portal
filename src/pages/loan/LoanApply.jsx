@@ -763,6 +763,8 @@ function LoanApply() {
             addressId: clientKyc?.addresses?.[0]?.addressId,
             addressLine1: clientKyc?.addresses?.[0]?.addressLine1,
             addressTypeId: 36,
+            lgaId:clientKyc?.addresses?.[0]?.lgaId,
+            stateProvinceId: clientKyc?.addresses?.[0]?.stateProvinceId,
           },
           {
             id: clientKyc?.addresses?.[1]?.id,
