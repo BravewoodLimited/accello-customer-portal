@@ -39,7 +39,7 @@ function AppProtectedHeader(props) {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Menu
-            className="lg:hidden !text-black "
+            className="lg:hidden !text-black  !cursor-pointer"
             color="#000"
             onClick={() => sideNavigation.toggle()}
           >
