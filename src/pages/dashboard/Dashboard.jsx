@@ -62,6 +62,8 @@ function Dashboard() {
     { skip: !authUser?.clientId, }
   );
 
+  console.log("loansQueryResult", loansQueryResult);
+  
   const loansSingleQueryResult = LoanApi.useGetLoansQuery(
     useMemo(
       () => ({
@@ -92,6 +94,7 @@ function Dashboard() {
   );
 
   const activeLoan = loanQueryResult.data?.data;
+console.log("activeLoan",activeLoan);
 
   // const activeLoanTransactionsQueryResult = LoanApi.useGetLoanTransactionsQuery(
   //   useMemo(() => ({ params: { id: activeLoan?.id } }), [activeLoan?.id]),
@@ -244,7 +247,7 @@ function Dashboard() {
                         Transaction History
                       </Typography>
                       <div className="flex-1" />
-                      <MuiLink>View All</MuiLink>
+                      {/* <MuiLink>View All</MuiLink> */}
                     </div>
                     <Paper className="p-4">
                       <LoanTransactionTable
@@ -265,7 +268,7 @@ function Dashboard() {
             Loans
           </Typography>
           <div className="flex-1" />
-          <MuiLink>View All</MuiLink>
+          {/* <MuiLink>View All</MuiLink> */}
         </div>
         <Paper className="p-4">
           <LoanTable
