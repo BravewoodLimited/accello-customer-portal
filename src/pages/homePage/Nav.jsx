@@ -8,12 +8,53 @@ import { SIGNIN } from 'constants/urls';
 
 
 const navigation = [
-    { name: 'Home', current: true, to: "/", duration: 1000, offset: -300 , moff: -100, condition: false},
-    { name: 'About Us', current: false, to: "/about-us", duration: 1000, offset: -300 , moff: -100, condition: false},
-    // { name: 'Loan Calculator', current: false, to: "calculator", duration: 1500, offset: -100, moff: -310, condition: true},
-    { name: 'Faqs ', current: false, to: "/faqs", duration: 1800, offset: -100, moff: -350, condition: false },
-    { name: 'Contact us', current: false, to: "/contact", duration: 1000, offset: -150, moff: -350, condition: false},
-]
+  {
+    name: "Home",
+    current: true,
+    to: "/",
+    duration: 1000,
+    offset: -300,
+    moff: -100,
+    condition: false,
+  },
+  {
+    name: "About Us",
+    current: false,
+    to: "/about-us",
+    duration: 1000,
+    offset: -300,
+    moff: -100,
+    condition: false,
+  },
+  // { name: 'Loan Calculator', current: false, to: "calculator", duration: 1500, offset: -100, moff: -310, condition: true},
+  {
+    name: "Faqs ",
+    current: false,
+    to: "/faqs",
+    duration: 1800,
+    offset: -100,
+    moff: -350,
+    condition: false,
+  },
+  {
+    name: "Contact us",
+    current: false,
+    to: "/contact",
+    duration: 1000,
+    offset: -150,
+    moff: -350,
+    condition: false,
+  },
+  {
+    name: "Loan Balance",
+    current: false,
+    to: "/loan-balance",
+    duration: 1000,
+    offset: -150,
+    moff: -350,
+    condition: false,
+  },
+];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -162,9 +203,41 @@ function Nav({handleClickOpen}) {
                         </div>
                     </Disclosure.Panel>
                 </>
-            )}
-        </Disclosure>
-    )
+              ))}
+
+              <div className="flex flex-col w-[200px] gap-5">
+                {/* <DomLink to="/loan/signin">
+                  <button
+                    type="button"
+                    className="hover:text-black hover:bg-white inline-flex border-2 border-white rounded-md bg-transparent py-4 px-8 text-white gap-2 text-center "
+                  >
+                    <LockClosedIcon
+                      className="block h-5 w-5"
+                      aria-hidden="true"
+                    />
+                    Login
+                  </button>
+                </DomLink>
+
+                <DomLink to="/loan/signin">
+                  <button
+                    type="button"
+                    className="inline-flex border-2 border-white rounded-md bg-white py-4 px-8 text-black hover:text-white gap-2 text-center items-center hover:bg-transparent"
+                  >
+                    Create Account
+                    <ArrowRightIcon
+                      className="block h-4 w-3"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </DomLink> */}
+              </div>
+            </div>
+          </Disclosure.Panel>
+        </>
+      )}
+    </Disclosure>
+  );
 }
 
 export default Nav
