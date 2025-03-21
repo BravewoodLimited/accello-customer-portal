@@ -28,6 +28,14 @@ export const LoanApi = coreApi.injectEndpoints({
       }),
       providesTags: [{ type: LOAN }],
     }),
+    getLoanBalance: builder.query({
+      query: ({ path, ...config }) => ({
+        url: `/document/loan_balance/${path.id}/api`,
+        method: "GET",
+        ...config,
+      }),
+      providesTags: [{ type: LOAN }],
+    }),
     calculateLoanSchedule: builder.query({
       query: (config) => ({
         url: `${BASE_URL}/business/calculate-schedule`,

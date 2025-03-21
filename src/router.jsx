@@ -13,7 +13,7 @@ import FAQ from "pages/FAQ";
 import Landing from "pages/homePage/Landing";
 import LoanApplication from "pages/ClientDetails";
 import { createBrowserRouter } from "react-router-dom";
-import SignLaf from "pages/SignLaf";
+// import SignLaf from "pages/SignLaf";
 import LoanBalance from "pages/LoanBalance";
 
 const router = createBrowserRouter([

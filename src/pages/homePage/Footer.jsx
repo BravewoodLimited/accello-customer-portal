@@ -1,11 +1,12 @@
 import React from 'react'
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import Logo from '../../assets/Landing/NewLogo.png'
-import { RiFacebookCircleLine, RiLinkedinBoxLine } from "react-icons/ri";
+import { RiFacebookCircleLine, RiLinkedinBoxLine, RiTiktokLine } from "react-icons/ri";
 import { FiTwitter } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
 import { IoMailOutline } from "react-icons/io5";
 import { BiPhone } from "react-icons/bi";
+import { BiLogoWhatsapp } from "react-icons/bi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 
@@ -33,15 +34,19 @@ function Footer() {
            
             <div className='flex items-center gap-2'>
               <HiOutlineLocationMarker className='w-6 h-6'/>
-              <p className='w-[273px]'>No 2C Ayo Rosiji Crescent, Ikeja GRA, Lagos.</p>
+              <p className='w-[273px]'> Gabriel Akinmade Taylor Plaza Opebi road, Lagos.</p>
             </div>
             <div className='flex items-center gap-2'>
               <BiPhone className='w-6 h-6'/>
               <p>07002223556</p>
             </div>
             <div className='flex items-center gap-2'>
+              <BiLogoWhatsapp className='w-6 h-6'/>
+              <Link target='_blank' to={'https://wa.me/2348107258837'}>08107258837</Link>
+            </div>
+            <div className='flex items-center gap-2'>
               <IoMailOutline className='w-6 h-6'/>
-              <p>loans@accello.ng</p>
+              <p>loans@bravewood.ng</p>
             </div>
           </div>
 
@@ -62,7 +67,7 @@ function Footer() {
                 <RiFacebookCircleLine className='w-6 h-6'/>
               </Link>
 
-              <Link to='https://twitter.com/Accello_ng' target="_blank" className='flex items-center gap-2'>
+              <Link to='https://x.com/Accello_ng' target="_blank" className='flex items-center gap-2'>
                 <FiTwitter className='w-6 h-6'/>
               </Link>
 
@@ -72,6 +77,10 @@ function Footer() {
 
               <Link to='https://www.linkedin.com/company/accello-ng' target="_blank" className='flex items-center gap-2'>
                 <RiLinkedinBoxLine className='w-6 h-6'/>
+              </Link>
+
+              <Link to='https://www.tiktok.com/@accello.ng?lang=en' target="_blank" className='flex items-center gap-2'>
+                <RiTiktokLine className='w-6 h-6'/>
               </Link>
 
             </div>
