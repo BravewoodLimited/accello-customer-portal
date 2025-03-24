@@ -69,7 +69,7 @@ function Nav() {
 
                 <div className="hidden lg:ml-6 lg:block mt-10">
                   <div className="flex space-x-4">
-                    <DomLink to="/sign-in">
+                    {/* <DomLink to="/sign-in">
                       <button
                         type="button"
                         className="inline-flex border-2 border-accelloBlue rounded-[8px] bg-transparent 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-accelloBlue hover:text-white hover:bg-accelloBlue gap-2 text-center "
@@ -93,7 +93,7 @@ function Nav() {
                           aria-hidden="true"
                         />
                       </button>
-                    </DomLink>
+                    </DomLink> */}
                   </div>
                 </div>
               </div>

@@ -49,6 +49,15 @@ const navigation = [
     moff: -350,
     condition: false,
   },
+  {
+    name: "Loan Balance",
+    current: false,
+    to: "/loan-balance",
+    duration: 1000,
+    offset: -150,
+    moff: -350,
+    condition: false,
+  },
 ];
 
 function classNames(...classes) {
@@ -99,7 +108,7 @@ function Nav({ handleClickOpen }) {
                 <div className="hidden sm:ml-6 lg:block mt-10">
                   <div className="flex space-x-4">
                     {/* <DomLink to="/sign-in"> */}
-                    <DomLink
+                    {/* <DomLink
                       to={SIGNIN}
                       type="button"
                       className="inline-flex border-2 border-white rounded-md bg-transparent 2xl:py-4 2xl:px-8 px-6 py-2.5 md:mt-2 2xl:md-1 text-white hover:text-black hover:bg-white gap-2 text-center "
@@ -109,11 +118,11 @@ function Nav({ handleClickOpen }) {
                         aria-hidden="true"
                       />
                       Login
-                    </DomLink>
+                    </DomLink> */}
                     {/* </DomLink> */}
 
                     {/* <DomLink to="/loan/signin"> */}
-                    <DomLink
+                    {/* <DomLink
                       to={SIGNIN}
                       type="button"
                       className="inline-flex border-2 border-white rounded-md bg-white 2xl:py-4 2xl:px-8 px-4 py-2.5 md:mt-2 2xl:md-1 text-black gap-2 text-center items-center hover:bg-transparent hover:text-white"
@@ -123,7 +132,7 @@ function Nav({ handleClickOpen }) {
                         className="block h-4 w-3"
                         aria-hidden="true"
                       />
-                    </DomLink>
+                    </DomLink> */}
                     {/* </DomLink> */}
                   </div>
                 </div>
@@ -190,7 +199,7 @@ function Nav({ handleClickOpen }) {
               ))}
 
               <div className="flex flex-col w-[200px] gap-5">
-                <DomLink to="/loan/signin">
+                {/* <DomLink to="/loan/signin">
                   <button
                     type="button"
                     className="hover:text-black hover:bg-white inline-flex border-2 border-white rounded-md bg-transparent py-4 px-8 text-white gap-2 text-center "
@@ -214,7 +223,7 @@ function Nav({ handleClickOpen }) {
                       aria-hidden="true"
                     />
                   </button>
-                </DomLink>
+                </DomLink> */}
               </div>
             </div>
           </Disclosure.Panel>

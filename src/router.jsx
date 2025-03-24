@@ -14,6 +14,8 @@ import FAQ from "pages/FAQ";
 import Landing from "pages/homePage/Landing";
 import LoanApplication from "pages/ClientDetails";
 import { createBrowserRouter } from "react-router-dom";
+// import SignLaf from "pages/SignLaf";
+import LoanBalance from "pages/LoanBalance";
 import SignLaf from "pages/SignLaf";
 
 const router = createBrowserRouter([
@@ -25,7 +27,8 @@ const router = createBrowserRouter([
       {path:'/', element:<Landing/>},
       {path:'/about-us/', element:<AboutUs/>},
       {path:'/faqs', element:<FAQ/>},
-      {path:'/contact', element:<ContactUs/>}
+      {path:'/contact', element:<ContactUs/>},
+      {path:'/loan-balance', element:<LoanBalance/>}
       
     ]
   },
