@@ -138,7 +138,7 @@ function LoanApplyCalculator({ formik, loanTemplate }) {
                 formik.setFieldValue("loan.loanTermFrequency", value)
               }
             />
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-2">
               <Typography variant="body2" className="text-text-secondary">
                 {loanTemplate?.product?.minNumberOfRepayments} month(s)
               </Typography>

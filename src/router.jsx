@@ -15,6 +15,10 @@ import Landing from "pages/homePage/Landing";
 import LoanApplication from "pages/ClientDetails";
 import { createBrowserRouter } from "react-router-dom";
 import SignLaf from "pages/SignLaf";
+import PrivacyPolicy from "pages/PrivacyPolicy";
+import TermsCondition from "pages/TermsCondition";
+// import SignLaf from "pages/SignLaf";
+import LoanBalance from "pages/LoanBalance";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +29,10 @@ const router = createBrowserRouter([
       {path:'/', element:<Landing/>},
       {path:'/about-us/', element:<AboutUs/>},
       {path:'/faqs', element:<FAQ/>},
-      {path:'/contact', element:<ContactUs/>}
+      {path:'/contact', element:<ContactUs/>},
+      {path:'/privacy-policy', element:<PrivacyPolicy/>},
+      {path:'/terms-and-conditions', element:<TermsCondition/>}
+      {path:'/loan-balance', element:<LoanBalance/>}
       
     ]
   },

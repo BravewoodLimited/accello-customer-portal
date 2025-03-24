@@ -1,6 +1,10 @@
 import React from "react";
 import AboutImg from "../../assets/Landing/smile.png";
 
+
+import { Link as DomLink } from 'react-router-dom';
+import { SIGNIN } from "constants/urls";
+
 function About() {
   return (
     <div className="p-4 text-black bg-landingbackground">
@@ -42,13 +46,14 @@ function About() {
             and fair – that's the Accello way. Join thousands of satisfied
             customers and start your journey to financial freedom today.
           </p>
-
+          <DomLink to={SIGNIN}>
           <button
             type="button"
             className="hidden sm:block border-2 border-white rounded-md bg-accelloBlue py-3 px-12 text-white gap-2 mt-14 text-[16px] sm:w-auto w-[100%] mb-24 text-center items-center hover:bg-transparent hover:text-accelloBlue hover:border-accelloBlue"
           >
             Book a loan now <span aria-hidden="true">→</span>
           </button>
+          </DomLink>
         </div>
       </div>
       {/* <hr className='mx-auto max-w-7xl my-12'/> */}

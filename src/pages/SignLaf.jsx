@@ -101,7 +101,7 @@ export default function SignLaf() {
               {/* {formik.values.kyc.verify?.message} */}
             </DialogContentText>
             <Typography className="text-center">
-              Enter the OTP sent to you to verify the Loan Agreement.
+              Enter the OTP sent to you to verify the Loan Agreement.s
             </Typography>
             <div className="flex items-center justify-center">
               <OtpInput

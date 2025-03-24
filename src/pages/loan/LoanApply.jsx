@@ -32,6 +32,8 @@ import {
   getFormikTextFieldError,
   getFormikTextFieldHelperText,
 } from "utils/formik";
+import { useSelector } from "react-redux";
+import { ValidateCreditialDetials } from "utils/ValidateCredential";
 
 const nineMonthsAgo = dfns.subMonths(new Date(), 9);
 
@@ -52,6 +54,7 @@ function LoanApply() {
 
   const [sendNewClientOtpMutation] = ClientApi.useSendNewClientOtpMutation();
   const [verifyClientOtpMutation] = ClientApi.useVerifyLafOtpMutation();
+  const { bvnCred, ninCred } = useSelector((state) => state.userCred);
 
   const [verifyNewClientOtpMutation] =
     ClientApi.useVerifyNewClientOtpMutation();
@@ -426,6 +429,12 @@ function LoanApply() {
       ][stepper.step],
     }),
     onSubmit: async (values, helper) => {
+      const validate = ValidateCreditialDetials(bvnCred, ninCred);
+      if (!validate) {
+        enqueueSnackbar("BVN and NIN do not match.", { variant: "error" });
+        return;
+      }
+
       try {
         if (stepper.step === 0) {
           if (!clientId) {
@@ -754,6 +763,8 @@ function LoanApply() {
             addressId: clientKyc?.addresses?.[0]?.addressId,
             addressLine1: clientKyc?.addresses?.[0]?.addressLine1,
             addressTypeId: 36,
+            lgaId:clientKyc?.addresses?.[0]?.lgaId,
+            stateProvinceId: clientKyc?.addresses?.[0]?.stateProvinceId,
           },
           {
             id: clientKyc?.addresses?.[1]?.id,
@@ -771,7 +782,8 @@ function LoanApply() {
             firstName: clientKyc?.familyMembers?.[0]?.firstName,
             lastName: clientKyc?.familyMembers?.[0]?.lastName,
             middleName: clientKyc?.familyMembers?.[0]?.middleName,
-            maritalStatusId: clientKyc?.familyMembers?.[0]?.maritalStatusId||null,
+            maritalStatusId:
+              clientKyc?.familyMembers?.[0]?.maritalStatusId || null,
             mobileNumber: clientKyc?.familyMembers?.[0]?.mobileNumber,
             relationshipId: clientKyc?.familyMembers?.[0]?.relationshipId,
             titleId: clientKyc?.familyMembers?.[0]?.titleId || null,

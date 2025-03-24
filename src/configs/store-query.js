@@ -115,10 +115,13 @@ export const coreApi = createApi({
         console.groupEnd();
       }
 
-      args.method = "POST";
-      args.body = {
-        request: body && typeof body !== "string" ? encrypt(body) : body,
-      };
+      // args.method = "POST";
+      if (args.body) {
+        
+        args.body = {
+          request: body && typeof body !== "string" ? encrypt(body) : body,
+        };
+      }
 
       return args;
     },
